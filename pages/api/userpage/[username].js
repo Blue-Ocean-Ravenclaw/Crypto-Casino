@@ -39,5 +39,3 @@ export default async function handler(req, res) {
   let { rows } = await db.query(query);
   res.status(200).send(rows[0]);
 }
-
-
