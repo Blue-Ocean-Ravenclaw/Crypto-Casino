@@ -12,9 +12,8 @@ export default function Games() {
         <h1>Games</h1>
       </div>
       <div>
-        <button onClick={minusDice}>-</button>
         <button onClick={plusDice}>+</button>
-        <GameCard game={'Dice'} plays={dicePlays} />
+        <GameCard game={'Dice'} plays={dicePlays} usePlay={minusDice} />
       </div>
     </div>
   );

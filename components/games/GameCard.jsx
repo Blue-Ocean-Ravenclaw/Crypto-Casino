@@ -8,16 +8,18 @@ const GameComponents = Object.freeze({
 });
 
 export default function GameCard ({game, plays}) {
-  const Game = GameComponents[game];
   const [win, setWin] = useState(false);
+  const [luck, setLuck] = useState(false);
+  const Game = GameComponents[game];
 
   return (
     <div className='game-card'>
       <div className='game-card-top'>
-        <h1>{game}: {plays}</h1>
+        <h2>{game}: {plays}</h2>
+        <button onClick={() => setLuck((prev) => !prev)}>{luck ? 'win' : 'lose'}</button>
       </div>
       <div className='game-card-bottom'>
-        <Game plays={plays} />
+        <Game plays={plays} luck={luck} />
       </div>
     </div>
   );

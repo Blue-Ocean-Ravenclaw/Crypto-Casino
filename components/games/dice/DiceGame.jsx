@@ -1,35 +1,44 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useReducer} from 'react';
 import Dice from './Dice.jsx';
 
-export default function DiceGame ({plays}) {
+export default function DiceGame ({plays, luck}) {
   const [diceArr, setDiceArr] = useState([]);
-  useEffect(() => { //gets initial dice
-    generateDice();
-  }, []);
-
-  function generateDice () { //Generates Fake Data
-    if (plays < 1) {
-      return;
-    }
-    function rollDice () {
-      return Math.floor(Math.random() * (6 - 1 + 1) + 1);
-    }
-    let newDice = [0, 0, 0].map((dice) => rollDice());
-    setDiceArr(newDice);
-  }
-  function renderDice (diceNum) {
-    return (<Dice diceNum={diceNum} />)
-  }
-
+  const [diceRevealed, dispatch] = useReducer(diceRevealReducer, {
+    one: false,
+    two: false,
+    three: false
+  });
 
   return (
     <div>
-      <h2>Dice Array: {diceArr}</h2>
-      <button onClick={generateDice}>{plays > 0 ? 'Roll New Dice' : 'No More Plays!'}</button>
+      <h2>Dice Array: {diceArr.length > 0 ? diceArr.map((num) => (num + ' ')) : 'No Dice'}</h2>
+      <button onClick={() => {setDiceArr(rollDice(plays, luck))}}>Roll New Dice</button>
       <div className="dice-container">
-        {diceArr.map(renderDice)}
+        {plays > 0 ? diceArr.map((roll, i) => <Dice roll={roll} key={i} />) : (<h2>No More Plays!</h2>)}
       </div>
     </div>
   );
 }
 
+function rollDice (plays = 0, luck = true) { //Generates Dice Roll
+  if (plays < 1) {
+    return [];
+  }
+  let roll = Math.floor(Math.random() * (6 - 1 + 1) + 1);
+  return luck ? [0, 0, 0].map((num) => roll) : [0, 0, 0].map((num) => Math.floor(Math.random() * (6 - 1 + 1) + 1));
+}
+
+function diceRevealReducer (state, action) {
+  switch (action.type) {
+    case 'one':
+      return {...state, one: true};
+    case 'two':
+      return {...state, two: true};
+    case 'three':
+      return {...state, three: true};
+    case 'new':
+      return {...state, one: true, two: true, three: true}
+    default:
+      throw new Error();
+  }
+}
