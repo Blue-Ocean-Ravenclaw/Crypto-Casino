@@ -11,6 +11,7 @@ const pool = new Pool({
 });
 
 module.exports = {
+  db: pool,
   getUsers() {
     const query = { text: '', values: [] };
     query.text = `
