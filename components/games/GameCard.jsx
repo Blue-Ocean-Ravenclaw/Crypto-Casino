@@ -1,9 +1,9 @@
-import Dice from './Dice.jsx';
+import DiceGame from './dice/DiceGame.jsx';
 import Bingo from './Bingo.jsx';
 import {useState} from 'react';
 
 const GameComponents = Object.freeze({
-  Dice: Dice,
+  Dice: DiceGame,
   Bingo: Bingo
 });
 
