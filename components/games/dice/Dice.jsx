@@ -1,11 +1,10 @@
 import {useState} from 'react';
 
-export default function ({roll}) {
-  const [revealed, setRevealed] = useState(false);
+export default function ({roll, revealState, reveal}) {
 
   return (
-    <div className="dice" onClick={() => {setRevealed((prev) => !prev)}}>
-      <h3>Dice: {revealed ? roll : 'hidden'}</h3>
+    <div className="dice" onClick={reveal}>
+      <h3>Dice: {revealState ? roll : 'hidden'}</h3>
     </div>
   )
 }
