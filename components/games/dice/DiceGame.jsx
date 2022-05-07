@@ -1,7 +1,7 @@
 import {useState, useEffect, useReducer, useCallback} from 'react';
 import Dice from './Dice.jsx';
 
-export default function DiceGame ({plays, luck, usePlay, playing}) {
+export default function DiceGame ({plays, luck, playGame, playing}) {
   const initialState = { //Initial Game State
     diceArr: [],
     revealState: {
@@ -58,7 +58,7 @@ export default function DiceGame ({plays, luck, usePlay, playing}) {
 
   return (
     <div>
-      <button onClick={usePlay}>Roll The Dice</button>
+      <button onClick={playGame}>Roll The Dice</button>
         {renderDice()}
     </div>
   );

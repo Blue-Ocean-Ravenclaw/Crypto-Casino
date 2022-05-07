@@ -6,10 +6,10 @@ export default function Games() {
     dicePlays: 5,
     playing: false
   }
-  function reducer (state, action) {
+  function reducer (state, action) { //Controls State of Game Page
     switch (action.type) {
       case 'buyDice':
-        return {...state, dicePlays: state.dicePlays + 5};
+        return {...state, dicePlays: state.dicePlays + 5, playing: false};
       case 'playDice':
         return {...state, dicePlays: state.dicePlays - 1, playing: true};
       case 'stop':
@@ -18,9 +18,8 @@ export default function Games() {
         throw new Error();
     }
   }
-  const [gameState, dispatch] = useReducer(reducer, initialState)
-  const [dicePlays, setDicePlays] = useState(5); //Temp fake data, will exist in the wallet
-  const minusDice = useCallback(() => dispatch({type: 'playDice'}), []);
+  const [gameState, dispatch] = useReducer(reducer, initialState);
+  const playGame = useCallback(() => dispatch({type: 'playDice'}), []); //Plays the game
 
   return (
     <div>
@@ -29,7 +28,7 @@ export default function Games() {
       </div>
       <div>
         <button onClick={() => dispatch({type: 'buyDice'})}>+</button>
-        <GameCard game={'Dice'} plays={gameState.dicePlays} usePlay={minusDice} playing={gameState.playing} />
+        <GameCard game={'Dice'} plays={gameState.dicePlays} playGame={playGame} playing={gameState.playing} />
       </div>
     </div>
   );
