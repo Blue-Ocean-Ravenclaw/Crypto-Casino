@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-id,id_user,description,image,external_url,name,value
-1,1,My NFT 1,https://i.gyazo.com/4d62edd055a84d318f2225f0c45a60de.jpg,https://github.com/codingLords,Lord 1,1
-2,2,My NFT 2,https://i.gyazo.com/02bf065b4bf7a6a2a40bff6bfb9858f1.png,https://github.com/codingLords,Lord 2,1
-3,3,My NFT 3,https://i.gyazo.com/22eedb3553fd9008ce9037c8447a69fa.png,https://github.com/codingLords,Lord 3,1
-4,420,My NFT 4,https://i.gyazo.com/d32c19cd20b10d26f6b30c095527e9ce.png,https://github.com/codingLords,Lord 4,1
-5,420,My NFT 5,https://i.gyazo.com/4d62edd055a84d318f2225f0c45a60de.jpg,https://github.com/codingLords,Lord 5,1
-6,420,My NFT 6,https://i.gyazo.com/02bf065b4bf7a6a2a40bff6bfb9858f1.png,https://github.com/codingLords,Lord 6,1
-7,420,My NFT 7,https://i.gyazo.com/22eedb3553fd9008ce9037c8447a69fa.png,https://github.com/codingLords,Lord 7,1
-8,420,My NFT 8,https://i.gyazo.com/d32c19cd20b10d26f6b30c095527e9ce.png,https://github.com/codingLords,Lord 8,1
-9,420,My NFT 9,https://i.gyazo.com/4d62edd055a84d318f2225f0c45a60de.jpg,https://github.com/codingLords,Lord 9,1
-10,420,My NFT 10,https://i.gyazo.com/02bf065b4bf7a6a2a40bff6bfb9858f1.png,https://github.com/codingLords,Lord 10,1
-=======
 id,id_user,description,external_url,image,name,value
 1,1,My NFT 1,https://github.com/codingLords,https://i.gyazo.com/4d62edd055a84d318f2225f0c45a60de.jpg,Lord 1,1
 2,2,My NFT 2,https://github.com/codingLords,https://i.gyazo.com/02bf065b4bf7a6a2a40bff6bfb9858f1.png,Lord 2,1
@@ -31,4 +18,3 @@ id,id_user,description,external_url,image,name,value
 17,1,Crunk NFT 1,https://github.com/codingLords,https://i.gyazo.com/7e0060fee52f585868997977b87f2b11.png,Crunk NFT 1,1
 18,2,BRADDYBOY,https://github.com/codingLords,https://i.gyazo.com/a21a452b1f8a2e477c9bbf08097c0492.png,BRADDYBOY,1
 19,3,SEAN,https://github.com/codingLords,https://wp.dailybruin.com/images/galleries/fashion-friday-week-8-winter-17/web.ae_.fashionfriday.FT_.jpg,SEAN,1
->>>>>>> feature
