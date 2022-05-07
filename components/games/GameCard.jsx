@@ -9,6 +9,7 @@ const GameComponents = Object.freeze({
 
 export default function GameCard ({game, plays}) {
   const Game = GameComponents[game];
+  const [win, setWin] = useState(false);
 
   return (
     <div className='game-card'>
