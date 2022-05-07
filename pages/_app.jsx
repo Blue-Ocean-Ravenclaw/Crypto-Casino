@@ -19,7 +19,6 @@ function App({ Component, pageprops }) {
   return (
     <ThemeProvider theme={theme}>
       <Layout>
-        <Button variant="contained" color="secondary">Button</Button>
         <Component {...pageprops}/>
       </Layout>
     </ThemeProvider>
