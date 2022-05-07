@@ -47,7 +47,7 @@ export default function DiceGame ({plays, luck}) {
 
   return (
     <div>
-      <h2>Dice Array: {diceState.diceArr.length > 0 ? diceState.diceArr.map((num) => (num + ' ')) : 'No Dice'}</h2>
+      <h4>Dice Array: {diceState.diceArr.length > 0 ? diceState.diceArr.map((num) => (num + ' ')) : 'No Dice'}</h4>
       <button onClick={() => dispatch({type: 'new'})}>Roll New Dice</button>
         {renderDice()}
     </div>
