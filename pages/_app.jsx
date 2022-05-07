@@ -1,16 +1,21 @@
 import * as React from 'react';
 import Layout from '../components/Layout';
+import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
-import Button from '@mui/material/Button';
 
 const theme = createTheme({
   palette: {
+    background: {
+      default: '#F0F0E6',
+    },
+    text: {
+      primary: '#181818',
+    },
     primary: {
-      main: red[300],
+      main: '#DE0606',
     },
     secondary: {
-      main: red[700],
+      main: '#F9BF17',
     }
   }
 })
@@ -18,6 +23,7 @@ const theme = createTheme({
 function App({ Component, pageprops }) {
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Layout>
         <Component {...pageprops}/>
       </Layout>
