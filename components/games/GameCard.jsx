@@ -7,17 +7,16 @@ const GameComponents = Object.freeze({
   Bingo: Bingo
 });
 
-
-
-export default function GameCard ({game}) {
+export default function GameCard ({game, plays}) {
   const Game = GameComponents[game];
 
   return (
     <div className='game-card'>
       <div className='game-card-top'>
+        <h1>{game}: {plays}</h1>
       </div>
       <div className='game-card-bottom'>
-        <Game />
+        <Game plays={plays} />
       </div>
     </div>
   );
