@@ -1,10 +1,26 @@
 import GameCard from '../components/games/GameCard.jsx';
-import {useState} from 'react';
+import {useState, useCallback, useReducer} from 'react';
 
 export default function Games() {
-  const [dicePlays, setDicePlays] = useState(0); //Temp fake data, will exist in the wallet
-  function plusDice () {setDicePlays((prev) => prev + 1)}
-  function minusDice () {setDicePlays((prev) => prev === 0 ? prev : prev - 1)}
+  const initialState = {
+    dicePlays: 5,
+    playing: false
+  }
+  function reducer (state, action) {
+    switch (action.type) {
+      case 'buyDice':
+        return {...state, dicePlays: state.dicePlays + 5};
+      case 'playDice':
+        return {...state, dicePlays: state.dicePlays - 1, playing: true};
+      case 'stop':
+        return !state.playing ? state : {...state, playing: false};
+      default:
+        throw new Error();
+    }
+  }
+  const [gameState, dispatch] = useReducer(reducer, initialState)
+  const [dicePlays, setDicePlays] = useState(5); //Temp fake data, will exist in the wallet
+  const minusDice = useCallback(() => dispatch({type: 'playDice'}), []);
 
   return (
     <div>
@@ -12,8 +28,8 @@ export default function Games() {
         <h1>Games</h1>
       </div>
       <div>
-        <button onClick={plusDice}>+</button>
-        <GameCard game={'Dice'} plays={dicePlays} usePlay={minusDice} />
+        <button onClick={() => dispatch({type: 'buyDice'})}>+</button>
+        <GameCard game={'Dice'} plays={gameState.dicePlays} usePlay={minusDice} playing={gameState.playing} />
       </div>
     </div>
   );
