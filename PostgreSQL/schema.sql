@@ -43,7 +43,9 @@ CREATE TABLE nfts (
   name VARCHAR NULL DEFAULT NULL,
   value INT NULL DEFAULT NULL
 );
+
 COPY nfts(id, id_user, description, image, external_url, name, value)
+
 FROM '/Users/varun/Documents/rfp2202/BlueOcean/Blue-Ocean-Ravenclaw/fakeData/nfts.csv'
 DELIMITER ','
 CSV HEADER;
