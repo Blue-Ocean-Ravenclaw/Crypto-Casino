@@ -1,3 +1,26 @@
+import GameCard from '../components/games/GameCard.jsx';
+import {useState} from 'react';
+
 export default function Games() {
-  return <h1>Games</h1>;
+  const [dicePlays, setDicePlays] = useState(0); //Temp fake data, will exist in the wallet
+  function plusDice () {
+    setDicePlays((prev) => prev + 1);
+  }
+  function minusDice () {
+    setDicePlays((prev) => prev === 0 ? prev : prev - 1);
+  }
+
+  return (
+    <div>
+      <div>
+        <h1>Games</h1>
+      </div>
+      <div>
+        <h1>Dice Plays: {dicePlays}</h1>
+        <button onClick={minusDice}>-</button>
+        <button onClick={plusDice}>+</button>
+        <GameCard game={'Dice'} />
+      </div>
+    </div>
+  );
 }
