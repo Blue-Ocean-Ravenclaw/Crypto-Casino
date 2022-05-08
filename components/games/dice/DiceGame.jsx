@@ -1,5 +1,6 @@
 import {useState, useEffect, useReducer, useCallback} from 'react';
 import Dice from './Dice.jsx';
+import axios from 'axios';
 
 export default function DiceGame ({plays, luck, playGame, playing}) {
   const initialState = { //Initial Game State
@@ -37,7 +38,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
         } else {
           return state;
         }
-      case 'new':
+      case 'roll':
         let newDice = rollDice(plays, luck);
         let hidden = {one: false, two: false, three: false};
         return {...state, diceArr: newDice, revealed: 0, revealState: hidden};
@@ -49,7 +50,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
 
   useEffect(() => { //When plays variable decreases, roll the dice
     if (playing) { //Prevents roll on initial load
-      dispatch({type: 'new'});
+      dispatch({type: 'roll'});
     }
   }, [plays]);
 
@@ -60,11 +61,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
   const revealThree = useCallback(() => {dispatch({type: 'revealThree'})}, []);
 
   function renderDice () {
-    if (plays < 1) {
-      return (<h2>No More Plays!</h2>);
-    } else if (diceState.diceArr.length !== 3) {
-      return (<h2>Roll Some Dice!</h2>);
-    } else {
+    if (diceState.diceArr.length === 3) {
       return (
         <div className="dice-container">
           <Dice roll={diceState.diceArr[0]} revealState={diceState.revealState.one} reveal={revealOne} />
@@ -72,13 +69,13 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
           <Dice roll={diceState.diceArr[2]} revealState={diceState.revealState.three} reveal={revealThree} />
         </div>
         )
+      }
     }
-  }
 
   return (
     <div>
-      <button onClick={playGame}>Roll The Dice</button>
-        {renderDice()}
+      {plays > 0 ? <button onClick={playGame}>Roll The Dice</button> : 'Buy More!'}
+      {renderDice()}
     </div>
   );
 }
@@ -87,6 +84,6 @@ function rollDice (plays, luck) { //Generates Dice Roll
   if (plays < 1) {
     return [];
   }
-  let roll = Math.floor(Math.random() * (6 - 1 + 1) + 1);
-  return luck ? [0, 0, 0].map((num) => roll) : [0, 0, 0].map((num) => Math.floor(Math.random() * (6 - 1 + 1) + 1));
+  let roll = Math.floor(Math.random() * 6 + 1);
+  return luck ? [0, 0, 0].map((num) => roll) : [0, 0, 0].map((num) => Math.floor(Math.random() * 6 + 1));
 }
