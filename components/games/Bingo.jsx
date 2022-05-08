@@ -5,7 +5,7 @@ import {
 } from "../../lib/bingo.js";
 
 export default function Bingo() {
-  cosnt board = getBoard();
+  const board = getBoard();
 
   return <div>Bingo</div>;
 }

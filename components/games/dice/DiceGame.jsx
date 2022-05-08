@@ -14,7 +14,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
   function reducer (state, action) { //Controls the Game State
     switch (action.type) {
       case 'revealOne':
-        if (state.revealState.one) {
+        if (!state.revealState.one) {
           let newRevealState = {...state.revealState, one: true};
           let newRevealed = state.revealed + 1;
           return {...state, revealed: newRevealed, revealState: newRevealState};
@@ -22,7 +22,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
           return state;
         }
       case 'revealTwo':
-        if (state.revealState.two) {
+        if (!state.revealState.two) {
           let newRevealState = {...state.revealState, two: true};
           let newRevealed = state.revealed + 1;
           return {...state, revealed: newRevealed, revealState: newRevealState};
@@ -30,7 +30,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
           return state;
         }
       case 'revealThree':
-        if (state.revealState.three) {
+        if (!state.revealState.three) {
           let newRevealState = {...state.revealState, three: true};
           let newRevealed = state.revealed + 1;
           return {...state, revealed: newRevealed, revealState: newRevealState};
