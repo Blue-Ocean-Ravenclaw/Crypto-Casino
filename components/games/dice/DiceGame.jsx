@@ -4,25 +4,44 @@ import Dice from './Dice.jsx';
 
 export default function DiceGame ({plays, luck, playGame, playing}) {
   const initialState = { //Initial Game State
-    diceArr: []
+    diceArr: [],
+    rolling: false
   }
   function reducer (state, action) { //Controls the Game State
     switch (action.type) {
+      case 'fake':
+        let newDice = fakeDice(plays, luck);
+        return {...state, diceArr: newDice};
       case 'roll':
-        let newDice = rollDice(plays, luck);
-        let hidden = {one: false, two: false, three: false};
-        return {...state, diceArr: newDice, revealed: 0, revealState: hidden};
+        return {...state, rolling: true};
+      case 'rolled':
+        return {...state, rolling: false, diceArr: action.payload};
+      case 'out':
+        return {...state, rolling: false, diceArr: []};
       default:
-        throw new Error();
+        return {...state, rolling: false, diceArr: []};
     }
   }
   const [diceState, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => { //When plays variable decreases, roll the dice
     if (playing) { //Prevents roll on initial load
-      dispatch({type: 'roll'});
+      dispatch({type: 'fake'});
     }
   }, [plays]);
+
+  useEffect(() => {
+    if (diceState.rolling) {
+      axios.get('https://localhost:3000/games/rolldice')
+      .then((res) => {
+        dispatch({type: 'rolled', payload: res.data});
+      })
+      .catch((err)=> {
+        console.error(err);
+        dispatch({type: 'out'});
+      });
+    }
+  }, [diceState.rolling]);
 
   return (
     <div>
@@ -32,7 +51,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
   );
 }
 
-function rollDice (plays, luck) { //Generates Dice Roll
+function fakeDice (plays, luck) { //Generates Dice Roll
   if (plays < 1) {
     return [];
   }
