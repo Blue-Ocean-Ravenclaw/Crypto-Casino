@@ -1,16 +1,13 @@
-import {useState, useEffect, useReducer, useCallback} from 'react';
-import Dice from './Dice.jsx';
+import {useEffect, useReducer, useCallback} from 'react';
 import axios from 'axios';
+import Dice from './Dice.jsx';
 
 export default function DiceGame ({plays, luck, playGame, playing}) {
   const initialState = { //Initial Game State
-    diceArr: [],
-    revealed: 0
+    diceArr: []
   }
   function reducer (state, action) { //Controls the Game State
     switch (action.type) {
-      case 'reveal':
-        return {...state, revealed: state.revealed + 1};
       case 'roll':
         let newDice = rollDice(plays, luck);
         let hidden = {one: false, two: false, three: false};
@@ -27,26 +24,10 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
     }
   }, [plays]);
 
-  //Wrapping the reveal functions to pass to the Dice Components
-  //Prevent unnecessary re-rendering of Dice
-  const setTotalRevealed = useCallback(() => {dispatch({type: 'reveal'})}, []);
-
-  function renderDice () {
-    if (diceState.diceArr.length === 3) {
-      return (
-        <div className="dice-container">
-          {diceState.diceArr.map((roll) =>
-          <Dice roll={roll} setTotalRevealed={setTotalRevealed} totalRevealed={diceState.revealed} diceArr={diceState.diceArr} /> )}
-        </div>
-        )
-      }
-    }
-
   return (
     <div>
-      <h3>Revealed: {diceState.revealed}</h3>
       {plays > 0 ? <button onClick={playGame}>Roll The Dice</button> : 'Buy More!'}
-      {renderDice()}
+      <Dice diceArr={diceState.diceArr} />
     </div>
   );
 }

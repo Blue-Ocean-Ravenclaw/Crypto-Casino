@@ -1,24 +1,14 @@
-import {useState, useEffect} from 'react';
+import Die from './Die.jsx';
+import {useState, useCallback} from 'react';
 
-export default function ({roll, setTotalRevealed, totalRevealed, diceArr}) {
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => { //Reset to hidden on new roll
-    setRevealed((prev) => prev ? false : prev);
-  }, [diceArr]);
-  useEffect(() => { //When revealed update total revealed
-    if (revealed) {
-      setTotalRevealed();
-    }
-  }, [revealed]);
-
-  function reveal () {
-      setRevealed((prev) => !prev ? true : prev);
-  }
+export default function Dice ({diceArr}) {
+  const [counter, setCounter] = useState(0);
+  const addCount = useCallback(() => {setCounter((prev) => prev < 3 ? prev + 1 : prev)}, []);
 
   return (
-    <div className="dice" onClick={reveal}>
-      <h3>Dice: <button>{revealed && totalRevealed !== 0 ? roll : 'Show'}</button></h3>
+    <div className="dice-container">
+      <h3>Counter: {counter}</h3>
+      {diceArr.map((roll, i) => <Die key={i} roll={roll} addCount={addCount} diceArr={diceArr} />)}
     </div>
-  )
+    )
 }
