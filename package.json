@@ -14,11 +14,8 @@
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
     "express-promise-router": "^4.1.1",
-<<<<<<< HEAD
     "mersenne-twister": "^1.1.0",
-=======
     "firebase": "^9.8.0",
->>>>>>> 18d4a4b (setup firebase)
     "next": "latest",
     "pg": "^8.7.3",
     "react": "17.0.2",
