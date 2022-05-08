@@ -9,7 +9,7 @@ const GameComponents = Object.freeze({
 
 export default function GameCard ({game, plays, playGame, playing}) {
   const [luck, setLuck] = useState(false); //If true you are guaranteed to win
-  const Game = GameComponents[game];
+  const Game = GameComponents[game]; //Selects Game
 
   return (
     <div className='game-card'>

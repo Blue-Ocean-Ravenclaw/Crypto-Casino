@@ -40,7 +40,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
   const revealTwo = useCallback(() => {dispatch({type: 'revealTwo'})}, []);
   const revealThree = useCallback(() => {dispatch({type: 'revealThree'})}, []);
 
-  function renderDice () { //Creates the Dice Components
+  function renderDice () {
     if (plays < 1) {
       return (<h2>No More Plays!</h2>);
     } else if (diceState.diceArr.length !== 3) {
