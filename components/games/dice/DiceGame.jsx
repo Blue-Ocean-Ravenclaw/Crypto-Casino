@@ -4,6 +4,7 @@ import Dice from './Dice.jsx';
 export default function DiceGame ({plays, luck, playGame, playing}) {
   const initialState = { //Initial Game State
     diceArr: [],
+    revealed: 0,
     revealState: {
       one: false,
       two: false,
@@ -13,15 +14,33 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
   function reducer (state, action) { //Controls the Game State
     switch (action.type) {
       case 'revealOne':
-        return {...state, revealState: {...state.revealState, one: true}};
+        if (state.revealState.one) {
+          let newRevealState = {...state.revealState, one: true};
+          let newRevealed = state.revealed + 1;
+          return {...state, revealed: newRevealed, revealState: newRevealState};
+        } else {
+          return state;
+        }
       case 'revealTwo':
-        return {...state, revealState: {...state.revealState, two: true}};
+        if (state.revealState.two) {
+          let newRevealState = {...state.revealState, two: true};
+          let newRevealed = state.revealed + 1;
+          return {...state, revealed: newRevealed, revealState: newRevealState};
+        } else {
+          return state;
+        }
       case 'revealThree':
-        return {...state, revealState: {...state.revealState, three: true}};
+        if (state.revealState.three) {
+          let newRevealState = {...state.revealState, three: true};
+          let newRevealed = state.revealed + 1;
+          return {...state, revealed: newRevealed, revealState: newRevealState};
+        } else {
+          return state;
+        }
       case 'new':
         let newDice = rollDice(plays, luck);
         let hidden = {one: false, two: false, three: false};
-        return {...state, diceArr: newDice, rolled: true, revealState: hidden};
+        return {...state, diceArr: newDice, revealed: 0, revealState: hidden};
       default:
         throw new Error();
     }
@@ -71,4 +90,3 @@ function rollDice (plays, luck) { //Generates Dice Roll
   let roll = Math.floor(Math.random() * (6 - 1 + 1) + 1);
   return luck ? [0, 0, 0].map((num) => roll) : [0, 0, 0].map((num) => Math.floor(Math.random() * (6 - 1 + 1) + 1));
 }
-
