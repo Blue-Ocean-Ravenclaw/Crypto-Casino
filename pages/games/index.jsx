@@ -10,11 +10,41 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import StarIcon from '@mui/icons-material/StarBorder';
 import CasinoIcon from '@mui/icons-material/Casino';
+import Filter3Icon from '@mui/icons-material/Filter3';
+import Filter7Icon from '@mui/icons-material/Filter7';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
+import Modal from '@mui/material/Modal';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import IconButton from '@mui/material/IconButton';
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  borderRadius: '20px',
+  boxShadow: 24,
+  p: 4,
+  largeIcon: {
+    width: 40,
+    height: 40,
+  },
+  iconSpacing: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    fontSize: 30
+  },
+
+};
 
 
 const games = [
@@ -28,7 +58,9 @@ const games = [
       'Ready to roll?',
     ],
     buttonText: 'BUY NOW',
-    buttonVariant: 'outlined',
+    buttonVariant: 'contained',
+    route: '/games/dice',
+    icon: <CasinoIcon />
   },
   {
     title: 'BINGO',
@@ -42,6 +74,8 @@ const games = [
     ],
     buttonText: 'BUY NOW',
     buttonVariant: 'contained',
+    route: '/games/bingo',
+    icon: <Filter3Icon />
   },
   {
     title: "Lucky 7's",
@@ -53,12 +87,37 @@ const games = [
       'your big win!'
     ],
     buttonText: 'COMING SOON...',
-    buttonVariant: 'outlined',
+    buttonVariant: 'contained',
+    route: '/games/lucky7',
+    icon: <Filter7Icon/>
   },
 ];
 
 
+
+
+
 function PricingContent() {
+
+  const [open, setOpen] = React.useState(false);
+  const [gameCount, setGameCount] = React.useState(1);
+  const [gameTitle, setGameTitle] = React.useState('');
+
+  const handleOpen = (e) => {
+    setOpen(true);
+    setGameTitle(e.target.name)
+  }
+  const handleClose = () => {
+    setOpen(false);
+    setGameCount(1);
+    setGameTitle('');
+  };
+
+  const handleDecrament = () => {
+    gameCount <= 1 ? setGameCount(1) : setGameCount(prev=>prev - 1)
+  }
+
+
   return (
     <React.Fragment>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
@@ -103,7 +162,7 @@ function PricingContent() {
                   title={game.title}
                   subheader={game.subheader}
                   titleTypographyProps={{ align: 'center' }}
-                  action={game.title === 'High Roller' ? <CasinoIcon /> : null}
+                  action={game.icon}
                   subheaderTypographyProps={{
                     align: 'center',
                   }}
@@ -144,11 +203,51 @@ function PricingContent() {
                     ))}
                   </ul>
                 </CardContent>
-                <CardActions>
-                  <Button fullWidth variant={game.buttonVariant}><Link href='/'>{game.buttonText}</Link>
 
-                  </Button>
-                </CardActions>
+                  <CardActions>
+
+                    <Button onClick={handleOpen} fullWidth variant={game.buttonVariant} name={game.title}>{game.buttonText}</Button>
+
+                    <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style}>
+                        <div style={style.iconSpacing}>
+
+                          <IconButton
+                            onClick={handleDecrament}>
+                            <RemoveIcon style={style.largeIcon}/>
+                          </IconButton>
+                          <span style={{fontSize: '50px'}}>{gameCount}</span>
+                          <IconButton
+                            onClick={()=>setGameCount(prev=>prev+1)}>
+                            <AddIcon style={style.largeIcon}/>
+                          </IconButton>
+                        </div>
+
+                        <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
+                          # of {gameTitle} cards
+                        </Typography>
+
+                        <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
+                          Total
+                        </Typography>
+
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                          {/* Description placement. */}
+                        </Typography>
+
+                        <Button fullWidth variant="contained">Purchase and play</Button>
+                        <Button fullWidth variant="outlined">Add games to wallet</Button>
+
+                      </Box>
+                    </Modal>
+
+                  </CardActions>
+                {/* </Link> */}
               </Card>
             </Grid>
           ))}
@@ -161,3 +260,4 @@ function PricingContent() {
 export default function Pricing() {
   return <PricingContent />;
 }
+
