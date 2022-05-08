@@ -21,8 +21,17 @@ function Navigation() {
   };
 
   return (
-    <Paper sx={{ position: 'fixed', bottom: 10, left: 10, right: 10 }} elevation={3}>
+    <Paper sx={{
+      position: 'fixed',
+      bottom: 10,
+      left: 10,
+      right: 10,
+     }}
+      elevation={6}>
       <BottomNavigation
+        sx = {{
+          bgcolor: 'background.default',
+        }}
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
@@ -32,28 +41,28 @@ function Navigation() {
           label="User"
           value="user"
           icon={<PersonIcon color={value === 'user' ? 'primary' : 'secondary'}/>}
-          onClick={() => onLink('user')}
+          onClick={() => onLink('/user')}
         />
 
         <BottomNavigationAction
           label="Wallet"
           value="wallet"
           icon={<AccountBalanceWalletIcon color={value === 'wallet' ? 'primary' : 'secondary'}/>}
-          onClick={() => onLink('wallet')}
+          onClick={() => onLink('/wallet')}
         />
 
         <BottomNavigationAction
           label="Games"
           value="games"
           icon={<GamesIcon color={value === 'games' ? 'primary' : 'secondary'}/>}
-          onClick={() => onLink('games')}
+          onClick={() => onLink('/games')}
         />
 
         <BottomNavigationAction
           label="Play"
           value="play"
           icon={<CasinoIcon color={value === 'play' ? 'primary' : 'secondary'}/>}
-          onClick={() => onLink('play')}
+          onClick={() => onLink('/play')}
         />
       </BottomNavigation>
     </Paper>
