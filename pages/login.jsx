@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../context/AuthContext.js";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -34,12 +35,33 @@ import Container from "@mui/material/Container";
 // }
 
 export default function LogIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const { login } = useAuth();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setError("");
+      setLoading(true);
+      await login(userData.email, userData.password);
+      router.push("/");
+    } catch (err) {
+      console.log("failed ", err);
+      setError("Failed to log in");
+    }
+    setLoading(false);
+  };
+
+  const handleChange = (e) => {
+    setUserData({
+      ...userData,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -68,11 +90,12 @@ export default function LogIn() {
             margin="normal"
             required
             fullWidth
-            id="email"
+            value={userData.email}
             label="Email Address"
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -81,8 +104,9 @@ export default function LogIn() {
             name="password"
             label="Password"
             type="password"
-            id="password"
+            value={userData.password}
             autoComplete="current-password"
+            onChange={handleChange}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
