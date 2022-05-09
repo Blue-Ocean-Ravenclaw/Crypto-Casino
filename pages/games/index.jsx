@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,92 +9,143 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
+import CardMedia from '@mui/material/CardMedia';
 import StarIcon from '@mui/icons-material/StarBorder';
+import CasinoIcon from '@mui/icons-material/Casino';
+import Filter3Icon from '@mui/icons-material/Filter3';
+import Filter7Icon from '@mui/icons-material/Filter7';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
+import Modal from '@mui/material/Modal';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-const tiers = [
-  {
-    title: 'Free',
-    price: '0',
-    description: [
-      '10 users included',
-      '2 GB of storage',
-      'Help center access',
-      'Email support',
-    ],
-    buttonText: 'Sign up for free',
-    buttonVariant: 'outlined',
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  borderRadius: '20px',
+  boxShadow: 24,
+  p: 4,
+  largeIcon: {
+    width: 40,
+    height: 40,
   },
+  iconSpacing: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    fontSize: 30
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9,
+    marginTop:'30'
+  }
+
+};
+
+
+const games = [
   {
-    title: 'Pro',
-    subheader: 'Most popular',
-    price: '15',
+    title: "High Roller",
+    price: 10,
     description: [
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
-      'Priority email support',
+      'Spin 3 dice',
+      'and win a',
+      'CUSTOM NFT',
+      'Ready to roll?',
     ],
-    buttonText: 'Get started',
+    buttonText: 'BUY NOW',
     buttonVariant: 'contained',
+    route: '/games/dice',
+    icon: <CasinoIcon />,
   },
   {
-    title: 'Enterprise',
-    price: '30',
+    title: 'BINGO',
+    subheader: 'Most popular',
+    price: 20,
     description: [
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
-      'Phone & email support',
+      'Get 3 BINGO boards,',
+      'see if your numbers',
+      'are the lucky ones!',
+      'WIN BIG TODAY!',
     ],
-    buttonText: 'Contact us',
-    buttonVariant: 'outlined',
+    buttonText: 'BUY NOW',
+    buttonVariant: 'contained',
+    route: '/games/bingo',
+    icon: <Filter3Icon />
+  },
+  {
+    title: "Lucky 7's",
+    price: 15,
+    description: [
+      'Coming soon to',
+      'cRyPtOcAsInO',
+      'Scratch off to reveal',
+      'your big win!'
+    ],
+    buttonText: 'COMING SOON...',
+    buttonVariant: 'contained',
+    route: '/games/lucky7',
+    icon: <Filter7Icon/>
   },
 ];
 
-const footers = [
-  {
-    title: 'Company',
-    description: ['Team', 'History', 'Contact us', 'Locations'],
-  },
-  {
-    title: 'Features',
-    description: [
-      'Cool stuff',
-      'Random feature',
-      'Team feature',
-      'Developer stuff',
-      'Another one',
-    ],
-  },
-  {
-    title: 'Resources',
-    description: ['Resource', 'Resource name', 'Another resource', 'Final resource'],
-  },
-  {
-    title: 'Legal',
-    description: ['Privacy policy', 'Terms of use'],
-  },
-];
+
+
+
 
 function PricingContent() {
+
+  const [open, setOpen] = useState(false);
+  const [gameCount, setGameCount] = useState(1);
+  const [gameTitle, setGameTitle] = useState('');
+  const [total, setTotal] = useState(0);
+  const [game, setGame] = useState({});
+
+
+  const handleOpen = (e) => {
+    setOpen(true);
+    let gameObj = games.filter( game => {
+      return game.title === e.target.name
+    })
+    setGame(gameObj[0])
+    setGameTitle(e.target.name);
+    setTotal(gameObj[0].price)
+  }
+
+
+  const handleClose = () => {
+    setOpen(false);
+    setGameCount(1);
+    setGameTitle('');
+    setTotal(0)
+  };
+
+  const handleDecrament = () => {
+    gameCount <= 1 ? setGameCount(1) : setGameCount(prev=>prev - 1);
+    setTotal(game.price * gameCount)
+  }
+
+  const handleIncrement = () => {
+    setGameCount(prev => prev + 1);
+    setTotal(game.price * gameCount)
+  }
+
+  useEffect(() => {
+    setTotal(game.price * gameCount)
+  }, [gameCount])
+
+
   return (
     <React.Fragment>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
@@ -104,42 +156,8 @@ function PricingContent() {
         elevation={0}
         sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
       >
-        <Toolbar sx={{ flexWrap: 'wrap' }}>
-          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-            Company name
-          </Typography>
-          <nav>
-            <Link
-              variant="button"
-              color="text.primary"
-              href="#"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              Features
-            </Link>
-            <Link
-              variant="button"
-              color="text.primary"
-              href="#"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              Enterprise
-            </Link>
-            <Link
-              variant="button"
-              color="text.primary"
-              href="#"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              Support
-            </Link>
-          </nav>
-          <Button href="#" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
-            Login
-          </Button>
-        </Toolbar>
+
       </AppBar>
-      {/* Hero unit */}
       <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
         <Typography
           component="h1"
@@ -148,32 +166,31 @@ function PricingContent() {
           color="text.primary"
           gutterBottom
         >
-          Pricing
+          GAMES
         </Typography>
-        <Typography variant="h5" align="center" color="text.secondary" component="p">
-          Quickly build an effective pricing table for your potential customers with
-          this layout. It&apos;s built with default MUI components with little
-          customization.
+        <Typography variant="h5" align="center" color="text.primary" component="p">
+          Get to winning with our current list of premium games. "The house always wins" doesn't apply here - see the odds for each game below! Feeling lucky?
         </Typography>
       </Container>
-      {/* End hero unit */}
+
+
       <Container maxWidth="md" component="main">
-        <Grid container spacing={5} alignItems="flex-end">
-          {tiers.map((tier) => (
+        <Grid container spacing={6} alignItems="flex-end">
+          {games.map((game) => (
             // Enterprise card is full width at sm breakpoint
             <Grid
               item
-              key={tier.title}
+              key={game.title}
               xs={12}
-              sm={tier.title === 'Enterprise' ? 12 : 6}
+              sm={game.title === 'Enterprise' ? 12 : 6}
               md={4}
             >
               <Card>
                 <CardHeader
-                  title={tier.title}
-                  subheader={tier.subheader}
+                  title={game.title}
+                  subheader={game.subheader}
                   titleTypographyProps={{ align: 'center' }}
-                  action={tier.title === 'Pro' ? <StarIcon /> : null}
+                  action={game.icon}
                   subheaderTypographyProps={{
                     align: 'center',
                   }}
@@ -190,18 +207,19 @@ function PricingContent() {
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'baseline',
-                      mb: 2,
+                      mb: 4,
+                      mt: 2,
                     }}
                   >
                     <Typography component="h2" variant="h3" color="text.primary">
-                      ${tier.price}
+                      {game.price}
                     </Typography>
                     <Typography variant="h6" color="text.secondary">
-                      /mo
+                      points
                     </Typography>
                   </Box>
                   <ul>
-                    {tier.description.map((line) => (
+                    {game.description.map((line) => (
                       <Typography
                         component="li"
                         variant="subtitle1"
@@ -213,47 +231,56 @@ function PricingContent() {
                     ))}
                   </ul>
                 </CardContent>
-                <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant}>
-                    {tier.buttonText}
-                  </Button>
-                </CardActions>
+
+                  <CardActions>
+
+                    <Button onClick={handleOpen} fullWidth variant={game.buttonVariant} name={game.title}>{game.buttonText}</Button>
+
+                    <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style}>
+                        <div style={style.iconSpacing}>
+
+                          <IconButton
+                            onClick={handleDecrament}>
+                            <RemoveIcon style={style.largeIcon}/>
+                          </IconButton>
+                          <span style={{fontSize: '50px'}}>{gameCount}</span>
+                          <IconButton
+                            onClick={handleIncrement}>
+                            <AddIcon style={style.largeIcon}/>
+                          </IconButton>
+                        </div>
+
+                        <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
+                          # of {gameTitle} cards
+                        </Typography>
+
+                        <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
+                          Total {total}
+                        </Typography>
+
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                          {/* Description placement. */}
+                        </Typography>
+
+                        <Button fullWidth variant="contained">Purchase and play</Button>
+                        <Button fullWidth variant="outlined">Add games to wallet</Button>
+
+                      </Box>
+                    </Modal>
+
+                  </CardActions>
+                {/* </Link> */}
               </Card>
             </Grid>
           ))}
         </Grid>
       </Container>
-      {/* Footer */}
-      <Container
-        maxWidth="md"
-        component="footer"
-        sx={{
-          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
-          mt: 8,
-          py: [3, 6],
-        }}
-      >
-        <Grid container spacing={4} justifyContent="space-evenly">
-          {footers.map((footer) => (
-            <Grid item xs={6} sm={3} key={footer.title}>
-              <Typography variant="h6" color="text.primary" gutterBottom>
-                {footer.title}
-              </Typography>
-              <ul>
-                {footer.description.map((item) => (
-                  <li key={item}>
-                    <Link href="#" variant="subtitle1" color="text.secondary">
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </Grid>
-          ))}
-        </Grid>
-        <Copyright sx={{ mt: 5 }} />
-      </Container>
-      {/* End footer */}
     </React.Fragment>
   );
 }
@@ -261,3 +288,4 @@ function PricingContent() {
 export default function Pricing() {
   return <PricingContent />;
 }
+
