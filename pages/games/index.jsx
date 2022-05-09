@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -56,7 +57,7 @@ const style = {
 const games = [
   {
     title: "High Roller",
-    price: '10',
+    price: 10,
     description: [
       'Spin 3 dice',
       'and win a',
@@ -71,7 +72,7 @@ const games = [
   {
     title: 'BINGO',
     subheader: 'Most popular',
-    price: '20',
+    price: 20,
     description: [
       'Get 3 BINGO boards,',
       'see if your numbers',
@@ -85,7 +86,7 @@ const games = [
   },
   {
     title: "Lucky 7's",
-    price: '15',
+    price: 15,
     description: [
       'Coming soon to',
       'cRyPtOcAsInO',
@@ -105,26 +106,44 @@ const games = [
 
 function PricingContent() {
 
-  const [open, setOpen] = React.useState(false);
-  const [gameCount, setGameCount] = React.useState(1);
-  const [gameTitle, setGameTitle] = React.useState('');
-  const [total, setTotal] = React.useState(0);
+  const [open, setOpen] = useState(false);
+  const [gameCount, setGameCount] = useState(1);
+  const [gameTitle, setGameTitle] = useState('');
+  const [total, setTotal] = useState(0);
+  const [game, setGame] = useState({});
+
 
   const handleOpen = (e) => {
     setOpen(true);
+    let gameObj = games.filter( game => {
+      return game.title === e.target.name
+    })
+    setGame(gameObj[0])
     setGameTitle(e.target.name);
-    setTotal()
+    setTotal(gameObj[0].price)
   }
+
 
   const handleClose = () => {
     setOpen(false);
     setGameCount(1);
     setGameTitle('');
+    setTotal(0)
   };
 
   const handleDecrament = () => {
-    gameCount <= 1 ? setGameCount(1) : setGameCount(prev=>prev - 1)
+    gameCount <= 1 ? setGameCount(1) : setGameCount(prev=>prev - 1);
+    setTotal(game.price * gameCount)
   }
+
+  const handleIncrement = () => {
+    setGameCount(prev => prev + 1);
+    setTotal(game.price * gameCount)
+  }
+
+  useEffect(() => {
+    setTotal(game.price * gameCount)
+  }, [gameCount])
 
 
   return (
@@ -232,7 +251,7 @@ function PricingContent() {
                           </IconButton>
                           <span style={{fontSize: '50px'}}>{gameCount}</span>
                           <IconButton
-                            onClick={()=>setGameCount(prev=>prev+1)}>
+                            onClick={handleIncrement}>
                             <AddIcon style={style.largeIcon}/>
                           </IconButton>
                         </div>
@@ -242,7 +261,7 @@ function PricingContent() {
                         </Typography>
 
                         <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
-                          Total
+                          Total {total}
                         </Typography>
 
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
