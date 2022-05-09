@@ -1,29 +1,15 @@
 import Box from '@mui/material/Box';
 import {useState, useEffect, useContext} from 'react';
 
-export default function BingoNumber ({board, num, addCount}) {
-  const [reveal, setReveal] = useState(false);
-
-  function revealNum () {
-    setReveal((prev) => !prev ? true : prev);
-  }
-  useEffect(() => { //Reset to hidden on render
-    setReveal(false);
-  }, [board]);
-  useEffect(() => {
-    if (reveal) {
-      addCount();
-    }
-  }, [reveal]);
-
+export default function BingoNumber ({board, num}) {
 
   return (
     <Box className='bingo-number' sx={containerStyle}>
-      {!reveal ? <Box className='bingo-hide' sx={hideStyle} onClick={revealNum} /> : null}
       {num}
     </Box>
   )
 }
+// {!reveal ? <Box className='bingo-hide' sx={hideStyle} onClick={revealNum} /> : null}
 
 const hideStyle = {
   display: 'flex',
