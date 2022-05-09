@@ -23,7 +23,7 @@ CREATE TABLE users (
   wallet_address VARCHAR NULL DEFAULT NULL
 );
 COPY users(id, username, tokens, phone_number, wallet_address)
-FROM '/Users/varun/Documents/rfp2202/BlueOcean/Blue-Ocean-Ravenclaw/fakeData/user.csv'
+FROM '/Users/tim/Documents/HackReactor/Blue-Ocean-Ravenclaw/fakeData/user.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -44,9 +44,9 @@ CREATE TABLE nfts (
   value INT NULL DEFAULT NULL
 );
 
-COPY nfts(id, id_user, description, image, external_url, name, value)
+COPY nfts(id, id_user, description, external_url, image, name, value)
 
-FROM '/Users/varun/Documents/rfp2202/BlueOcean/Blue-Ocean-Ravenclaw/fakeData/nfts.csv'
+FROM '/Users/tim/Documents/HackReactor/Blue-Ocean-Ravenclaw/fakeData/nfts.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -64,7 +64,7 @@ CREATE TABLE card_inventory (
   quantity INTEGER NULL DEFAULT NULL
 );
 COPY card_inventory(id, id_user, card_name, quantity)
-FROM '/Users/varun/Documents/rfp2202/BlueOcean/Blue-Ocean-Ravenclaw/fakeData/card_inventory.csv'
+FROM '/Users/tim/Documents/HackReactor/Blue-Ocean-Ravenclaw/fakeData/card_inventory.csv'
 DELIMITER ','
 CSV HEADER;
 
