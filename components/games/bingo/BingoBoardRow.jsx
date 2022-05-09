@@ -2,14 +2,18 @@ import Box from '@mui/material/Box';
 import BingoNumber from './BingoNumber.jsx';
 import {useState, useCallback, useEffect} from 'react';
 
-export default function ({board, row, rowNum}) {
-  const [counter, setCounter] = useState(0);
-  const addCount = useCallback(() => {setCounter((prev) => prev < 5 ? prev + 1 : prev)}, []);
-
+export default function ({board, row}) {
+  const [count, setCount] = useState(0);
   useEffect(() => {
-    setCounter(0);
+    setCount(0);
   }, [board]);
+  // useEffect(() => {
+  //   if (reveal === 1) {
+  //     addCounter();
+  //   }
+  // }, [counter]);
 
+  const addCount = useCallback(() => setCount((prev) => prev < 5 ? prev + 1 : prev), []);
   function renderRow (num, i) {
     return (
       <BingoNumber board={board} num={num} addCount={addCount} />
@@ -26,3 +30,4 @@ export default function ({board, row, rowNum}) {
     </Box>
   );
 }
+
