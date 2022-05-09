@@ -50,7 +50,6 @@ const style = {
     paddingTop: '56.25%', // 16:9,
     marginTop:'30'
   }
-
 };
 
 
@@ -139,6 +138,20 @@ function PricingContent() {
   const handleIncrement = () => {
     setGameCount(prev => prev + 1);
     setTotal(game.price * gameCount)
+  }
+
+  const handlePurchaseAndPlay = () => {
+
+    handleClose()
+  }
+
+  const handleAddToWallet = () => {
+    // Need to deduct points from wallet
+    // Need to add gameCount of game Title to database
+    gameCount // # of games to add
+    game.title // String of game title
+
+    handleClose();
   }
 
   useEffect(() => {
@@ -261,15 +274,18 @@ function PricingContent() {
                         </Typography>
 
                         <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
-                          Total {total}
+                          {total} PTS
                         </Typography>
 
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                           {/* Description placement. */}
                         </Typography>
 
-                        <Button fullWidth variant="contained">Purchase and play</Button>
-                        <Button fullWidth variant="outlined">Add games to wallet</Button>
+
+                        <Link href="/play/">
+                          <Button fullWidth variant="contained" onClick={handlePurchaseAndPlay}>Purchase and play</Button>
+                        </Link>
+                        <Button fullWidth variant="outlined" onClick={handleAddToWallet}>Add games to wallet</Button>
 
                       </Box>
                     </Modal>
@@ -289,3 +305,13 @@ export default function Pricing() {
   return <PricingContent />;
 }
 
+
+
+// POST 'api/tokens/username'
+// POST 'api/cards/username'
+
+
+// {tokens: -500}
+// {card_number: highroller, quantity: 5}
+
+// GET 'api/userpage/username'
