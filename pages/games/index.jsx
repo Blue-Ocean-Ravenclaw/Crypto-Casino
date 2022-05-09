@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -23,7 +23,7 @@ import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
 import Modal from '@mui/material/Modal';
-
+import AppContext from '../_app.jsx';
 
 const style = {
   position: 'absolute',
@@ -105,6 +105,8 @@ const games = [
 
 function PricingContent() {
 
+  const pickUpContext = useContext(AppContext)
+
   const [open, setOpen] = useState(false);
   const [gameCount, setGameCount] = useState(1);
   const [gameTitle, setGameTitle] = useState('');
@@ -161,6 +163,7 @@ function PricingContent() {
 
   return (
     <React.Fragment>
+      {console.log(pickUpContext)}
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
       <CssBaseline />
       <AppBar
@@ -291,7 +294,6 @@ function PricingContent() {
                     </Modal>
 
                   </CardActions>
-                {/* </Link> */}
               </Card>
             </Grid>
           ))}
