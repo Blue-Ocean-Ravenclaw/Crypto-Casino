@@ -12,12 +12,12 @@ export default function Bingo({plays, luck, playGame, playing}) {
   const [board, setBoard] = useState([]);
 
   useEffect(() => {
-      newBoard();
-  }, []);
-
-  function newBoard () {
-    setBoard(getBoard());
-  }
+    if (playing) {
+      let newBoard = getBoard();
+      newBoard[2][2] = 'Free';
+      setBoard(newBoard);
+    }
+  }, [plays]);
 
   return (
     <Box sx={{
@@ -26,8 +26,8 @@ export default function Bingo({plays, luck, playGame, playing}) {
       alignItems: 'center',
       flexDirection: 'column'
     }}>
-        <Button variant='contained'>New Board</Button>
-      <Box>
+        <Button variant='contained' onClick={playGame}>New Board</Button>
+      <Box className="bingo-board-container">
         <BingoBoard board={board} />
       </Box>
     </Box>
