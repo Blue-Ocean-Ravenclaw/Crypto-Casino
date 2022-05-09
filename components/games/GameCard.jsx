@@ -11,6 +11,8 @@ export default function GameCard ({game, plays, playGame, playing}) {
   const [luck, setLuck] = useState(false); //If true you are guaranteed to win
   const Game = GameComponents[game]; //Selects Game
 
+  const [prize, setPrize] = useState(null);
+
   return (
     <div className='game-card'>
       <div className='game-card-top'>
