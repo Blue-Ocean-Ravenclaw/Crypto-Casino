@@ -9,19 +9,7 @@ export default function BingoNumber ({board, num}) {
     </Box>
   )
 }
-// {!reveal ? <Box className='bingo-hide' sx={hideStyle} onClick={revealNum} /> : null}
 
-const hideStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: 38,
-  width: 38,
-  backgroundColor: 'gold',
-  borderRadius: 2,
-  position: 'absolute',
-  zIndex: 2
-};
 const containerStyle = {
   display: 'flex',
   justifyContent: 'center',
