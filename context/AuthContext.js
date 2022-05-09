@@ -38,7 +38,8 @@ export function AuthProvider({
     currentUser,
     signup,
     logout,
-    login
+    login,
+    loading
   }
   return ( <
     AuthContext.Provider value = {

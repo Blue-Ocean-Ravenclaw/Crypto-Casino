@@ -52,6 +52,9 @@ export default function SignUp() {
     if (userData.password !== userData.passwordConfirm) {
       return setError("Passwords do not match");
     }
+    if (userData.password.length < 6) {
+      return setError("Passwords length needs to be over six");
+    }
     try {
       setError("");
       setLoading(true);
@@ -73,10 +76,13 @@ export default function SignUp() {
   };
 
   useEffect(() => {
-    if (userData.password === userData.passwordConfirm) {
+    if (
+      userData.password === userData.passwordConfirm ||
+      userData.password.length > 6
+    ) {
       setError("");
     }
-  }, [userData.passwordConfirm]);
+  }, [userData.passwordConfirm, userData.password]);
 
   return (
     <Container component="main" maxWidth="xs">
