@@ -108,11 +108,14 @@ function PricingContent() {
   const [open, setOpen] = React.useState(false);
   const [gameCount, setGameCount] = React.useState(1);
   const [gameTitle, setGameTitle] = React.useState('');
+  const [total, setTotal] = React.useState(0);
 
   const handleOpen = (e) => {
     setOpen(true);
-    setGameTitle(e.target.name)
+    setGameTitle(e.target.name);
+    setTotal()
   }
+
   const handleClose = () => {
     setOpen(false);
     setGameCount(1);
