@@ -16,9 +16,9 @@ export default function Games() {
   }
   function reducer (state, action) { //Controls State of Game Page
     switch (action.type) { //TODO: Refactor so this can be re-used for every game
-      case 'buyDice':
+      case 'buy':
         return {...state, plays: state.plays + 5, playing: false};
-      case 'playDice':
+      case 'play':
         return {...state, plays: state.plays - 1, playing: true};
       case 'Bingo':
         return {...state, game: 'Bingo'};
@@ -29,7 +29,7 @@ export default function Games() {
     }
   }
   const [gameState, dispatch] = useReducer(reducer, initialState);
-  const playGame = useCallback(() => dispatch({type: 'playDice'}), []);
+  const playGame = useCallback(() => dispatch({type: 'play'}), []);
 
   return (
     <Card sx={{
@@ -55,7 +55,7 @@ export default function Games() {
         }}>
           <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
           <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button>
-        <Button variant="contained" onClick={() => dispatch({type: 'buyDice'})}>+</Button>
+        <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button>
         </Box>
         <GameCard
           game={gameState.game}
