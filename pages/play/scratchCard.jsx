@@ -44,6 +44,7 @@ class Scratch extends React.Component {
   };
 
   scratch = e => {
+    e.preventDefault();
     const { layerX, layerY } = e;
     const context = this.canvasRef.current.getContext("2d");
 
