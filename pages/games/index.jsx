@@ -8,19 +8,20 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
+import CardMedia from '@mui/material/CardMedia';
 import StarIcon from '@mui/icons-material/StarBorder';
 import CasinoIcon from '@mui/icons-material/Casino';
 import Filter3Icon from '@mui/icons-material/Filter3';
 import Filter7Icon from '@mui/icons-material/Filter7';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
 import Modal from '@mui/material/Modal';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import IconButton from '@mui/material/IconButton';
 
 
 const style = {
@@ -43,6 +44,11 @@ const style = {
     justifyContent: 'space-evenly',
     fontSize: 30
   },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9,
+    marginTop:'30'
+  }
 
 };
 
@@ -60,7 +66,7 @@ const games = [
     buttonText: 'BUY NOW',
     buttonVariant: 'contained',
     route: '/games/dice',
-    icon: <CasinoIcon />
+    icon: <CasinoIcon />,
   },
   {
     title: 'BINGO',
