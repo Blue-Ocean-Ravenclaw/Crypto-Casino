@@ -1,6 +1,8 @@
 import {useEffect, useReducer, useCallback} from 'react';
 import axios from 'axios';
 import Dice from './Dice.jsx';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 export default function DiceGame ({plays, luck, playGame, playing}) {
   const initialState = { //Initial Game State
@@ -44,10 +46,23 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
   }, [diceState.rolling]);
 
   return (
-    <div>
-      {plays > 0 ? <button onClick={playGame}>Roll The Dice</button> : 'Buy More!'}
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
+      {plays > 0
+      ? <Button
+          sx={{
+            width: 200
+          }}
+          onClick={playGame}
+          variant="contained">
+            Roll The dice
+        </Button>
+      : 'Buy More!'}
       <Dice diceArr={diceState.diceArr} />
-    </div>
+    </Box>
   );
 }
 

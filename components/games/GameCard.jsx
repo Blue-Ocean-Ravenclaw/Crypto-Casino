@@ -1,5 +1,5 @@
 import DiceGame from './dice/DiceGame.jsx';
-import Bingo from './Bingo.jsx';
+import Bingo from './bingo/Bingo.jsx';
 import {useState} from 'react';
 
 const GameComponents = Object.freeze({
@@ -20,7 +20,12 @@ export default function GameCard ({game, plays, playGame, playing}) {
         <button onClick={() => setLuck((prev) => !prev)}>{luck ? 'win' : 'lose'}</button>
       </div>
       <div className='game-card-bottom'>
-        <Game plays={plays} luck={luck} playGame={playGame} playing={playing} />
+        <Game
+          plays={plays}
+          luck={luck}
+          playGame={playGame}
+          playing={playing}
+        />
       </div>
     </div>
   );
