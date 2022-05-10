@@ -53,7 +53,7 @@ const style = {
 
 
 
-function PricingContent() {
+function GameStore() {
 
   const [open, setOpen] = useState(false);
   const [gameCount, setGameCount] = useState(1);
@@ -94,20 +94,17 @@ function PricingContent() {
   }
 
   const handlePurchaseAndPlay = () => {
-
     handleClose()
   }
 
   const handleAddToWallet = () => {
-
     if (total > tokens) {
-      console.log('BROKE')
+      console.log('YOU BROKE')
     } else {
       axios.post(`/api/tokens/${context.username}`, { tokens: (total * -1) })
         .then((res) => {
-          console.log(res);
           axios.put(`/api/cards/${context.username}`, { card_name: game.dbTitle, quantity: gameCount })
-            .then((res) => console.log(res))
+            .then((res) => `${gameCount} Cards purchased`)
             .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
@@ -122,17 +119,8 @@ function PricingContent() {
 
   return (
     <React.Fragment>
-      {console.log(context)}
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
-      <CssBaseline />
-      <AppBar
-        position="static"
-        color="default"
-        elevation={0}
-        sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
-      >
 
-      </AppBar>
       <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
         <Typography
           component="h1"
@@ -262,6 +250,6 @@ function PricingContent() {
   );
 }
 
-export default function Pricing() {
-  return <PricingContent />;
+export default function Games() {
+  return <GameStore />;
 }
