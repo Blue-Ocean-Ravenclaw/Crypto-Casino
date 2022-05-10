@@ -19,7 +19,7 @@ export default function Checkout() {
 
   return (
 
-      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+      <Container maxWidth="md" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
             Wallet
@@ -27,8 +27,8 @@ export default function Checkout() {
 
           <WalletForm />
 
+
           <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-            <Button  sx={{ mt: 3, ml: 1 }}> Button </Button>
             <Button variant="contained" sx={{ mt: 3, ml: 1 }} >Buy Points!</Button>
           </Box>
         </Paper>

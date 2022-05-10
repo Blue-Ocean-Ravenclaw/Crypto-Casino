@@ -48,6 +48,12 @@ const style = {
     height: 0,
     paddingTop: '56.25%', // 16:9,
     marginTop:'30'
+  },
+  hover: {
+    color: 'pink',
+    '&:hover': {
+      background: 'blue'
+    }
   }
 };
 
@@ -138,18 +144,17 @@ function GameStore() {
       </Container>
 
 
-      <Container maxWidth="md" component="main">
+      <Container maxWidth="md" sx={{mb: 15}}>
         <Grid container spacing={6} alignItems="flex-end">
           {games.map((game) => (
-            // Enterprise card is full width at sm breakpoint
             <Grid
               item
               key={game.title}
               xs={12}
-              sm={game.title === 'Enterprise' ? 12 : 6}
+              sm={6}
               md={4}
             >
-              <Card>
+              <Card className={style.hover}>
                 <CardHeader
                   title={game.title}
                   subheader={game.subheader}
@@ -173,6 +178,7 @@ function GameStore() {
                       alignItems: 'baseline',
                       mb: 4,
                       mt: 2,
+
                     }}
                   >
                     <Typography component="h2" variant="h3" color="text.primary">
