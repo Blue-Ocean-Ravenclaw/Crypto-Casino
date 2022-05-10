@@ -15,6 +15,7 @@ export default function Bingo({plays, luck, playGame, playing}) {
   const [boards, setBoards] = useState([]);
   const [sequences, setSequences] = useState([]);
   const [outcome, setOutcome] = useState({});
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     if (playing) {
@@ -26,6 +27,7 @@ export default function Bingo({plays, luck, playGame, playing}) {
       setBoards(newBoards);
       setSequences(newSequences);
       setOutcome(outcomes[0]);
+      setRevealed(false);
     }
   }, [plays]);
 
@@ -46,7 +48,7 @@ export default function Bingo({plays, luck, playGame, playing}) {
             flexDirection: 'row',
             margin: 1
           }}>
-          <Sequence sequences={sequences}/>
+          <Sequence sequences={sequences} setRevealed={setRevealed} />
         </Box>
         <Box sx={{
           display: 'flex',
@@ -56,7 +58,7 @@ export default function Bingo({plays, luck, playGame, playing}) {
           width: 320,
           height: 320
         }}>
-          {boards.map((board, i) => <BingoBoard board={board} />)}
+          {boards.map((board, i) => <BingoBoard key={i} board={board} />)}
         </Box>
     </Box>
   );
