@@ -24,6 +24,8 @@ export default function Games() {
         return {...state, game: 'Bingo'};
       case 'Dice':
         return {...state, game: 'Dice'};
+      case 'LadyLuck':
+        return {...state, game: 'LadyLuck'};
       default:
         throw new Error();
     }
@@ -54,9 +56,10 @@ export default function Games() {
         <Box sx={{
           display: 'flex'
         }}>
-          {/* <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
-          <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button> */}
-        {/* <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button> */}
+          <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
+          <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button>
+          <Button variant="contained" onClick={() => dispatch({type: 'LadyLuck'})}>Lady Luck</Button>
+        <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button>
         </Box>
         <GameCard
           game={gameState.game}
