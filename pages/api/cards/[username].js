@@ -6,10 +6,14 @@ export default async function handler(req, res) {
     const query = { text: '', values: [] };
 
     query.text = `
-      UPDATE card_inventory
-      SET quantity = quantity + $1
-      WHERE id_user = (SELECT id FROM users WHERE username = $2)
-      AND WHERE card_name = $3;
+      INSERT INTO card_inventory(id_user, card_name, quantity)
+      VALUES ((SELECT id FROM users WHERE username = $2), $3, $1)
+      ON CONFLICT card_name
+      DO
+        UPDATE card_inventory
+        SET quantity = quantity + $1
+        WHERE id_user = (SELECT id FROM users WHERE username = $2)
+        AND WHERE card_name = $3;
     `;
     query.values = [req.body.quantity, req.query.username, req.body.card_name];
 

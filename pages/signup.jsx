@@ -60,7 +60,7 @@ export default function SignUp() {
       setLoading(true);
       await signup(userData.email, userData.password);
       // rounting to main page after sucess sign up
-      router.push("/");
+      router.push("/user");
     } catch (err) {
       console.log("failed ", err);
       setError("Failed to create an account");

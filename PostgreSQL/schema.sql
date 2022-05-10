@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY UNIQUE NOT NULL,
   username VARCHAR NULL DEFAULT NULL,
-  tokens BIGINT NULL DEFAULT NULL,
+  tokens BIGINT NULL DEFAULT 500,
   phone_number VARCHAR NULL DEFAULT NULL,
   wallet_address VARCHAR NULL DEFAULT NULL
 );
@@ -93,3 +93,6 @@ ALTER TABLE card_inventory ADD FOREIGN KEY (id_user) REFERENCES users (id);
 -- ('','','','','','','');
 -- INSERT INTO `card_inventory` (`id`,`id_user`,`card_name`,`quantity`) VALUES
 -- ('','','','');
+
+SELECT setval('users_id_seq', (SELECT MAX(id) from users) +1);
+SELECT setval('card_inventory_id_seq', (SELECT MAX(id) from card_inventory) +1);
