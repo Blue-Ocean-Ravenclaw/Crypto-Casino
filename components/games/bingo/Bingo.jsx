@@ -17,13 +17,14 @@ export default function Bingo({plays, luck, playGame, playing}) {
 
   useEffect(() => {
     if (playing) {
-      let game = generateBingoGame();
-      let newBoard = game.board;
+      const game = generateBingoGame();
+      //game = object, game.boards; game.sequence; game.outcomes.
+      const boards = game.boards;
       let newSequences = game.sequence;
-      let outcome = game.outcome;
-      setBoard(newBoard);
+      let outcomes = game.outcomes;
+      setBoard(boards[0]);
       setSequences(newSequences);
-      setOutcome(outcome);
+      setOutcome(outcomes[0]);
     }
   }, [plays]);
 
