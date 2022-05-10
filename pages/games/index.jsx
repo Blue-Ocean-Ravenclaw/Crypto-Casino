@@ -93,11 +93,8 @@ function GameStore() {
     setTotal(game.price * gameCount)
   }
 
-  const handlePurchaseAndPlay = () => {
-    handleClose()
-  }
+  const handlePurchase = () => {
 
-  const handleAddToWallet = () => {
     if (total > tokens) {
       console.log('YOU BROKE')
     } else {
@@ -133,6 +130,10 @@ function GameStore() {
         </Typography>
         <Typography variant="h5" align="center" color="text.primary" component="p">
           Get to winning with our current list of premium games. "The house always wins" doesn't apply here - see the odds for each game below! Feeling lucky?
+        </Typography>
+
+        <Typography variant="h5" align="center" color="text.primary" component="p" sx={{ marginTop: 4}}>
+          You have {tokens} tokens to spend!
         </Typography>
       </Container>
 
@@ -178,7 +179,7 @@ function GameStore() {
                       {game.price}
                     </Typography>
                     <Typography variant="h6" color="text.secondary">
-                      points
+                      tokens
                     </Typography>
                   </Box>
                   <ul>
@@ -224,7 +225,7 @@ function GameStore() {
                         </Typography>
 
                         <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
-                          {total} PTS
+                          {total} Tokens
                         </Typography>
 
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -233,9 +234,9 @@ function GameStore() {
 
 
                         <Link href="/play/">
-                          <Button fullWidth variant="contained" onClick={handlePurchaseAndPlay}>Purchase and play</Button>
+                          <Button fullWidth variant="contained" onClick={handlePurchase}>Purchase and play</Button>
                         </Link>
-                        <Button fullWidth variant="outlined" onClick={handleAddToWallet}>Add games to wallet</Button>
+                        <Button fullWidth variant="outlined" onClick={handlePurchase}>Add games to wallet</Button>
 
                       </Box>
                     </Modal>
