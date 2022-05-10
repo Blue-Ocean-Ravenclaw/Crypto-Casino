@@ -1,24 +1,26 @@
-import BingoBoardRow from './BingoBoardRow.jsx';
+import BingoBoardCol from './BingoBoardCol.jsx';
 import Box from '@mui/material/Box';
 import {useState, useEffect, useCallback} from 'react';
 
 //TODO: Reveal State Matrix
 export default function BingoBoard ({board}) {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    setCount(0);
-  }, [board]);
-  const addCount = useCallback(() => setCount((prev) => prev < 5 ? prev + 1 : prev), []);
 
-  function renderBoard (row, i) {
+  function renderBoard (col, i) {
     return (
-      <BingoBoardRow board={board} row={row} />
+      <BingoBoardCol key={i} board={board} col={col} />
     );
   }
 
+  const boardStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  };
+
   return (
-    <Box className="bingo-board">
+    <Box className="bingo-board" sx={boardStyle}>
         {board.map(renderBoard)}
     </Box>
   );
 }
+

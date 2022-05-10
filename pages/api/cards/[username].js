@@ -6,6 +6,7 @@ export default async function handler(req, res) {
     const query = { text: '', values: [] };
 
     query.text = `
+<<<<<<< HEAD
       INSERT INTO card_inventory(id_user, card_name, quantity)
       VALUES ((SELECT id FROM users WHERE username = $2), $3, $1)
       ON CONFLICT card_name
@@ -14,6 +15,12 @@ export default async function handler(req, res) {
         SET quantity = quantity + $1
         WHERE id_user = (SELECT id FROM users WHERE username = $2)
         AND WHERE card_name = $3;
+=======
+      UPDATE card_inventory
+      SET quantity = quantity + $1
+      WHERE id_user = (SELECT id FROM users WHERE username = $2)
+      AND card_name = $3;
+>>>>>>> 7baaca7a865c504baf7a69b7e66c042f21eda64b
     `;
     query.values = [req.body.quantity, req.query.username, req.body.card_name];
 
