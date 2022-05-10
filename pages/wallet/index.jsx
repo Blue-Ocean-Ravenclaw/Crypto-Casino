@@ -61,7 +61,7 @@ export default function Checkout() {
                                          p: { xs: 3, md: 3 },
                                          borderRadius: '2vh',
                                          }} >
-          <Typography component="h1" variant="h4" align="center">
+          <Typography component="h2" variant="h1" align="center" sx={{mb: 2}}>
             Wallet
           </Typography>
 

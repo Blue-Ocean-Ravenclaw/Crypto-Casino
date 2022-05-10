@@ -21,28 +21,33 @@ export default function WalletForm() {
   return (
     <React.Fragment>
 
+    <Box sx={{backgroundColor: 'pink', borderRadius: '2vh', py: 3}}>
+      <Typography variant="h3" align="center" sx={{ mt: 2 }}>NFT Collection</Typography>
       <ImageList sx={{ mx: 'auto',
                        p: 2,
-                       borderRadius: '2vh',
                        width: '95%',
-                       height: 'auto',
-                       backgroundColor:'pink', }}
-                       cols={2}  gap={12}
+                       height: 'auto',}}
+                       cols={2}  gap={16}
                        variant="quilted">
 
         {nfts.map((nft, idx) => (
-          <ImageListItem key={idx}>
+          <ImageListItem key={idx} >
             <img
               src={`${nft.image}`}
               srcSet={`${nft.image}`}
               alt='nft'
               loading="lazy"
+
             />
           </ImageListItem>
         ))}
       </ImageList>
+    </Box>
+
 
       <List  style={{backgroundColor: '	#F5F5F5', padding: '20px', borderRadius: '2vh'}}>
+        <Typography variant="h3" align="center" sx={{ mt: 2 }}>Cards</Typography>
+
         {card_inventory.map((product) => (
           <ListItem key={product.card_name}
                     sx={{
