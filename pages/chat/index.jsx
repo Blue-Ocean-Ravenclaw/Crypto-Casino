@@ -30,7 +30,6 @@ const Home = () => {
   const socketInitializer = async () => {
     await fetch("/api/socket");
     socket = io();
-
     socket.on("connect", () => {
       // console.log(socket.id);
       setUserId(socket.id);

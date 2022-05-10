@@ -1,5 +1,8 @@
 import * as React from 'react';
-import {useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useAppContext } from '../../context/state.js';
+import axios from 'axios';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -9,11 +12,6 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import CardMedia from '@mui/material/CardMedia';
-import StarIcon from '@mui/icons-material/StarBorder';
-import CasinoIcon from '@mui/icons-material/Casino';
-import Filter3Icon from '@mui/icons-material/Filter3';
-import Filter7Icon from '@mui/icons-material/Filter7';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import IconButton from '@mui/material/IconButton';
@@ -23,6 +21,7 @@ import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
 import Modal from '@mui/material/Modal';
+import { games } from '../../context/games.js';
 
 
 const style = {
@@ -48,63 +47,13 @@ const style = {
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9,
-    marginTop:'30'
-  }
-
+    marginTop: '30'
+  },
 };
 
 
-const games = [
-  {
-    title: "High Roller",
-    price: 10,
-    description: [
-      'Spin 3 dice',
-      'and win a',
-      'CUSTOM NFT',
-      'Ready to roll?',
-    ],
-    buttonText: 'BUY NOW',
-    buttonVariant: 'contained',
-    route: '/games/dice',
-    icon: <CasinoIcon />,
-  },
-  {
-    title: 'BINGO',
-    subheader: 'Most popular',
-    price: 20,
-    description: [
-      'Get 3 BINGO boards,',
-      'see if your numbers',
-      'are the lucky ones!',
-      'WIN BIG TODAY!',
-    ],
-    buttonText: 'BUY NOW',
-    buttonVariant: 'contained',
-    route: '/games/bingo',
-    icon: <Filter3Icon />
-  },
-  {
-    title: "Lucky 7's",
-    price: 15,
-    description: [
-      'Coming soon to',
-      'cRyPtOcAsInO',
-      'Scratch off to reveal',
-      'your big win!'
-    ],
-    buttonText: 'COMING SOON...',
-    buttonVariant: 'contained',
-    route: '/games/lucky7',
-    icon: <Filter7Icon/>
-  },
-];
 
-
-
-
-
-function PricingContent() {
+function GameStore() {
 
   const [open, setOpen] = useState(false);
   const [gameCount, setGameCount] = useState(1);
@@ -112,10 +61,13 @@ function PricingContent() {
   const [total, setTotal] = useState(0);
   const [game, setGame] = useState({});
 
+  const context = useAppContext();
+  const { tokens } = useAppContext();
+
 
   const handleOpen = (e) => {
     setOpen(true);
-    let gameObj = games.filter( game => {
+    let gameObj = games.filter(game => {
       return game.title === e.target.name
     })
     setGame(gameObj[0])
@@ -132,13 +84,29 @@ function PricingContent() {
   };
 
   const handleDecrament = () => {
-    gameCount <= 1 ? setGameCount(1) : setGameCount(prev=>prev - 1);
+    gameCount <= 1 ? setGameCount(1) : setGameCount(prev => prev - 1);
     setTotal(game.price * gameCount)
   }
 
   const handleIncrement = () => {
     setGameCount(prev => prev + 1);
     setTotal(game.price * gameCount)
+  }
+
+  const handlePurchase = () => {
+
+    if (total > tokens) {
+      console.log('YOU BROKE')
+    } else {
+      axios.post(`/api/tokens/${context.username}`, { tokens: (total * -1) })
+        .then((res) => {
+          axios.put(`/api/cards/${context.username}`, { card_name: game.dbTitle, quantity: gameCount })
+            .then((res) => `${gameCount} Cards purchased`)
+            .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
+    }
+    handleClose();
   }
 
   useEffect(() => {
@@ -149,15 +117,7 @@ function PricingContent() {
   return (
     <React.Fragment>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
-      <CssBaseline />
-      <AppBar
-        position="static"
-        color="default"
-        elevation={0}
-        sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
-      >
 
-      </AppBar>
       <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
         <Typography
           component="h1"
@@ -171,21 +131,24 @@ function PricingContent() {
         <Typography variant="h5" align="center" color="text.primary" component="p">
           Get to winning with our current list of premium games. "The house always wins" doesn't apply here - see the odds for each game below! Feeling lucky?
         </Typography>
+
+        <Typography variant="h5" align="center" color="text.primary" component="p" sx={{ marginTop: 4 }}>
+          You have {tokens} tokens to spend!
+        </Typography>
       </Container>
 
 
-      <Container maxWidth="md" component="main">
+      <Container maxWidth="md" sx={{ mb: 15 }}>
         <Grid container spacing={6} alignItems="flex-end">
           {games.map((game) => (
-            // Enterprise card is full width at sm breakpoint
             <Grid
               item
               key={game.title}
               xs={12}
-              sm={game.title === 'Enterprise' ? 12 : 6}
+              sm={6}
               md={4}
             >
-              <Card>
+              <Card >
                 <CardHeader
                   title={game.title}
                   subheader={game.subheader}
@@ -199,6 +162,7 @@ function PricingContent() {
                       theme.palette.mode === 'light'
                         ? theme.palette.grey[200]
                         : theme.palette.grey[700],
+
                   }}
                 />
                 <CardContent>
@@ -209,13 +173,14 @@ function PricingContent() {
                       alignItems: 'baseline',
                       mb: 4,
                       mt: 2,
+
                     }}
                   >
                     <Typography component="h2" variant="h3" color="text.primary">
                       {game.price}
                     </Typography>
                     <Typography variant="h6" color="text.secondary">
-                      points
+                      tokens
                     </Typography>
                   </Box>
                   <ul>
@@ -232,60 +197,62 @@ function PricingContent() {
                   </ul>
                 </CardContent>
 
-                  <CardActions>
+                <CardActions>
 
-                    <Button onClick={handleOpen} fullWidth variant={game.buttonVariant} name={game.title}>{game.buttonText}</Button>
+                  <Button onClick={handleOpen} fullWidth variant={game.buttonVariant} name={game.title}>{game.buttonText}</Button>
 
-                    <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style}>
-                        <div style={style.iconSpacing}>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                      <div style={style.iconSpacing}>
 
-                          <IconButton
-                            onClick={handleDecrament}>
-                            <RemoveIcon style={style.largeIcon}/>
-                          </IconButton>
-                          <span style={{fontSize: '50px'}}>{gameCount}</span>
-                          <IconButton
-                            onClick={handleIncrement}>
-                            <AddIcon style={style.largeIcon}/>
-                          </IconButton>
-                        </div>
+                        <IconButton
+                          onClick={handleDecrament}>
+                          <RemoveIcon style={style.largeIcon} />
+                        </IconButton>
+                        <span style={{ fontSize: '50px' }}>{gameCount}</span>
+                        <IconButton
+                          onClick={handleIncrement}>
+                          <AddIcon style={style.largeIcon} />
+                        </IconButton>
+                      </div>
 
-                        <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
-                          # of {gameTitle} cards
-                        </Typography>
+                      <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
+                        # of {gameTitle} cards
+                      </Typography>
 
-                        <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
-                          Total {total}
-                        </Typography>
+                      <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
+                        {total} Tokens
+                      </Typography>
 
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                          {/* Description placement. */}
-                        </Typography>
+                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        {/* Description placement. */}
+                      </Typography>
 
-                        <Button fullWidth variant="contained">Purchase and play</Button>
-                        <Button fullWidth variant="outlined">Add games to wallet</Button>
 
-                      </Box>
-                    </Modal>
+                      <Link href="/play/">
+                        <Button fullWidth variant="contained" onClick={handlePurchase}>Purchase and play</Button>
+                      </Link>
+                      <Button fullWidth variant="outlined" onClick={handlePurchase}>Add games to wallet</Button>
 
-                  </CardActions>
-                {/* </Link> */}
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </React.Fragment>
+                    </Box >
+                  </Modal >
+
+                </CardActions >
+              </Card >
+            </Grid >
+          ))
+          }
+        </Grid >
+      </Container >
+    </React.Fragment >
   );
 }
 
-export default function Pricing() {
-  return <PricingContent />;
+export default function Games() {
+  return <GameStore />;
 }
-

@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import GameCard from '../../components/games/GameCard.jsx';
 import {useState, useCallback, useReducer} from 'react';
 
-export default function Games() {
+export default function Bingo () {
   const initialState = {
     plays: 5,
     game: 'Bingo',
@@ -16,16 +16,8 @@ export default function Games() {
   }
   function reducer (state, action) { //Controls State of Game Page
     switch (action.type) { //TODO: Refactor so this can be re-used for every game
-      case 'buy':
-        return {...state, plays: state.plays + 5, playing: false};
       case 'play':
         return {...state, plays: state.plays - 1, playing: true};
-      case 'Bingo':
-        return {...state, game: 'Bingo'};
-      case 'Dice':
-        return {...state, game: 'Dice'};
-      case 'LadyLuck':
-        return {...state, game: 'LadyLuck'};
       default:
         throw new Error();
     }
@@ -38,7 +30,7 @@ export default function Games() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      height: 570,
+      height: 640,
       margin: 2,
       bgcolor: 'background.secondary',
       borderRadius: 2,
@@ -53,14 +45,6 @@ export default function Games() {
         flexDirection: 'column',
         justifyContent: 'center'
       }}>
-        <Box sx={{
-          display: 'flex'
-        }}>
-          <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
-          <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button>
-          <Button variant="contained" onClick={() => dispatch({type: 'LadyLuck'})}>Lady Luck</Button>
-        <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button>
-        </Box>
         <GameCard
           game={gameState.game}
           plays={gameState.plays}

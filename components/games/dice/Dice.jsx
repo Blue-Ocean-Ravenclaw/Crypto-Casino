@@ -1,4 +1,5 @@
 import Die from './Die.jsx';
+import Box from '@mui/material/Box';
 import {useState, useCallback, useEffect} from 'react';
 
 export default function Dice ({diceArr}) {
@@ -10,8 +11,16 @@ export default function Dice ({diceArr}) {
   }, [diceArr]);
 
   return (
-    <div className="dice-container">
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      height: 350,
+      marginTop: 15,
+      marginBottom: 3
+    }}>
       {diceArr.map((roll, i) => <Die key={i} roll={roll} addCount={addCount} diceArr={diceArr} />)}
-    </div>
-    )
+    </Box>
+  )
 }

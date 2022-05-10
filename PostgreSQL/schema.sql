@@ -18,11 +18,11 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY UNIQUE NOT NULL,
   username VARCHAR NULL DEFAULT NULL,
-  tokens BIGINT NULL DEFAULT NULL,
-  phone_number VARCHAR NULL DEFAULT NULL,
+  tokens BIGINT NULL DEFAULT 500,
+  email VARCHAR NULL DEFAULT NULL,
   wallet_address VARCHAR NULL DEFAULT NULL
 );
-COPY users(id, username, tokens, phone_number, wallet_address)
+COPY users(id, username, tokens, email, wallet_address)
 FROM '/Users/tim/Documents/HackReactor/Blue-Ocean-Ravenclaw/fakeData/user.csv'
 DELIMITER ','
 CSV HEADER;
@@ -75,6 +75,7 @@ CSV HEADER;
 ALTER TABLE nfts ADD FOREIGN KEY (id_user) REFERENCES users (id);
 ALTER TABLE card_inventory ADD FOREIGN KEY (id_user) REFERENCES users (id);
 
+
 -- ---
 -- Table Properties
 -- ---
@@ -87,9 +88,16 @@ ALTER TABLE card_inventory ADD FOREIGN KEY (id_user) REFERENCES users (id);
 -- Test Data
 -- ---
 
--- INSERT INTO `user` (`id`,`username`,`tokens`,`phone_number`,`wallet_address`) VALUES
+-- INSERT INTO `user` (`id`,`username`,`tokens`,`email`,`wallet_address`) VALUES
 -- ('','','','','');
 -- INSERT INTO `nfts` (`id`,`id_user`,`description`,`external_url`,`image`,`name`,`value`) VALUES
 -- ('','','','','','','');
 -- INSERT INTO `card_inventory` (`id`,`id_user`,`card_name`,`quantity`) VALUES
 -- ('','','','');
+
+--Sets value(id) of users/card inventory so that net row can be inserted at end of dataset.
+SELECT setval('users_id_seq', (SELECT MAX(id) from users) +1);
+SELECT setval('card_inventory_id_seq', (SELECT MAX(id) from card_inventory) +1);
+
+-- Creates a unique index to identify conflicts when inserting. If conflicts are identified, we update instead. See query in '/api/cards/[username]' for more detail.
+CREATE UNIQUE index idx_card_inventory_iduser_card_name ON card_inventory (id_user, card_name);

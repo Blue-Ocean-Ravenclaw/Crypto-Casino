@@ -1,32 +1,44 @@
 import Layout from "../components/Layout";
 import { AuthProvider } from "../context/AuthContext";
+import { AppWrapper } from "../context/state";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createContext, useState, useContext, useEffect } from 'react';
+import axios from 'axios';
 
 const theme = createTheme({
   palette: {
     background: {
-      default: "#F0F0E6",
+      default: "#FFFCC7",
+      secondary: "#EAD181",
     },
     text: {
       primary: "#181818",
     },
     primary: {
-      main: "#DE0606",
+      main: "#2A1E32",
     },
     secondary: {
-      main: "#F9BF17",
+      main: "#594044",
     },
+    tertiary: {
+      main: "#755956"
+    }
   },
 });
 
 function App({ Component, pageprops }) {
+
+
+
   return (
     <AuthProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Layout>
-          <Component {...pageprops} />
+          <AppWrapper>
+            <Component {...pageprops} />
+          </AppWrapper>
         </Layout>
       </ThemeProvider>
     </AuthProvider>

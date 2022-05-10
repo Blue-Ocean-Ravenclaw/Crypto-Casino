@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../context/AuthContext";
+import axios from 'axios';
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -16,24 +17,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 
-// -----TODO: front end team to move to Layout if needed globally?----
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
 
 export default function SignUp() {
   const [userData, setUserData] = useState({
@@ -59,8 +42,12 @@ export default function SignUp() {
       setError("");
       setLoading(true);
       await signup(userData.email, userData.password);
+      // call backend to post {email: userData.email, username: userData.username}
+      axios.post('/api/newUser', { username: userData.username, email: userData.email })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
       // rounting to main page after sucess sign up
-      router.push("/");
+      router.push("/user");
     } catch (err) {
       console.log("failed ", err);
       setError("Failed to create an account");

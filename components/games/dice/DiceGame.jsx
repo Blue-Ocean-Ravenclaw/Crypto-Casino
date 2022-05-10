@@ -1,5 +1,5 @@
 import {useEffect, useReducer, useCallback} from 'react';
-import axios from 'axios';
+import {generateDiceGame} from '../../../lib/dice.js';
 import Dice from './Dice.jsx';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -7,16 +7,19 @@ import Box from '@mui/material/Box';
 export default function DiceGame ({plays, luck, playGame, playing}) {
   const initialState = { //Initial Game State
     diceArr: [],
-    rolling: false
+    rolling: false,
+    prize: ''
   }
   function reducer (state, action) { //Controls the Game State
     switch (action.type) {
-      case 'fake':
-        let newDice = fakeDice(plays, luck);
-        return {...state, diceArr: newDice};
       case 'roll':
+        let game = generateDiceGame();
+        let newDice = game.board;
+        let newPrize = game.prize;
+        return {...state, diceArr: newDice, prize: newPrize};
+      case 'serverRoll':
         return {...state, rolling: true};
-      case 'rolled':
+      case 'serverRolled':
         return {...state, rolling: false, diceArr: action.payload};
       case 'out':
         return {...state, rolling: false, diceArr: []};
@@ -28,22 +31,22 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
 
   useEffect(() => { //When plays variable decreases, roll the dice
     if (playing) { //Prevents roll on initial load
-      dispatch({type: 'fake'});
+      dispatch({type: 'roll'});
     }
   }, [plays]);
 
-  useEffect(() => {
-    if (diceState.rolling) {
-      axios.get('https://localhost:3000/games/rolldice')
-      .then((res) => {
-        dispatch({type: 'rolled', payload: res.data});
-      })
-      .catch((err)=> {
-        console.error(err);
-        dispatch({type: 'out'});
-      });
-    }
-  }, [diceState.rolling]);
+  // useEffect(() => {
+  //   if (diceState.rolling) {
+  //     axios.get('https://localhost:3000/games/rolldice')
+  //     .then((res) => {
+  //       dispatch({type: 'rolled', payload: res.data});
+  //     })
+  //     .catch((err)=> {
+  //       console.error(err);
+  //       dispatch({type: 'out'});
+  //     });
+  //   }
+  // }, [diceState.rolling]);
 
   return (
     <Box sx={{
@@ -51,6 +54,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
       flexDirection: 'column',
       alignItems: 'center'
     }}>
+      <Dice diceArr={diceState.diceArr} />
       {plays > 0
       ? <Button
           sx={{
@@ -61,15 +65,6 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
             Roll The dice
         </Button>
       : 'Buy More!'}
-      <Dice diceArr={diceState.diceArr} />
     </Box>
   );
-}
-
-function fakeDice (plays, luck) { //Generates Dice Roll
-  if (plays < 1) {
-    return [];
-  }
-  let roll = Math.floor(Math.random() * 6 + 1);
-  return luck ? [0, 0, 0].map((num) => roll) : [0, 0, 0].map((num) => Math.floor(Math.random() * 6 + 1));
 }
