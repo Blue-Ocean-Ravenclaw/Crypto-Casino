@@ -7,10 +7,12 @@ import Typography from "@mui/material/Typography";
 let socket;
 
 const Home = () => {
-  const [input, setInput] = useState("");
+  const [msg, setMsg] = useState("");
   const [username, setUsername] = useState("");
+  const [usernameColor, setUsernameColor] = useState({});
   const [userSubmitted, setUserSubmitted] = useState(false);
   const [msgList, setMsgList] = useState([]);
+  const [userId, setUserId] = useState("");
 
   useEffect(() => socketInitializer(), []);
 
@@ -19,26 +21,36 @@ const Home = () => {
     socket = io();
 
     socket.on("connect", () => {
-      console.log("connected");
+      // console.log(socket.id);
+      setUserId(socket.id);
     });
 
     socket.on("send-msg", (msgObj) => {
+      if (!usernameColor[msgObj.username]) {
+        const color = randomColor();
+        const currentUser = msgObj.username;
+        const newUsernameColor = usernameColor;
+        newUsernameColor[currentUser] = color;
+        setUsernameColor(newUsernameColor);
+      }
+
       setMsgList((msgList) => [...msgList, msgObj]);
     });
   };
 
   const onChangeHandler = (e) => {
-    setInput(e.target.value);
+    setMsg(e.target.value);
   };
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
-    const msg = input;
-    const msgObj = { username, msg };
+    e.preventDefault();
+    const msgObj = { username, msg, userId };
     setMsgList((msgList) => [...msgList, msgObj]);
     socket.emit("send-msg", msgObj);
+    setMsg("");
   };
   const handleUsername = (e) => {
+    e.preventDefault();
     setUserSubmitted(true);
   };
   const onChangeHandlerUserName = (e) => {
@@ -74,7 +86,7 @@ const Home = () => {
         >
           <Typography
             align="left"
-            color={randomColor()}
+            color={usernameColor[msgObj.username]}
             style={{
               fontWeight: 600,
               fontSize: "0.8rem",
@@ -86,10 +98,10 @@ const Home = () => {
           <Box>{msgObj.msg}</Box>
         </Box>
       ))}
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
-          placeholder="Type something"
-          value={input}
+          placeholder="Start chatting"
+          value={msg}
           onChange={onChangeHandler}
         />
         <Button variant="contained" onClick={handleSubmit}>
@@ -99,9 +111,9 @@ const Home = () => {
       {userSubmitted ? (
         <div>Hello {username}</div>
       ) : (
-        <form>
+        <form onSubmit={handleUsername}>
           <input
-            placeholder="Tell us your name"
+            placeholder="Tell us your display"
             value={username}
             onChange={onChangeHandlerUserName}
           />
