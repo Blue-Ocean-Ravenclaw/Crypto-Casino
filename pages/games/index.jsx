@@ -49,12 +49,6 @@ const style = {
     paddingTop: '56.25%', // 16:9,
     marginTop:'30'
   },
-  hover: {
-    color: 'pink',
-    '&:hover': {
-      background: 'blue'
-    }
-  }
 };
 
 
@@ -154,7 +148,7 @@ function GameStore() {
               sm={6}
               md={4}
             >
-              <Card className={style.hover}>
+              <Card >
                 <CardHeader
                   title={game.title}
                   subheader={game.subheader}
@@ -168,6 +162,7 @@ function GameStore() {
                       theme.palette.mode === 'light'
                         ? theme.palette.grey[200]
                         : theme.palette.grey[700],
+
                   }}
                 />
                 <CardContent>
