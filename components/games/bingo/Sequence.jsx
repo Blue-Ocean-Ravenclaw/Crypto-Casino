@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import SequenceNumber from './SequenceNumber.jsx';
 
-export default function Sequence ({sequences, sequence}) {
+export default function Sequence ({sequences}) {
   const sequenceStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -11,7 +11,7 @@ export default function Sequence ({sequences, sequence}) {
 
   return (
     <Box className='sequence' sx={sequenceStyle}>
-      {sequence.map((num, i) => <SequenceNumber key={num} sequences={sequences} num={num} />)}
+      {sequences.map((num, i) => <SequenceNumber key={num} sequences={sequences} num={num} />)}
     </Box>
   );
 }
