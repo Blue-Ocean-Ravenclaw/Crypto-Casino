@@ -3,12 +3,14 @@ import {generateDiceGame} from '../../../lib/dice.js';
 import Dice from './Dice.jsx';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 
 export default function DiceGame ({plays, luck, playGame, playing}) {
   const initialState = { //Initial Game State
     diceArr: [],
     rolling: false,
-    prize: ''
+    prize: '',
+    resultModal: false
   }
   function reducer (state, action) { //Controls the Game State
     switch (action.type) {
@@ -23,6 +25,9 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
         return {...state, rolling: false, diceArr: action.payload};
       case 'out':
         return {...state, rolling: false, diceArr: []};
+      case 'toggleModal':
+        let modal = !state.resultModal
+        return {...state, resultModal: modal};
       default:
         return {...state, rolling: false, diceArr: []};
     }
@@ -48,6 +53,10 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
   //   }
   // }, [diceState.rolling]);
 
+  const toggleModal = useCallback(() => {
+    dispatch({type: 'toggleModal'});
+  }, []);
+
   return (
     <Box sx={{
       display: 'flex',
@@ -65,6 +74,14 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
         </Button>
       : 'Buy More!'}
       <Dice diceArr={diceState.diceArr} />
+      <Modal
+        open = {diceState.resultModal}
+        onClose ={toggleModal}
+      >
+        <Box>
+          <h1>{diceState.prize}</h1>
+        </Box>
+      </Modal>
     </Box>
   );
 }
