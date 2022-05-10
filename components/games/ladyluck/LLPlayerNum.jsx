@@ -14,9 +14,9 @@ export default function LLPlayerNum ({playerNums, num}) {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 38,
-    width: 38,
-    backgroundColor: 'gold',
+    height: 40,
+    width: 40,
+    backgroundColor: 'red',
     borderRadius: 2,
     position: 'absolute',
     zIndex: 2
