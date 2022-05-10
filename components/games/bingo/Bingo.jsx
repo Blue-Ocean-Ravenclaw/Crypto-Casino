@@ -45,7 +45,7 @@ export default function Bingo({plays, luck, playGame, playing}) {
             flexDirection: 'row',
             margin: 1
           }}>
-          {sequences.map((sequence, i) => <Sequence key={i} sequences={sequences} sequence={sequence} />)}
+          <Sequence sequences={sequences}/>
         </Box>
         <BingoBoard board={board} />
     </Box>
