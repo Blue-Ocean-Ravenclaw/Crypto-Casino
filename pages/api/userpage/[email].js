@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
     query.text = `
       SELECT
-        users.username, users.phone_number, users.tokens, users.wallet_address,
+        users.username, users.email, users.tokens, users.wallet_address,
 
         (SELECT
           ARRAY_AGG(
@@ -33,9 +33,9 @@ export default async function handler(req, res) {
         ) card_inventory
 
       FROM users
-      WHERE username = $1;
+      WHERE email = $1;
     `;
-    query.values = [req.query.username];
+    query.values = [req.query.email];
 
     let { rows } = await db.query(query);
     res.status(200).send(rows[0]);
