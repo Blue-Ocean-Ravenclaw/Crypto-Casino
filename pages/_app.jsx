@@ -1,8 +1,9 @@
 import Layout from "../components/Layout";
 import { AuthProvider } from "../context/AuthContext";
+import { AppWrapper } from "../context/state";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
 const theme = createTheme({
@@ -22,25 +23,18 @@ const theme = createTheme({
   },
 });
 
-const AppContext = createContext();
-
 function App({ Component, pageprops }) {
-  const [results, setResults] = useState(null);
 
-  useEffect(() => {
-    axios.get('/api/userpage/varunGod')
-      .then((res) => setResults(res))
-      .catch((err) => console.log(err));
-  },[])
+
 
   return (
     <AuthProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Layout>
-          <AppContext.Provider value={results}>
+          <AppWrapper>
             <Component {...pageprops} />
-          </AppContext.Provider>
+          </AppWrapper>
         </Layout>
       </ThemeProvider>
     </AuthProvider>
