@@ -52,7 +52,7 @@ export default function LogIn() {
       await login(userData.email, userData.password);
       router.push("/");
     } catch (err) {
-      console.log("failed ", err);
+      // console.log("failed ", err);
       setError("Failed to log in");
     }
     setLoading(false);

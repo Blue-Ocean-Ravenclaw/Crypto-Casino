@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import io from "Socket.IO-client";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 let socket;
 
@@ -28,7 +29,6 @@ const Home = () => {
 
   const onChangeHandler = (e) => {
     setInput(e.target.value);
-    // socket.emit("send-msg", e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -45,21 +45,46 @@ const Home = () => {
     setUsername(e.target.value);
   };
 
+  const randomColor = () => {
+    let hex = Math.floor(Math.random() * 0xffffff);
+    let color = "#" + hex.toString(16);
+    return color;
+  };
+
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        // alignItems: "center",
         flexDirection: "column",
+        padding: 2,
+        fontSize: "0.8rem",
       }}
     >
       <h1>Chat History</h1>
       {msgList.map((msgObj) => (
-        <div>
-          <div>{msgObj.username}</div>
-          <div>{msgObj.msg}</div>
-        </div>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-start",
+            // justifyContent: "space-between",
+            flexDirection: "row",
+          }}
+        >
+          <Typography
+            align="left"
+            color={randomColor()}
+            style={{
+              fontWeight: 600,
+              fontSize: "0.8rem",
+              margin: " 0rem 0.5rem 0rem 0rem",
+            }}
+          >
+            {msgObj.username}
+          </Typography>
+          <Box>{msgObj.msg}</Box>
+        </Box>
       ))}
       <form>
         <input
