@@ -47,13 +47,8 @@ const style = {
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9,
-<<<<<<< HEAD
     marginTop: '30'
-  }
-=======
-    marginTop:'30'
   },
->>>>>>> 0602f52f752e95553ccda87c5a36a9224db28260
 };
 
 
@@ -137,13 +132,13 @@ function GameStore() {
           Get to winning with our current list of premium games. "The house always wins" doesn't apply here - see the odds for each game below! Feeling lucky?
         </Typography>
 
-        <Typography variant="h5" align="center" color="text.primary" component="p" sx={{ marginTop: 4}}>
+        <Typography variant="h5" align="center" color="text.primary" component="p" sx={{ marginTop: 4 }}>
           You have {tokens} tokens to spend!
         </Typography>
       </Container>
 
 
-      <Container maxWidth="md" sx={{mb: 15}}>
+      <Container maxWidth="md" sx={{ mb: 15 }}>
         <Grid container spacing={6} alignItems="flex-end">
           {games.map((game) => (
             <Grid
@@ -230,43 +225,31 @@ function GameStore() {
                         # of {gameTitle} cards
                       </Typography>
 
-<<<<<<< HEAD
                       <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
-                        {total} PTS
+                        {total} Tokens
                       </Typography>
-=======
-                        <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
-                          {total} Tokens
-                        </Typography>
->>>>>>> 0602f52f752e95553ccda87c5a36a9224db28260
 
                       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         {/* Description placement. */}
                       </Typography>
 
 
-<<<<<<< HEAD
                       <Link href="/play/">
-                        <Button fullWidth variant="contained" onClick={handlePurchaseAndPlay}>Purchase and play</Button>
+                        <Button fullWidth variant="contained" onClick={handlePurchase}>Purchase and play</Button>
                       </Link>
-                      <Button fullWidth variant="outlined" onClick={handleAddToWallet}>Add games to wallet</Button>
-=======
-                        <Link href="/play/">
-                          <Button fullWidth variant="contained" onClick={handlePurchase}>Purchase and play</Button>
-                        </Link>
-                        <Button fullWidth variant="outlined" onClick={handlePurchase}>Add games to wallet</Button>
->>>>>>> 0602f52f752e95553ccda87c5a36a9224db28260
+                      <Button fullWidth variant="outlined" onClick={handlePurchase}>Add games to wallet</Button>
 
-                    </Box>
-                  </Modal>
+                    </Box >
+                  </Modal >
 
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </React.Fragment>
+                </CardActions >
+              </Card >
+            </Grid >
+          ))
+          }
+        </Grid >
+      </Container >
+    </React.Fragment >
   );
 }
 
