@@ -12,7 +12,7 @@ import { ScratchOff } from "@sky790312/react-scratch-off";
 //TODO: Bingo! pop up when you hit a bingo
 //TODO: Prizes
 export default function Bingo({plays, luck, playGame, playing}) {
-  const [board, setBoard] = useState([]);
+  const [boards, setBoards] = useState([]);
   const [sequences, setSequences] = useState([]);
   const [outcome, setOutcome] = useState({});
 
@@ -20,10 +20,10 @@ export default function Bingo({plays, luck, playGame, playing}) {
     if (playing) {
       const game = generateBingoGame();
       //game = object, game.boards; game.sequence; game.outcomes.
-      const boards = game.boards;
+      const newBoards = game.boards;
       let newSequences = game.sequence;
       let outcomes = game.outcomes;
-      setBoard(boards[0]);
+      setBoards(newBoards);
       setSequences(newSequences);
       setOutcome(outcomes[0]);
     }
@@ -48,15 +48,6 @@ export default function Bingo({plays, luck, playGame, playing}) {
           }}>
           <Sequence sequences={sequences}/>
         </Box>
-        {/* {board && board.length > 0 && <ScratchOff
-          key={plays}
-          width={150}
-          height={150}
-          coverImgSrc={
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/1200px-Square_gray.svg.png"
-          }
-          revealPercentage={80}
-        > */}
         <Box sx={{
           display: 'flex',
           flexFlow: 'row wrap',
@@ -65,12 +56,8 @@ export default function Bingo({plays, luck, playGame, playing}) {
           width: 320,
           height: 320
         }}>
-          <BingoBoard board={board} />
-          <BingoBoard board={board} />
-          <BingoBoard board={board} />
-          <BingoBoard board={board} />
+          {boards.map((board, i) => <BingoBoard board={board} />)}
         </Box>
-        {/* </ScratchOff>} */}
     </Box>
   );
 }

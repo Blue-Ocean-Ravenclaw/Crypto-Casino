@@ -6,7 +6,8 @@ export default function Sequence ({sequences}) {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    border: '1px solid black'
+    width: 320,
+    flexWrap: 'wrap'
   };
 
   return (

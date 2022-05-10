@@ -11,6 +11,7 @@ export default function SequenceNumber ({sequences, num}) {
     setRevealed(false);
   }, [sequences]);
 
+
   const handleReveal = () => {
     return;
   }
@@ -50,13 +51,11 @@ export default function SequenceNumber ({sequences, num}) {
         <Box sx={{
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
-          height: 30
+          alignItems: 'center'
         }}>
           {num}
         </Box>
       </ScratchOff>}
-      {/* {!revealed ? <Box className='bingo-hide' sx={hideStyle} onClick={revealNum} /> : null} */}
     </Box>
   )
 }
