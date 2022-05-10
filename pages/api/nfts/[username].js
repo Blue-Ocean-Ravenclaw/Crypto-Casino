@@ -24,7 +24,3 @@ export default async function handler(req, res) {
     res.status(500).send({ message: 'This endpoint only accepts POST/PUT requests.' });
   }
 }
-
-// SELECT * FROM nfts WHERE id_user = 1
-
-

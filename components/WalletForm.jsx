@@ -4,59 +4,75 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useAppContext } from '../context/state.js';
+import Image from 'next/image'
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import axios from 'axios';
 
 
-const games = [
-  {
-    name: 'High Roller',
-    desc: 'Scratch Off',
-    price: 45,
-  },
-  {
-    name: 'Bingo',
-    desc: 'Another thing',
-    price: 10,
-  },
-  {
-    name: 'Lucky Lucy',
-    desc: 'Another game',
-    price: 32,
-  },
-];
+export default function WalletForm() {
 
+  const { card_inventory, tokens, nfts } = useAppContext();
+  const context = useAppContext()
 
-export default function Review() {
   return (
     <React.Fragment>
-      <List  style={{backgroundColor: 'lightblue', padding: '20px'}}>
-        {games.map((product) => (
-          <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>{product.price}</Typography>
-          </ListItem>
-        ))}
 
-        <ListItem sx={{ py: 1, px: 0 }}>
-          <ListItemText primary="Points" />
-          <Typography sx={{ fontWeight: 700 }}>
-            # OF POINTS
-          </Typography>
+      <Box sx={{ backgroundColor: 'pink', borderRadius: '2vh', py: 3 }}>
+        <Typography variant="h3" align="center" sx={{ mt: 2 }}>NFT Collection</Typography>
+        <ImageList sx={{
+          mx: 'auto',
+          p: 2,
+          width: '95%',
+          height: 'auto',
+        }}
+          cols={2} gap={16}
+          variant="quilted">
+
+          {nfts ? nfts.map((nft, idx) => (
+            <ImageListItem key={idx} >
+              <img
+                src={`${nft.image}`}
+                srcSet={`${nft.image}`}
+                alt='nft'
+                loading="lazy"
+
+              />
+            </ImageListItem>
+          )) : null}
+        </ImageList>
+      </Box>
+
+
+      <List style={{ backgroundColor: '	#F5F5F5', padding: '20px', borderRadius: '2vh' }}>
+        <Typography variant="h3" align="center" sx={{ mt: 2 }}>Cards</Typography>
+
+        {card_inventory ? card_inventory.map((product) => (
+          <ListItem key={product.card_name}
+            sx={{
+              width: '95%',
+              display: 'flex',
+              justifyContent: 'space-between',
+              borderBottom: '2px solid black',
+              m: 2,
+            }}>
+
+            <Typography sx={{ fontSize: '2vh' }}
+            >{product.card_name.toUpperCase()}
+            </Typography>
+
+            <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>{product.quantity}</Typography>
+          </ListItem>
+        )) : null}
+
+        <ListItem sx={{ pt: 5, pb: 2, display: 'flex', justifyContent: 'center' }}>
+          <Typography sx={{ fontSize: { xs: '2.5vh', md: '3vh' } }}>TOKENS in your wallet: {tokens}</Typography>
         </ListItem>
       </List>
-      <Grid container spacing={2}  style={{backgroundColor: 'lightyellow', margin: '0'}}>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Header
-          </Typography>
-          <Typography gutterBottom>Sub-header</Typography>
-        </Grid>
-        <Grid item container direction="column" xs={12} sm={6} style={{backgroundColor: 'pink'}}>
-          <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Another box for something
-          </Typography>
-        </Grid>
-      </Grid>
+
     </React.Fragment>
   );
 }
