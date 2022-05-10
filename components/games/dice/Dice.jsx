@@ -2,13 +2,18 @@ import Die from './Die.jsx';
 import Box from '@mui/material/Box';
 import {useState, useCallback, useEffect} from 'react';
 
-export default function Dice ({diceArr}) {
+export default function Dice ({diceArr, reveal}) {
   const [counter, setCounter] = useState(0);
   const addCount = useCallback(() => {setCounter((prev) => prev < 3 ? prev + 1 : prev)}, []);
 
   useEffect(() => {
     setCounter(0);
   }, [diceArr]);
+  useEffect(() => {
+    if (counter === 3) {
+      reveal();
+    }
+  }, [counter]);
 
   return (
     <Box sx={{
