@@ -15,25 +15,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-// -----TODO: front end team to move to Layout if needed globally?----
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
-
 export default function LogIn() {
   const [userData, setUserData] = useState({
     email: "",
@@ -50,9 +31,9 @@ export default function LogIn() {
       setError("");
       setLoading(true);
       await login(userData.email, userData.password);
-      router.push("/");
+      router.push("/user");
     } catch (err) {
-      console.log("failed ", err);
+      // console.log("failed ", err);
       setError("Failed to log in");
     }
     setLoading(false);

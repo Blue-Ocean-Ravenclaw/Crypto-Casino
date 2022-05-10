@@ -6,11 +6,11 @@ export default async function handler(req, res) {
     const query = { text: '', values: [] };
 
     query.text = `
-      INSERT INTO users(username, phone_number, wallet_address)
-      VALUES ($1, $2, $3)
+      INSERT INTO users(username, email)
+      VALUES ($1, $2)
       RETURNING *;
     `;
-    query.values = [req.body.username, req.body.phone_number, req.body.wallet_address];
+    query.values = [req.body.username, req.body.email];
 
     let { rows } = await db.query(query);
     res.status(200).send({ message: `Username "${req.body.username}" successfully created in database.`, data: rows });
@@ -18,4 +18,3 @@ export default async function handler(req, res) {
     res.status(500).send({ message: 'This endpoint only accepts POST requests.' });
   }
 }
-

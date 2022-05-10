@@ -6,28 +6,16 @@ export default async function handler(req, res) {
     const query = { text: '', values: [] };
 
     query.text = `
-<<<<<<< HEAD
       INSERT INTO card_inventory(id_user, card_name, quantity)
-      VALUES ((SELECT id FROM users WHERE username = $2), $3, $1)
-      ON CONFLICT card_name
-      DO
-        UPDATE card_inventory
-        SET quantity = quantity + $1
-        WHERE id_user = (SELECT id FROM users WHERE username = $2)
-        AND WHERE card_name = $3;
-=======
-      UPDATE card_inventory
-      SET quantity = quantity + $1
-      WHERE id_user = (SELECT id FROM users WHERE username = $2)
-      AND card_name = $3;
->>>>>>> 7baaca7a865c504baf7a69b7e66c042f21eda64b
+      VALUES((SELECT id FROM users WHERE username = $2), $3, $1)
+      ON CONFLICT (id_user, card_name)
+      DO UPDATE SET quantity = (SELECT quantity FROM card_inventory WHERE id_user = (SELECT id FROM users WHERE username = $2) AND card_name = $3) + $1;
     `;
     query.values = [req.body.quantity, req.query.username, req.body.card_name];
 
     await db.query(query);
 
     res.status(200).send({ message: `Token update successful for user: ${req.query.username}.` });
-    // To do: Create a POST endpoint that creates a row in card_inventory if the user doens't have the specified card already.
   } else {
     res.status(500).send({ message: 'This endpoint only accepts POST/PUT requests.' });
   }

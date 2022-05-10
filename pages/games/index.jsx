@@ -47,7 +47,7 @@ const style = {
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9,
-    marginTop:'30'
+    marginTop: '30'
   }
 };
 
@@ -62,12 +62,12 @@ function GameStore() {
   const [game, setGame] = useState({});
 
   const context = useAppContext();
-  const {tokens} = useAppContext();
+  const { tokens } = useAppContext();
 
 
   const handleOpen = (e) => {
     setOpen(true);
-    let gameObj = games.filter( game => {
+    let gameObj = games.filter(game => {
       return game.title === e.target.name
     })
     setGame(gameObj[0])
@@ -84,7 +84,7 @@ function GameStore() {
   };
 
   const handleDecrament = () => {
-    gameCount <= 1 ? setGameCount(1) : setGameCount(prev=>prev - 1);
+    gameCount <= 1 ? setGameCount(1) : setGameCount(prev => prev - 1);
     setTotal(game.price * gameCount)
   }
 
@@ -195,52 +195,52 @@ function GameStore() {
                   </ul>
                 </CardContent>
 
-                  <CardActions>
+                <CardActions>
 
-                    <Button onClick={handleOpen} fullWidth variant={game.buttonVariant} name={game.title}>{game.buttonText}</Button>
+                  <Button onClick={handleOpen} fullWidth variant={game.buttonVariant} name={game.title}>{game.buttonText}</Button>
 
-                    <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style}>
-                        <div style={style.iconSpacing}>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                      <div style={style.iconSpacing}>
 
-                          <IconButton
-                            onClick={handleDecrament}>
-                            <RemoveIcon style={style.largeIcon}/>
-                          </IconButton>
-                          <span style={{fontSize: '50px'}}>{gameCount}</span>
-                          <IconButton
-                            onClick={handleIncrement}>
-                            <AddIcon style={style.largeIcon}/>
-                          </IconButton>
-                        </div>
+                        <IconButton
+                          onClick={handleDecrament}>
+                          <RemoveIcon style={style.largeIcon} />
+                        </IconButton>
+                        <span style={{ fontSize: '50px' }}>{gameCount}</span>
+                        <IconButton
+                          onClick={handleIncrement}>
+                          <AddIcon style={style.largeIcon} />
+                        </IconButton>
+                      </div>
 
-                        <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
-                          # of {gameTitle} cards
-                        </Typography>
+                      <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
+                        # of {gameTitle} cards
+                      </Typography>
 
-                        <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
-                          {total} PTS
-                        </Typography>
+                      <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
+                        {total} PTS
+                      </Typography>
 
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                          {/* Description placement. */}
-                        </Typography>
+                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        {/* Description placement. */}
+                      </Typography>
 
 
-                        <Link href="/play/">
-                          <Button fullWidth variant="contained" onClick={handlePurchaseAndPlay}>Purchase and play</Button>
-                        </Link>
-                        <Button fullWidth variant="outlined" onClick={handleAddToWallet}>Add games to wallet</Button>
+                      <Link href="/play/">
+                        <Button fullWidth variant="contained" onClick={handlePurchaseAndPlay}>Purchase and play</Button>
+                      </Link>
+                      <Button fullWidth variant="outlined" onClick={handleAddToWallet}>Add games to wallet</Button>
 
-                      </Box>
-                    </Modal>
+                    </Box>
+                  </Modal>
 
-                  </CardActions>
+                </CardActions>
               </Card>
             </Grid>
           ))}
