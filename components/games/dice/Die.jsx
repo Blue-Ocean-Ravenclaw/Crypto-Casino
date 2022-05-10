@@ -6,27 +6,11 @@ import { ScratchOff } from "@sky790312/react-scratch-off";
 import { BsFillDice1Fill, BsFillDice2Fill, BsFillDice3Fill, BsFillDice4Fill, BsFillDice5Fill, BsFillDice6Fill } from 'react-icons/bs';
 
 export default function Die ({roll, addCount, diceArr}) {
-  const [reveal, setReveal] = useState(false);
   const [counter, setCounter] = useState(0);
 
   useEffect(() => { //Reset to hidden on render
-    setReveal(false);
     setCounter((prev) => prev + 1);
   }, [diceArr]);
-
-  useEffect(() => {
-    if (reveal) {
-      addCount();
-    }
-  }, [reveal]);
-
-  function revealDie () {
-    setReveal((prev) => !prev ? true : prev);
-  }
-
-  const handleReveal = () => {
-    console.log('Reveal!')
-  }
 
   const diceIcons = [
     <BsFillDice1Fill size={75} color={'#2A1E32'}/>,
@@ -50,7 +34,7 @@ export default function Die ({roll, addCount, diceArr}) {
           key={counter}
           width={100}
           height={100}
-          handleReveal={() => handleReveal()}
+          handleReveal={addCount}
           coverImgSrc={
             "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/1200px-Square_gray.svg.png"
           }
