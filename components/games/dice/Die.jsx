@@ -19,12 +19,12 @@ export default function Die ({roll, addCount, diceArr}) {
   }
 
   const diceIcons = [
-    <BsFillDice1Fill size={40}/>,
-    <BsFillDice2Fill size={40}/>,
-    <BsFillDice3Fill size={40}/>,
-    <BsFillDice4Fill size={40}/>,
-    <BsFillDice5Fill size={40}/>,
-    <BsFillDice6Fill size={40}/>
+    <BsFillDice1Fill size={40} color={'#2A1E32'}/>,
+    <BsFillDice2Fill size={40} color={'#2A1E32'}/>,
+    <BsFillDice3Fill size={40} color={'#2A1E32'}/>,
+    <BsFillDice4Fill size={40} color={'#2A1E32'}/>,
+    <BsFillDice5Fill size={40} color={'#2A1E32'}/>,
+    <BsFillDice6Fill size={40} color={'#2A1E32'}/>
   ];
 
   return (

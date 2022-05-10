@@ -38,15 +38,16 @@ export default function Games() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      height: 600,
-      margin: 1,
-      bgcolor: 'background.default',
+      height: 640,
+      margin: 2,
+      bgcolor: 'background.secondary',
+      borderRadius: 2,
     }}>
-      <CardHeader sx={{
+      {/* <CardHeader sx={{
         bgcolor: 'main.primary'
       }}
       title='High Roller'>
-      </CardHeader>
+      </CardHeader> */}
       <CardContent sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -55,10 +56,16 @@ export default function Games() {
         <Box sx={{
           display: 'flex'
         }}>
+<<<<<<< HEAD
           <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
           <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button>
           <Button variant="contained" onClick={() => dispatch({type: 'LadyLuck'})}>Lady Luck</Button>
         <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button>
+=======
+          {/* <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
+          <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button> */}
+        {/* <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button> */}
+>>>>>>> 5a8c6654e74408c15559ccd53e2659ab291dba29
         </Box>
         <GameCard
           game={gameState.game}
