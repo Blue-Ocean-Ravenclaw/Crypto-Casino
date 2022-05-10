@@ -64,17 +64,11 @@ export default function Checkout() {
           <Typography component="h2" variant="h1" align="center" sx={{mb: 2}}>
             Wallet
           </Typography>
-
           <WalletForm />
-
-
           <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
             <Button variant="contained" sx={{ my: 3, ml: 1 }} >Buy Points!</Button>
           </Box>
         </Paper>
-
-
-
       </Container>
   );
 }
