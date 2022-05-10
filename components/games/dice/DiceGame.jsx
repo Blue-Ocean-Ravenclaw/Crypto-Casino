@@ -54,6 +54,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
       flexDirection: 'column',
       alignItems: 'center'
     }}>
+      <Dice diceArr={diceState.diceArr} />
       {plays > 0
       ? <Button
           sx={{
@@ -64,7 +65,6 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
             Roll The dice
         </Button>
       : 'Buy More!'}
-      <Dice diceArr={diceState.diceArr} />
     </Box>
   );
 }
