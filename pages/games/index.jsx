@@ -48,7 +48,7 @@ const style = {
     height: 0,
     paddingTop: '56.25%', // 16:9,
     marginTop:'30'
-  }
+  },
 };
 
 
@@ -93,11 +93,8 @@ function GameStore() {
     setTotal(game.price * gameCount)
   }
 
-  const handlePurchaseAndPlay = () => {
-    handleClose()
-  }
+  const handlePurchase = () => {
 
-  const handleAddToWallet = () => {
     if (total > tokens) {
       console.log('YOU BROKE')
     } else {
@@ -134,21 +131,24 @@ function GameStore() {
         <Typography variant="h5" align="center" color="text.primary" component="p">
           Get to winning with our current list of premium games. "The house always wins" doesn't apply here - see the odds for each game below! Feeling lucky?
         </Typography>
+
+        <Typography variant="h5" align="center" color="text.primary" component="p" sx={{ marginTop: 4}}>
+          You have {tokens} tokens to spend!
+        </Typography>
       </Container>
 
 
-      <Container maxWidth="md" component="main">
+      <Container maxWidth="md" sx={{mb: 15}}>
         <Grid container spacing={6} alignItems="flex-end">
           {games.map((game) => (
-            // Enterprise card is full width at sm breakpoint
             <Grid
               item
               key={game.title}
               xs={12}
-              sm={game.title === 'Enterprise' ? 12 : 6}
+              sm={6}
               md={4}
             >
-              <Card>
+              <Card >
                 <CardHeader
                   title={game.title}
                   subheader={game.subheader}
@@ -162,6 +162,7 @@ function GameStore() {
                       theme.palette.mode === 'light'
                         ? theme.palette.grey[200]
                         : theme.palette.grey[700],
+
                   }}
                 />
                 <CardContent>
@@ -172,13 +173,14 @@ function GameStore() {
                       alignItems: 'baseline',
                       mb: 4,
                       mt: 2,
+
                     }}
                   >
                     <Typography component="h2" variant="h3" color="text.primary">
                       {game.price}
                     </Typography>
                     <Typography variant="h6" color="text.secondary">
-                      points
+                      tokens
                     </Typography>
                   </Box>
                   <ul>
@@ -224,7 +226,7 @@ function GameStore() {
                         </Typography>
 
                         <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
-                          {total} PTS
+                          {total} Tokens
                         </Typography>
 
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -233,9 +235,9 @@ function GameStore() {
 
 
                         <Link href="/play/">
-                          <Button fullWidth variant="contained" onClick={handlePurchaseAndPlay}>Purchase and play</Button>
+                          <Button fullWidth variant="contained" onClick={handlePurchase}>Purchase and play</Button>
                         </Link>
-                        <Button fullWidth variant="outlined" onClick={handleAddToWallet}>Add games to wallet</Button>
+                        <Button fullWidth variant="outlined" onClick={handlePurchase}>Add games to wallet</Button>
 
                       </Box>
                     </Modal>
