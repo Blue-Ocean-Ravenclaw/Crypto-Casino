@@ -7,14 +7,19 @@ import { BsFillDice1Fill, BsFillDice2Fill, BsFillDice3Fill, BsFillDice4Fill, BsF
 
 export default function Die ({roll, addCount, diceArr}) {
   const [reveal, setReveal] = useState(false);
+  const [counter, setCounter] = useState(0);
+
   useEffect(() => { //Reset to hidden on render
     setReveal(false);
+    setCounter((prev) => prev + 1);
   }, [diceArr]);
+
   useEffect(() => {
     if (reveal) {
       addCount();
     }
   }, [reveal]);
+
   function revealDie () {
     setReveal((prev) => !prev ? true : prev);
   }
@@ -42,7 +47,7 @@ export default function Die ({roll, addCount, diceArr}) {
     }}>
       {
         <ScratchOff
-          key={roll}
+          key={counter}
           width={100}
           height={100}
           handleReveal={() => handleReveal()}
