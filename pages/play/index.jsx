@@ -36,9 +36,10 @@ export default function Games() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      height: 600,
-      margin: 1,
-      bgcolor: 'background.default',
+      height: 640,
+      margin: 2,
+      bgcolor: 'background.secondary',
+      borderRadius: 2,
     }}>
       {/* <CardHeader sx={{
         bgcolor: 'main.primary'

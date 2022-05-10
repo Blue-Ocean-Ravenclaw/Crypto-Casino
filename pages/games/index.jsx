@@ -1,5 +1,8 @@
 import * as React from 'react';
-import {useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useAppContext } from '../../context/state.js';
+import axios from 'axios';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -9,11 +12,6 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import CardMedia from '@mui/material/CardMedia';
-import StarIcon from '@mui/icons-material/StarBorder';
-import CasinoIcon from '@mui/icons-material/Casino';
-import Filter3Icon from '@mui/icons-material/Filter3';
-import Filter7Icon from '@mui/icons-material/Filter7';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import IconButton from '@mui/material/IconButton';
@@ -23,6 +21,7 @@ import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
 import Modal from '@mui/material/Modal';
+import { games } from '../../context/games.js';
 
 
 const style = {
@@ -50,67 +49,20 @@ const style = {
     paddingTop: '56.25%', // 16:9,
     marginTop:'30'
   }
-
 };
 
 
-const games = [
-  {
-    title: "High Roller",
-    price: 10,
-    description: [
-      'Spin 3 dice',
-      'and win a',
-      'CUSTOM NFT',
-      'Ready to roll?',
-    ],
-    buttonText: 'BUY NOW',
-    buttonVariant: 'contained',
-    route: '/games/dice',
-    icon: <CasinoIcon />,
-  },
-  {
-    title: 'BINGO',
-    subheader: 'Most popular',
-    price: 20,
-    description: [
-      'Get 3 BINGO boards,',
-      'see if your numbers',
-      'are the lucky ones!',
-      'WIN BIG TODAY!',
-    ],
-    buttonText: 'BUY NOW',
-    buttonVariant: 'contained',
-    route: '/games/bingo',
-    icon: <Filter3Icon />
-  },
-  {
-    title: "Lucky 7's",
-    price: 15,
-    description: [
-      'Coming soon to',
-      'cRyPtOcAsInO',
-      'Scratch off to reveal',
-      'your big win!'
-    ],
-    buttonText: 'COMING SOON...',
-    buttonVariant: 'contained',
-    route: '/games/lucky7',
-    icon: <Filter7Icon/>
-  },
-];
 
-
-
-
-
-function PricingContent() {
+function GameStore() {
 
   const [open, setOpen] = useState(false);
   const [gameCount, setGameCount] = useState(1);
   const [gameTitle, setGameTitle] = useState('');
   const [total, setTotal] = useState(0);
   const [game, setGame] = useState({});
+
+  const context = useAppContext();
+  const {tokens} = useAppContext();
 
 
   const handleOpen = (e) => {
@@ -141,6 +93,25 @@ function PricingContent() {
     setTotal(game.price * gameCount)
   }
 
+  const handlePurchaseAndPlay = () => {
+    handleClose()
+  }
+
+  const handleAddToWallet = () => {
+    if (total > tokens) {
+      console.log('YOU BROKE')
+    } else {
+      axios.post(`/api/tokens/${context.username}`, { tokens: (total * -1) })
+        .then((res) => {
+          axios.put(`/api/cards/${context.username}`, { card_name: game.dbTitle, quantity: gameCount })
+            .then((res) => `${gameCount} Cards purchased`)
+            .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
+    }
+    handleClose();
+  }
+
   useEffect(() => {
     setTotal(game.price * gameCount)
   }, [gameCount])
@@ -149,15 +120,7 @@ function PricingContent() {
   return (
     <React.Fragment>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
-      <CssBaseline />
-      <AppBar
-        position="static"
-        color="default"
-        elevation={0}
-        sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
-      >
 
-      </AppBar>
       <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
         <Typography
           component="h1"
@@ -261,21 +224,23 @@ function PricingContent() {
                         </Typography>
 
                         <Typography id={game.title} variant="h6" component="h2" style={style.iconSpacing}>
-                          Total {total}
+                          {total} PTS
                         </Typography>
 
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                           {/* Description placement. */}
                         </Typography>
 
-                        <Button fullWidth variant="contained">Purchase and play</Button>
-                        <Button fullWidth variant="outlined">Add games to wallet</Button>
+
+                        <Link href="/play/">
+                          <Button fullWidth variant="contained" onClick={handlePurchaseAndPlay}>Purchase and play</Button>
+                        </Link>
+                        <Button fullWidth variant="outlined" onClick={handleAddToWallet}>Add games to wallet</Button>
 
                       </Box>
                     </Modal>
 
                   </CardActions>
-                {/* </Link> */}
               </Card>
             </Grid>
           ))}
@@ -285,7 +250,6 @@ function PricingContent() {
   );
 }
 
-export default function Pricing() {
-  return <PricingContent />;
+export default function Games() {
+  return <GameStore />;
 }
-
