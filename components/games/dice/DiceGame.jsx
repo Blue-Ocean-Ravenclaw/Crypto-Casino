@@ -10,15 +10,16 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
     diceArr: [],
     rolling: false,
     prize: '',
-    resultModal: false
+    revealed: false
   }
+
   function reducer (state, action) { //Controls the Game State
     switch (action.type) {
       case 'roll':
         let game = generateDiceGame();
         let newDice = game.board;
         let newPrize = game.prize;
-        return {...state, diceArr: newDice, prize: newPrize};
+        return {...state, diceArr: newDice, prize: newPrize, revealed: false};
       case 'serverRoll':
         return {...state, rolling: true};
       case 'serverRolled':
@@ -26,13 +27,16 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
       case 'out':
         return {...state, rolling: false, diceArr: []};
       case 'toggleModal':
-        let modal = !state.resultModal
-        return {...state, resultModal: modal};
+        let modal = !state.revealed
+        return {...state, revealed: modal};
+      case 'revealed':
+        return {...state, revealed: true};
       default:
         return {...state, rolling: false, diceArr: []};
     }
   }
   const [diceState, dispatch] = useReducer(reducer, initialState);
+  const reveal = useCallback(() => dispatch({type: 'revealed'}), []);
 
   useEffect(() => { //When plays variable decreases, roll the dice
     if (playing) { //Prevents roll on initial load
@@ -63,6 +67,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
       flexDirection: 'column',
       alignItems: 'center'
     }}>
+      <Dice diceArr={diceState.diceArr} reveal={reveal} />
       {plays > 0
       ? <Button
           sx={{
@@ -75,7 +80,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
       : 'Buy More!'}
       <Dice diceArr={diceState.diceArr} />
       <Modal
-        open = {diceState.resultModal}
+        open = {diceState.revealed}
         onClose ={toggleModal}
       >
         <Box>
