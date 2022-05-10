@@ -14,10 +14,9 @@ export default function SequenceNumber ({sequences, num}) {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 38,
-    width: 38,
+    height: 40,
+    width: 40,
     backgroundColor: 'gold',
-    borderRadius: 2,
     position: 'absolute',
     zIndex: 2
   };
@@ -25,12 +24,10 @@ export default function SequenceNumber ({sequences, num}) {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 40,
-    width: 40,
+    height: 42,
+    width: 42,
     border: '1px solid gray',
-    borderColor: "secondary.main",
-    borderRadius: 2,
-    margin: 1
+    borderColor: "secondary.main"
   };
 
   return (

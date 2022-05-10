@@ -16,7 +16,7 @@ export default function GameCard ({game, plays, playGame, playing}) {
   return (
     <div className='game-card'>
       <div className='game-card-top'>
-        <button onClick={() => setLuck((prev) => !prev)}>{luck ? 'win' : 'lose'}</button>
+        {/* <button onClick={() => setLuck((prev) => !prev)}>{luck ? 'win' : 'lose'}</button> */}
       </div>
       <div className='game-card-bottom'>
         <Game

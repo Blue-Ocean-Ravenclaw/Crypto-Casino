@@ -40,11 +40,11 @@ export default function Games() {
       margin: 1,
       bgcolor: 'background.default',
     }}>
-      <CardHeader sx={{
+      {/* <CardHeader sx={{
         bgcolor: 'main.primary'
       }}
       title='High Roller'>
-      </CardHeader>
+      </CardHeader> */}
       <CardContent sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -53,9 +53,9 @@ export default function Games() {
         <Box sx={{
           display: 'flex'
         }}>
-          <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
-          <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button>
-        <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button>
+          {/* <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
+          <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button> */}
+        {/* <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button> */}
         </Box>
         <GameCard
           game={gameState.game}

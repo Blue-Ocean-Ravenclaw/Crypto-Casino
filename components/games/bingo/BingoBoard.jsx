@@ -13,10 +13,8 @@ export default function BingoBoard ({board}) {
 
   const boardStyle = {
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: 300,
-    height: 300
+    justifyContent: 'center',
+    alignItems: 'center'
   };
 
   return (

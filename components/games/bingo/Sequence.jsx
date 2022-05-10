@@ -4,7 +4,7 @@ import SequenceNumber from './SequenceNumber.jsx';
 export default function Sequence ({sequences, sequence}) {
   const sequenceStyle = {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center'
   };
 
