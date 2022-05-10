@@ -14,8 +14,8 @@ const containerStyle = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  height: 60,
-  width: 60,
+  height: 30,
+  width: 30,
   border: '1px solid gray',
   borderColor: "secondary.main"
 };

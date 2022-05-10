@@ -6,6 +6,7 @@ import {useState, useReducer, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Sequence from './Sequence.jsx';
+import { ScratchOff } from "@sky790312/react-scratch-off";
 
 //TODO: Make bingo numbers light up when you reveal their sequence number
 //TODO: Bingo! pop up when you hit a bingo
@@ -47,7 +48,29 @@ export default function Bingo({plays, luck, playGame, playing}) {
           }}>
           <Sequence sequences={sequences}/>
         </Box>
-        <BingoBoard board={board} />
+        {/* {board && board.length > 0 && <ScratchOff
+          key={plays}
+          width={150}
+          height={150}
+          coverImgSrc={
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/1200px-Square_gray.svg.png"
+          }
+          revealPercentage={80}
+        > */}
+        <Box sx={{
+          display: 'flex',
+          flexFlow: 'row wrap',
+          justifyContent: 'space-between',
+          alignItems: 'space-between',
+          width: 320,
+          height: 320
+        }}>
+          <BingoBoard board={board} />
+          <BingoBoard board={board} />
+          <BingoBoard board={board} />
+          <BingoBoard board={board} />
+        </Box>
+        {/* </ScratchOff>} */}
     </Box>
   );
 }
