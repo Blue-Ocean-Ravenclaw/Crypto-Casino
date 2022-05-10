@@ -29,9 +29,11 @@ export default function LadyLuck({plays, luck, playGame, playing}) {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      gap: '10px'
     }}>
       <Button variant='contained' onClick={playGame}>New Game</Button>
+      <h3>Lady Luck</h3>
       <Box sx={{
         display: 'flex',
         flexDirection: 'row',
