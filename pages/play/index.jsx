@@ -56,16 +56,10 @@ export default function Games() {
         <Box sx={{
           display: 'flex'
         }}>
-<<<<<<< HEAD
           <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
           <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button>
           <Button variant="contained" onClick={() => dispatch({type: 'LadyLuck'})}>Lady Luck</Button>
         <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button>
-=======
-          {/* <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
-          <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button> */}
-        {/* <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button> */}
->>>>>>> 5a8c6654e74408c15559ccd53e2659ab291dba29
         </Box>
         <GameCard
           game={gameState.game}
