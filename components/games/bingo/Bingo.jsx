@@ -1,7 +1,5 @@
 import {
-  getBoard,
-  generateNumberSequence,
-  checkWinner,
+  generateBingoGame
 } from "../../../lib/bingo.js";
 import BingoBoard from './BingoBoard.jsx';
 import {useState, useReducer, useEffect} from 'react';
@@ -15,14 +13,18 @@ import Sequence from './Sequence.jsx';
 export default function Bingo({plays, luck, playGame, playing}) {
   const [board, setBoard] = useState([]);
   const [sequences, setSequences] = useState([]);
+  const [outcome, setOutcome] = useState({});
 
   useEffect(() => {
     if (playing) {
-      let newBoard = getBoard();
-      let newSequences = generateNumberSequence();
-      newBoard[2][2] = 'Free';
-      setBoard(newBoard);
+      const game = generateBingoGame();
+      //game = object, game.boards; game.sequence; game.outcomes.
+      const boards = game.boards;
+      let newSequences = game.sequence;
+      let outcomes = game.outcomes;
+      setBoard(boards[0]);
       setSequences(newSequences);
+      setOutcome(outcomes[0]);
     }
   }, [plays]);
 
@@ -43,7 +45,7 @@ export default function Bingo({plays, luck, playGame, playing}) {
             flexDirection: 'row',
             margin: 1
           }}>
-          {sequences.map((sequence, i) => <Sequence key={i} sequences={sequences} sequence={sequence} />)}
+          <Sequence sequences={sequences}/>
         </Box>
         <BingoBoard board={board} />
     </Box>
