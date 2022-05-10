@@ -26,11 +26,13 @@ function Navigation() {
       bottom: 10,
       left: 10,
       right: 10,
+      borderRadius: 2,
      }}
       elevation={6}>
       <BottomNavigation
         sx = {{
-          bgcolor: 'background.default',
+          bgcolor: 'secondary.main',
+          borderRadius: 2
         }}
         value={value}
         onChange={(event, newValue) => {
@@ -40,28 +42,28 @@ function Navigation() {
         <BottomNavigationAction
           label="User"
           value="user"
-          icon={<PersonIcon color={value === 'user' ? 'primary' : 'secondary'}/>}
+          icon={<PersonIcon color={value === 'user' ? 'primary' : 'tertiary'}/>}
           onClick={() => onLink('/user')}
         />
 
         <BottomNavigationAction
           label="Wallet"
           value="wallet"
-          icon={<AccountBalanceWalletIcon color={value === 'wallet' ? 'primary' : 'secondary'}/>}
+          icon={<AccountBalanceWalletIcon color={value === 'wallet' ? 'primary' : 'tertiary'}/>}
           onClick={() => onLink('/wallet')}
         />
 
         <BottomNavigationAction
           label="Games"
           value="games"
-          icon={<GamesIcon color={value === 'games' ? 'primary' : 'secondary'}/>}
+          icon={<GamesIcon color={value === 'games' ? 'primary' : 'tertiary'}/>}
           onClick={() => onLink('/games')}
         />
 
         <BottomNavigationAction
           label="Play"
           value="play"
-          icon={<CasinoIcon color={value === 'play' ? 'primary' : 'secondary'}/>}
+          icon={<CasinoIcon color={value === 'play' ? 'primary' : 'tertiary'}/>}
           onClick={() => onLink('/play')}
         />
       </BottomNavigation>
