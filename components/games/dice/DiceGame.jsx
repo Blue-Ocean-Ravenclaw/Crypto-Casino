@@ -82,6 +82,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
           <h1>{diceState.prize}</h1>
         </Box>
       </Modal>
+      <Button onClick = {toggleModal}>Toggle Prize</Button>
     </Box>
   );
 }
