@@ -191,7 +191,7 @@ export default function Games() {
               width: 360,
               height: 175,
             }}
-            // onClick={() => onLink("/play/instructions")}
+            onClick={() => onLink("/play/instructions")}
           />
         </CardContent>
       </Card>
