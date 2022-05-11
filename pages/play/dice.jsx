@@ -38,7 +38,7 @@ export default function Bingo () {
         flexDirection: 'column',
         alignItems: 'center',
         position: 'absolute',
-        height: 580,
+        height: 700,
         width: 360,
         marginTop: 1,
         bgcolor: 'background.secondary',
@@ -52,14 +52,14 @@ export default function Bingo () {
         }}>
           <CardMedia
             component="img"
-            image='https://i.ibb.co/2vvm31Q/High-Roller.png'
+            image='https://i.ibb.co/2KmHtpS/High-Roller.png'
             sx={{
               position: 'absolute',
               left: 0,
               right: 0,
               top: 0,
               width: 360,
-              height: 580,
+              height: 700,
             }}
           />
           <GameCard
