@@ -48,7 +48,7 @@ export default function Bingo({plays, luck, playGame, playing}) {
     const prizeMessages = {
       'grandPrize': {
         header: 'GRAND PRIZE!!',
-        message: "You've won the wildest prize in the west - an NFT!!!!"
+        message: "YIPEE KI-YAY! You've won the wildest prize in the west - an NFT!!!!"
       },
       'secondPrize': {
         header: "SECOND PRIZE!",
@@ -56,7 +56,7 @@ export default function Bingo({plays, luck, playGame, playing}) {
       },
       'thirdPrize': {
         header: 'THIRD PRIZE!',
-        message: "I'll be, a double bingo! You've won 5x your tokens back!"
+        message: "Well I'll be, a double bingo! You've won 5x your tokens back!"
       },
       'fourthPrize' : {
         header: 'FOURTH PRIZE!',
