@@ -42,18 +42,26 @@ export default function LadyLuck({plays, luck, playGame, playing}) {
       justifyContent: 'space-between',
       alignItems: 'center',
       flexDirection: 'column',
-      gap: '10px'
+      gap: '10px',
+      marginTop: 20
     }}>
-      <Button variant='contained' onClick={playGame}>New Game</Button>
-      <h3>Lady Luck</h3>
-      <Box sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        {playerNums.map((num, i) => <LLPlayerNum key = {i} playerNums = {playerNums} num = {num} reveal={reveal} />)}
-      </Box>
+      <Button
+        sx={{
+          bgcolor: 'ladyLuck.main'
+        }}
+        variant='contained'
+        onClick={playGame}>
+          New Game
+      </Button>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: 5,
+        }}>
+          {playerNums.map((num, i) => <LLPlayerNum key = {i} playerNums = {playerNums} num = {num} reveal={reveal} />)}
+        </Box>
       <LLBoard board={board} reveal={reveal} />
     </Box>
   );

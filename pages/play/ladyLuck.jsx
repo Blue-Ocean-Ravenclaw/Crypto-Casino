@@ -3,6 +3,7 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import GameCard from '../../components/games/GameCard.jsx';
@@ -26,32 +27,47 @@ export default function Games() {
   const playGame = useCallback(() => dispatch({type: 'play'}), []);
 
   return (
-    <Card sx={{
+    <Box sx={{
       display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      height: 640,
-      margin: 2,
-      bgcolor: 'background.secondary',
-      borderRadius: 2,
+      justifyContent: 'center',
+      height: 800
     }}>
-      {/* <CardHeader sx={{
-        bgcolor: 'main.primary'
-      }}
-      title='High Roller'>
-      </CardHeader> */}
-      <CardContent sx={{
+      <Card sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        alignItems: 'center',
+        position: 'absolute',
+        height: 700,
+        width: 360,
+        margin: 1,
+        bgcolor: 'background.secondary',
+        borderRadius: 2,
       }}>
-        <GameCard
-          game={gameState.game}
-          plays={gameState.plays}
-          playGame={playGame}
-          playing={gameState.playing}
-        />
-      </CardContent>
-    </Card>
+        <CardContent sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
+        }}>
+          <CardMedia
+            component="img"
+            image='https://i.ibb.co/tzDv0GF/Lucky-Lucy.png'
+            sx={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              width: 360,
+              height: 700,
+            }}
+          />
+          <GameCard
+            game={gameState.game}
+            plays={gameState.plays}
+            playGame={playGame}
+            playing={gameState.playing}
+          />
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
