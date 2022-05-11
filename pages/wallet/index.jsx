@@ -114,8 +114,6 @@ function Checkout() {
             <Button variant="contained" sx={{ my: 3, ml: 1 }} onClick={handleOpen}>Buy Points!</Button>
           </Box>
 
-
-
         <Modal
           open={open}
           onClose={handleClose}
@@ -207,17 +205,9 @@ function Checkout() {
           <Button fullWidth variant="outlined" onClick={()=>setView(0)}>Back</Button>
         </Box >
         }
-
-
-
-
-        </Modal>
-
-
-        </Paper>
-
-
-      </Container>
+      </Modal>
+      </Paper>
+     </Container>
   );
 }
 
