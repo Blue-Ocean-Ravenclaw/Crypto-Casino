@@ -72,15 +72,15 @@ export default function Bingo({plays, luck, playGame, playing}) {
       },
       'secondPrize': {
         header: "SECOND PRIZE!",
-        message: "When it comes to catching bingos, you're the baddest cowboy West of the Mississippi! You've won 10x your tokens back!"
+        message: "When it comes to catching bingos, you're the baddest cowboy West of the Mississippi! You've won 200 tokens!"
       },
       'thirdPrize': {
         header: 'THIRD PRIZE!',
-        message: "Well I'll be, a double bingo! You've won 5x your tokens back!"
+        message: "Well I'll be, a double bingo! You've won 100 tokens!"
       },
       'fourthPrize' : {
         header: 'FOURTH PRIZE!',
-        message: "Giddy up, partner- you lassoed a bingo!"
+        message: "Giddy up, partner- you lassoed a bingo! You've won 40 tokens!"
       },
       'loser': {
         header: 'Aw, shucks!',
