@@ -68,6 +68,7 @@ export default function Bingo({plays, luck, playGame, playing}) {
           onClick={playGame}>
             New Board
         </Button>
+
     </Box>
   );
 }
