@@ -1,3 +1,7 @@
+-- run below command in terminal
+-- psql -h localhost -d dbName -f relativeFilePath
+-- change filepath for all FROM to be yours
+
 --create db
 DROP DATABASE blueocean;
 CREATE DATABASE blueocean;
@@ -45,7 +49,6 @@ CREATE TABLE nfts (
 );
 
 COPY nfts(id, id_user, description, external_url, image, name, value)
-
 FROM '/Users/austinchapin/Desktop/HackReactor/Senior Phase/BlueOcean/luckylucy/fakeData/nfts.csv'
 DELIMITER ','
 CSV HEADER;
