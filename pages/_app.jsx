@@ -28,6 +28,13 @@ const theme = createTheme({
       main: "#CE1556",
       secondary: "#024884",
     },
+    bingo: {
+      main: "#FFF",
+    },
+    ladyLuck: {
+      main: "#EF3F32",
+      secondary: "#FDC536"
+    }
   },
 });
 
