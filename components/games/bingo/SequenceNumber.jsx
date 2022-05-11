@@ -26,7 +26,8 @@ export default function SequenceNumber ({sequences, num, reveal}) {
     height: 42,
     width: 42,
     border: '1px solid gray',
-    borderColor: "secondary.main"
+    borderColor: "secondary.main",
+    color: 'white'
   };
 
   return (

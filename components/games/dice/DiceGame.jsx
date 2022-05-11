@@ -71,7 +71,16 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
           variant="contained">
             Roll The dice
         </Button>
-      : 'Buy More!'}
+      : <Button
+        sx={{
+          width: 200,
+          color: '#fff'
+        }}
+        // onClick={playGame}
+        color="dice"
+        variant="contained">
+          Buy more cards
+      </Button>}
     </Box>
   );
 }
