@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
-import { realConfetti } from '../../../lib/confetti.js'
+import { realConfetti, fireWorksConfetti } from '../../../lib/confetti.js'
 
 export default function DiceGame({ plays, luck, playGame, playing }) {
   const initialState = {
@@ -116,8 +116,8 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
       <Box sx={prizeStyle}>
         <h1>{header}</h1>
         <p>{message}</p>
-        { diceState.revealed && realConfetti(confetti) }
-
+        { diceState.revealed && realConfetti(confetti)}
+        { diceState.revealed && fireWorksConfetti(confetti)}
       </Box>
     );
   }
