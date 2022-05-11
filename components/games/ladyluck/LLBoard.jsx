@@ -3,11 +3,10 @@ import Box from '@mui/material/Box';
 import {useState, useEffect, useCallback} from 'react';
 
 //TODO: Reveal State Matrix
-export default function LLBoard ({board}) {
-
+export default function LLBoard ({board, reveal}) {
   function renderBoard (row, i) {
     return (
-      <LLBoardRow key={i} board={board} row={row} />
+      <LLBoardRow key={i} board={board} row={row} reveal={reveal} />
     );
   }
 

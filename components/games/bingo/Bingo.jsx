@@ -36,18 +36,18 @@ export default function Bingo({plays, luck, playGame, playing}) {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      marginTop: 14
     }}>
-        <Button variant='contained' onClick={playGame}>New Board</Button>
         <Box sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            width: 420,
-            flexDirection: 'row',
-            margin: 1
-          }}>
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          width: 420,
+          flexDirection: 'row',
+          margin: 1
+        }}>
           <Sequence sequences={sequences} setRevealed={setRevealed} />
         </Box>
         <Box sx={{
@@ -60,6 +60,14 @@ export default function Bingo({plays, luck, playGame, playing}) {
         }}>
           {boards.map((board, i) => <BingoBoard key={i} board={board} />)}
         </Box>
+        <Button
+          sx={{
+            marginTop: 1
+          }}
+          variant='contained'
+          onClick={playGame}>
+            New Board
+        </Button>
     </Box>
   );
 }
