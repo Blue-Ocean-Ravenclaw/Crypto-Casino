@@ -25,12 +25,14 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
-    "socket.io": "^4.5.0",
-    "socket.io-client": "^4.5.0",
     "react-material-ui-carousel": "^3.3.3",
-    "react-verification-code-input": "^1.2.9"
+    "react-verification-code-input": "^1.2.9",
+    "socket.io": "^4.5.0",
+    "socket.io-client": "^4.5.0"
   },
   "devDependencies": {
+    "@openzeppelin/contracts": "^4.6.0",
+    "truffle": "^5.5.13",
     "webpack": "^5.72.0"
   }
 }
