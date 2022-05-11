@@ -113,9 +113,7 @@ function GameStore() {
 
   return (
     <React.Fragment>
-      {console.log(context)}
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
-
       <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
         <Typography
           component="h1"
