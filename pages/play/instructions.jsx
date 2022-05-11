@@ -10,7 +10,7 @@ const instructions = () => {
         <ol>
           <li>Begin by clicking the roll dice button.</li>
           <li>
-            Scratch off the three (3) containers to reveal your dice rolls
+            Scratch off the three (3) containers to reveal your dice rolls.
           </li>
           <li>
             If your numbers match a corresponding way to win then you will be
