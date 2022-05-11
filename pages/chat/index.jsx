@@ -31,7 +31,6 @@ const Home = () => {
     await fetch("/api/socket");
     socket = io();
     socket.on("connect", () => {
-      // console.log(socket.id);
       setUserId(socket.id);
     });
 
@@ -85,7 +84,6 @@ const Home = () => {
                 display: "flex",
                 justifyContent: "flex-end",
                 flexDirection: "row",
-                pr: 3,
               }}
             >
               <Box
@@ -118,7 +116,6 @@ const Home = () => {
                 display: "flex",
                 justifyContent: "flex-start",
                 flexDirection: "row",
-                pl: 3,
               }}
             >
               <Typography
@@ -157,15 +154,14 @@ const Home = () => {
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          padding: 2,
           fontSize: "1rem",
         }}
       >
         <h1>Chat Room</h1>
         <div
           style={{
-            width: "375px",
-            height: "420px",
+            width: "85vw",
+            height: "70vh",
             overflow: "scroll",
           }}
         >
@@ -177,7 +173,7 @@ const Home = () => {
           <form onSubmit={handleSubmit}>
             <input
               style={{
-                width: "320px",
+                width: "80vw",
               }}
               placeholder="Start chatting"
               value={msg}
@@ -190,6 +186,9 @@ const Home = () => {
         ) : (
           <form onSubmit={handleUsername}>
             <input
+              style={{
+                width: "50vw",
+              }}
               placeholder="Enter your name"
               value={username}
               onChange={onChangeHandlerUserName}
