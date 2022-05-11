@@ -5,17 +5,17 @@
 
 ## truffle(develop)> commands
 
-# deploy our NFT to our development blockchain
+### deploy our NFT to our development blockchain
 - migrate
 
-# use our deployed contract
+### use our deployed contract
 - nft = await ERC721PresetMinterPauserAutoId.deployed()
 
-# interact with our Token
+### interact with our Token
 - await nft.name()
 - await nft.symbol()
 
-# mint
+### mint
 - minting abridged: If you are using an account with a minter role, you can send a transaction ot mint tokens to a specified account
 - in this development case, we are minting from the account that deployed to token (minter role)
 - await nft.mint("[truffle development account]")
