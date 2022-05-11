@@ -1,12 +1,11 @@
 import DiceGame from './dice/DiceGame.jsx';
 import Bingo from './bingo/Bingo.jsx';
-import LadyLuck from './ladyluck/LadyLuck.jsx';
+import Box from '@mui/material/Box';
 import {useState} from 'react';
 
 const GameComponents = Object.freeze({
   Dice: DiceGame,
-  Bingo: Bingo,
-  LadyLuck: LadyLuck
+  Bingo: Bingo
 });
 
 export default function GameCard ({game, plays, playGame, playing}) {
@@ -16,18 +15,15 @@ export default function GameCard ({game, plays, playGame, playing}) {
   const [prize, setPrize] = useState(null);
 
   return (
-    <div className='game-card'>
-      <div className='game-card-top'>
-        {/* <button onClick={() => setLuck((prev) => !prev)}>{luck ? 'win' : 'lose'}</button> */}
-      </div>
-      <div className='game-card-bottom'>
-        <Game
-          plays={plays}
-          luck={luck}
-          playGame={playGame}
-          playing={playing}
-        />
-      </div>
-    </div>
+    <Box sx={{
+      zIndex: 1
+    }}>
+      <Game
+        plays={plays}
+        luck={luck}
+        playGame={playGame}
+        playing={playing}
+      />
+    </Box>
   );
 }

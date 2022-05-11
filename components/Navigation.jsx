@@ -37,12 +37,14 @@ function Navigation() {
       left: 10,
       right: 10,
       borderRadius: 2,
+      zIndex: 10
      }}
       elevation={6}>
       <BottomNavigation
         sx = {{
           bgcolor: 'tertiary.main',
-          borderRadius: 2
+          borderRadius: 2,
+          zIndex: 10,
         }}
         value={value}
         onChange={(event, newValue) => {
