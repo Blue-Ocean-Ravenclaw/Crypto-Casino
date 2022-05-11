@@ -3,10 +3,13 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import GameCard from '../../components/games/GameCard.jsx';
+import Image from 'next/image';
 import {useState, useCallback, useReducer} from 'react';
+import HighRoller from '../../components/games/dice/HighRoller.png';
 
 export default function Bingo () {
   const initialState = {
@@ -26,32 +29,47 @@ export default function Bingo () {
   const playGame = useCallback(() => dispatch({type: 'play'}), []);
 
   return (
-    <Card sx={{
+    <Box sx={{
       display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      height: 570,
-      margin: 2,
-      bgcolor: 'background.secondary',
-      borderRadius: 2,
+      justifyContent: 'center',
     }}>
-      {/* <CardHeader sx={{
-        bgcolor: 'main.primary'
-      }}
-      title='High Roller'>
-      </CardHeader> */}
-      <CardContent sx={{
+      <Card sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        alignItems: 'center',
+        position: 'absolute',
+        height: 700,
+        width: 360,
+        marginTop: 1,
+        bgcolor: 'background.secondary',
+        borderRadius: 2,
       }}>
-        <GameCard
-          game={gameState.game}
-          plays={gameState.plays}
-          playGame={playGame}
-          playing={gameState.playing}
-        />
-      </CardContent>
-    </Card>
+        <CardContent sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          paddingTop: 0,
+        }}>
+          <CardMedia
+            component="img"
+            image='https://i.ibb.co/2KmHtpS/High-Roller.png'
+            sx={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              width: 360,
+              height: 700,
+            }}
+          />
+          <GameCard
+            game={gameState.game}
+            plays={gameState.plays}
+            playGame={playGame}
+            playing={gameState.playing}
+          />
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
