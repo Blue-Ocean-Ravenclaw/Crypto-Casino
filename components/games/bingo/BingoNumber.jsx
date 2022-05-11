@@ -17,5 +17,6 @@ const containerStyle = {
   height: 30,
   width: 30,
   border: '1px solid gray',
-  borderColor: "secondary.main"
+  borderColor: "secondary.main",
+  color: 'white',
 };
