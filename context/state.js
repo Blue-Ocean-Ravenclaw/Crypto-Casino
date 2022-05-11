@@ -13,6 +13,7 @@ export function AppWrapper({ children }) {
 
   useEffect(() => {
     axios.get(`/api/userpage/${currentUser && currentUser.email}`)
+    // axios.get(`/api/userpage/varun@varun.com`)
       .then((res) => setResults(res.data))
       .catch((err) => console.log(err));
   }, [])
