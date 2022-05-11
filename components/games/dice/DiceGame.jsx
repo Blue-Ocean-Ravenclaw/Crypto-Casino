@@ -7,7 +7,7 @@ import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
 import { realConfetti } from '../../../lib/confetti.js'
 
-export default function DiceGame({ plays, luck, playGame, playing }) {
+export default function DiceGame({ plays, playGame, playing }) {
   const initialState = {
     //Initial Game State
     diceArr: [],

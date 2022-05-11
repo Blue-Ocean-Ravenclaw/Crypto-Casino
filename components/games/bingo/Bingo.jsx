@@ -13,7 +13,7 @@ import axios from 'axios';
 //TODO: Make bingo numbers light up when you reveal their sequence number
 //TODO: Bingo! pop up when you hit a bingo
 //TODO: Prizes
-export default function Bingo({plays, luck, playGame, playing}) {
+export default function Bingo({plays, playGame, playing}) {
   const [boards, setBoards] = useState([]);
   const [sequences, setSequences] = useState([]);
   const [outcomes, setOutcomes] = useState([]);

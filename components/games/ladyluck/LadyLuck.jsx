@@ -15,7 +15,7 @@ const processBoard = (array) => {
   ];
 };
 
-export default function LadyLuck({ plays, luck, playGame, playing }) {
+export default function LadyLuck({ plays, playGame, playing }) {
   const [board, setBoard] = useState([]);
   const [playerNums, setPlayerNums] = useState([]);
   const [outcomes, setOutcomes] = useState({});
