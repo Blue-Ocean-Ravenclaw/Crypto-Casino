@@ -158,7 +158,7 @@ export default function Bingo({plays, luck, playGame, playing}) {
           }}
           variant='contained'
           onClick={playGame}>
-            P
+            Play Again!
         </Button>
         </Modal>
     </Box>
