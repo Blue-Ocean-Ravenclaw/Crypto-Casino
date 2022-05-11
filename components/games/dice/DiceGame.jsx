@@ -3,6 +3,7 @@ import {generateDiceGame} from '../../../lib/dice.js';
 import Dice from './Dice.jsx';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 
 export default function DiceGame ({plays, luck, playGame, playing}) {
   const initialState = { //Initial Game State
@@ -25,6 +26,9 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
         return {...state, rolling: false, diceArr: action.payload};
       case 'out':
         return {...state, rolling: false, diceArr: []};
+      case 'toggleModal':
+        let newReveal = !state.revealed
+        return {...state, revealed: newReveal};
       case 'revealed':
         return {...state, revealed: true};
       default:
@@ -53,6 +57,51 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
   //   }
   // }, [diceState.rolling]);
 
+  const toggleModal = useCallback(() => {
+    dispatch({type: 'toggleModal'});
+  }, []);
+
+  function displayPrize () {
+    if (diceState.prize === 'grandPrize') {
+      return (
+        <Box>
+          <h1> GRAND PRIZE!!!! </h1>
+        </Box>
+      );
+    }
+    if (diceState.prize === 'secondPrize') {
+      return (
+        <Box >
+          <h1> Second prize! </h1>
+          <p> Bringing the HEAT! You've won 10x your tokens back!</p>
+        </Box>
+      );
+    }
+    if (diceState.prize === 'thirdPrize') {
+      return (
+        <Box>
+          <h1> Third prize!!!</h1>
+          <p> Lucky you! You've won 5x your tokens back!</p>
+        </Box>
+      );
+    }
+    if (diceState.prize === 'fourthPrize') {
+      return (
+        <Box>
+          <h1> Fourth prize!! </h1>
+          <p> Not bad, high roller! You've won your tokens back!</p>
+        </Box>
+      );
+    }
+    if (diceState.prize === 'loser') {
+      return (
+        <Box>
+          <h1> Not this time- roll again!! </h1>
+        </Box>
+      );
+    }
+  }
+
   return (
     <Box sx={{
       display: 'flex',
@@ -70,6 +119,28 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
             Roll The dice
         </Button>
       : 'Buy More!'}
+      <Dice diceArr={diceState.diceArr} />
+      <Modal
+        open = {diceState.revealed}
+        onClose ={toggleModal}
+        sx = {{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <Box sx = {{
+          display: 'flex',
+          backgroundColor: 'white',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 400,
+          height: 500
+        }}>
+          { displayPrize() }
+        </Box>
+      </Modal>
+      <Button onClick = {toggleModal}>Toggle Prize</Button>
     </Box>
   );
 }
