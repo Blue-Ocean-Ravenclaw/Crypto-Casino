@@ -1,13 +1,11 @@
 import Box from '@mui/material/Box';
 import {useState, useEffect} from 'react';
+import { ScratchOff } from "@sky790312/react-scratch-off";
 
-export default function BoardNumber ({board, num}) {
-  const [revealed, setRevealed] = useState(false);
-  function revealNum () {
-    setRevealed((prev) => !prev ? true : prev);
-  }
-  useEffect(() => {
-    setRevealed(false);
+export default function BoardNumber ({board, num, reveal}) {
+  const [counter, setCounter] = useState(0);
+  useEffect(() => { //Reset to hidden on render
+    setCounter((prev) => prev + 1);
   }, [board]);
 
   const hideStyle = {
@@ -35,8 +33,16 @@ export default function BoardNumber ({board, num}) {
 
   return (
     <Box className='ll-board-number' sx={containerStyle}>
-      {!revealed ? <Box className='ll-board-hide' sx={hideStyle} onClick={revealNum} /> : null}
-      {num}
+      <ScratchOff
+          key={counter}
+          width={40}
+          height={40}
+          handleReveal={reveal}
+          coverImgSrc={
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/1200px-Square_gray.svg.png"
+          }
+          revealPercentage={80}
+        >{num}</ScratchOff>
     </Box>
   )
 }

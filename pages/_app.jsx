@@ -22,8 +22,12 @@ const theme = createTheme({
       main: "#594044",
     },
     tertiary: {
-      main: "#755956"
-    }
+      main: "#755956",
+    },
+    dice: {
+      main: "#CE1556",
+      secondary: "#024884",
+    },
   },
 });
 

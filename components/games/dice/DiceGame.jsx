@@ -3,6 +3,7 @@ import {generateDiceGame} from '../../../lib/dice.js';
 import Dice from './Dice.jsx';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 
 export default function DiceGame ({plays, luck, playGame, playing}) {
   const initialState = { //Initial Game State
@@ -20,11 +21,14 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
         let newPrize = game.prize;
         return {...state, diceArr: newDice, prize: newPrize, revealed: false};
       case 'serverRoll':
-        return {...state, rolling: true};
+        return {...state, diceArr: action.payload.board, prize: action.payload.prize, revealed: false};
       case 'serverRolled':
         return {...state, rolling: false, diceArr: action.payload};
       case 'out':
         return {...state, rolling: false, diceArr: []};
+      case 'toggleModal':
+        let newReveal = !state.revealed
+        return {...state, revealed: newReveal};
       case 'revealed':
         return {...state, revealed: true};
       default:
@@ -40,18 +44,60 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
     }
   }, [plays]);
 
-  // useEffect(() => {
-  //   if (diceState.rolling) {
-  //     axios.get('https://localhost:3000/games/rolldice')
-  //     .then((res) => {
-  //       dispatch({type: 'rolled', payload: res.data});
-  //     })
-  //     .catch((err)=> {
-  //       console.error(err);
-  //       dispatch({type: 'out'});
-  //     });
-  //   }
-  // }, [diceState.rolling]);
+  function playDice ()  {
+    axios.get(`https://localhost:3001/play/dice/roll?user_id=${1}`)
+     .then((res) => {
+       dispatch({type: 'serverRoll', payload: res.data.game})
+     })
+     .catch((err) => {
+       dispatch({type: 'out'});
+     });
+ }
+
+  const toggleModal = useCallback(() => {
+    dispatch({type: 'toggleModal'});
+  }, []);
+
+  function displayPrize () {
+    if (diceState.prize === 'grandPrize') {
+      return (
+        <Box>
+          <h1> GRAND PRIZE!!!! </h1>
+        </Box>
+      );
+    }
+    if (diceState.prize === 'secondPrize') {
+      return (
+        <Box >
+          <h1> Second prize! </h1>
+          <p> Bringing the HEAT! You've won 10x your tokens back!</p>
+        </Box>
+      );
+    }
+    if (diceState.prize === 'thirdPrize') {
+      return (
+        <Box>
+          <h1> Third prize!!!</h1>
+          <p> Lucky you! You've won 5x your tokens back!</p>
+        </Box>
+      );
+    }
+    if (diceState.prize === 'fourthPrize') {
+      return (
+        <Box>
+          <h1> Fourth prize!! </h1>
+          <p> Not bad, high roller! You've won your tokens back!</p>
+        </Box>
+      );
+    }
+    if (diceState.prize === 'loser') {
+      return (
+        <Box>
+          <h1> Not this time- roll again!! </h1>
+        </Box>
+      );
+    }
+  }
 
   return (
     <Box sx={{
@@ -63,13 +109,46 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
       {plays > 0
       ? <Button
           sx={{
-            width: 200
+            width: 200,
+            color: '#fff'
           }}
           onClick={playGame}
+          color="dice"
           variant="contained">
             Roll The dice
         </Button>
-      : 'Buy More!'}
+      : <Button
+        sx={{
+          width: 200,
+          color: '#fff'
+        }}
+        // onClick={playGame}
+        color="dice"
+        variant="contained">
+          Buy more cards
+      </Button>}
+      <Dice diceArr={diceState.diceArr} />
+      <Modal
+        open = {diceState.revealed}
+        onClose ={toggleModal}
+        sx = {{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <Box sx = {{
+          display: 'flex',
+          backgroundColor: 'white',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 400,
+          height: 500
+        }}>
+          { displayPrize() }
+        </Box>
+      </Modal>
+      <Button onClick = {toggleModal}>Toggle Prize</Button>
     </Box>
   );
 }
