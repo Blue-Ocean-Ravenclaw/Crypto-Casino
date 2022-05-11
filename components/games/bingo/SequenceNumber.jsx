@@ -2,18 +2,12 @@ import Box from '@mui/material/Box';
 import {useState, useEffect} from 'react';
 import { ScratchOff } from "@sky790312/react-scratch-off";
 
-export default function SequenceNumber ({sequences, num}) {
-  const [revealed, setRevealed] = useState(false);
-  function revealNum () {
-    setRevealed((prev) => !prev ? true : prev);
-  }
-  useEffect(() => {
-    setRevealed(false);
-  }, [sequences]);
+export default function SequenceNumber ({sequences, num, reveal}) {
+  const [counter, setCounter] = useState(0);
 
-  const handleReveal = () => {
-    return;
-  }
+  useEffect(() => {
+    setCounter((prev) => prev + 1);
+  }, [sequences])
 
   const hideStyle = {
     display: 'flex',
@@ -36,27 +30,32 @@ export default function SequenceNumber ({sequences, num}) {
   };
 
   return (
-    <Box className='sequence-number'>
-          {num && <ScratchOff
-          key={num}
-          width={30}
-          height={30}
-          handleReveal={() => handleReveal()}
-          coverImgSrc={
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/1200px-Square_gray.svg.png"
-          }
-          revealPercentage={80}
-        >
-        <Box sx={{
+    <Box className='sequence-number' sx={containerStyle}>
+      <Box className='scratchoff' sx={{
+        width: 40,
+        height: 40,
+        position: 'absolute',
+        zIndex: 2
+      }}>
+        <ScratchOff
+            key={counter}
+            width={40}
+            height={40}
+            handleReveal={reveal}
+            coverImgSrc={
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/1200px-Square_gray.svg.png"
+            }
+            revealPercentage={80}
+          />
+      </Box>
+
+      <Box sx={{
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
-          height: 30
+          alignItems: 'center'
         }}>
           {num}
         </Box>
-      </ScratchOff>}
-      {/* {!revealed ? <Box className='bingo-hide' sx={hideStyle} onClick={revealNum} /> : null} */}
     </Box>
   )
 }
