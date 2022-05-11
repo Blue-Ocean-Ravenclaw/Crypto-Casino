@@ -93,7 +93,7 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
         message: "Luck is in the air! You've won 5x your tokens back!"
       },
       'thirds' : {
-        header: 'YOU GOT IT',
+        header: 'YOU WON!',
         message: "Nicely done! You've won your tokens back!"
       },
       'loser': {
