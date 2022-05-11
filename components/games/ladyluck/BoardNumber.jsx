@@ -23,10 +23,8 @@ export default function BoardNumber ({board, num, reveal}) {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 40,
-    width: 40,
-    border: '1px solid gray',
-    borderColor: "secondary.main",
+    height: 50,
+    width: 50,
     borderRadius: 2,
     margin: 1
   };
@@ -35,14 +33,34 @@ export default function BoardNumber ({board, num, reveal}) {
     <Box className='ll-board-number' sx={containerStyle}>
       <ScratchOff
           key={counter}
-          width={40}
-          height={40}
+          width={50}
+          height={50}
           handleReveal={reveal}
           coverImgSrc={
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/1200px-Square_gray.svg.png"
+            "https://i.ibb.co/ChbMg6H/Horseshoe.png"
           }
           revealPercentage={80}
-        >{num}</ScratchOff>
+        >
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 50
+          }}>
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 40,
+              width: 40,
+              borderRadius: '50%',
+              bgcolor: 'ladyLuck.secondary',
+              color: 'black'
+            }}>
+              {num}
+            </Box>
+          </Box>
+        </ScratchOff>
     </Box>
   )
 }

@@ -15,6 +15,8 @@ export default function Dice ({diceArr, reveal}) {
     }
   }, [counter]);
 
+
+
   return (
     <Box sx={{
       display: 'flex',
