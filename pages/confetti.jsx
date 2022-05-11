@@ -1,4 +1,4 @@
-import { realConfetti, fireWorksConfetti } from "../components/confetti.jsx";
+import { realConfetti, fireWorksConfetti } from "../lib/confetti.js";
 export default function Confetti() {
   // realConfetti(false);
   fireWorksConfetti(true);
