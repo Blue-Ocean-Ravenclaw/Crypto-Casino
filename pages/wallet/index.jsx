@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect, useContext } from 'react';
+import { useAppContext } from '../../context/state.js';
+
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -19,6 +21,8 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
+import axios from 'axios';
+
 
 
 const style = {
@@ -58,6 +62,9 @@ function Checkout() {
   const [tokens, setTokens] = useState(40);
   const [view, setView] = useState(0);
 
+  const context = useAppContext();
+  const { username } = useAppContext();
+
 
   const handleOpen = (e) => {
     setOpen(true);
@@ -80,7 +87,11 @@ function Checkout() {
   }
 
   const handlePurchase = () => {
-    handleClose()
+    handleClose();
+
+    axios.post(`/api/tokens/${username}`, {tokens: tokens})
+      .then(results => console.log('success'))
+      .catch(errorn=> console.log(('No tokens inserted')))
   }
 
   useEffect(() => {
@@ -90,6 +101,7 @@ function Checkout() {
   return (
 
       <Container maxWidth="md" sx={{ mb: 10, }}>
+        {console.log(context)}
         <Paper variant="outlined" sx={{ my: { xs: 4, md: 6 },
                                          p: { xs: 3, md: 3 },
                                          borderRadius: '2vh',
