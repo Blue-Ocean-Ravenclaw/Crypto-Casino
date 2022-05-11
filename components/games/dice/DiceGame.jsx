@@ -77,6 +77,10 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
   }, []);
 
   function displayPrize() {
+    if (diceState.revealed && diceState.prize === 'grandPrize' ) {
+      realConfetti(true);
+      fireWorksConfetti(true);
+    }
     const prizeStyle = {
       display: "flex",
       flexDirection: "column",
@@ -87,37 +91,30 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
     const prizeMessages = {
       'grandPrize': {
         header: 'GRAND PRIZE',
-        message: "You hit the jackpot- AN NFT!!!",
-        confetti: true
+        message: "You hit the jackpot- an NFT!!!",
       },
       secondPrize: {
         header: "SECOND PRIZE!",
-        message: "Bring the heat! You've won 10x your tokens back!",
-        confetti: false,
+        message: "Bring the heat! You've won 100 tokens!",
       },
       thirdPrize: {
         header: "THIRD PRIZE!",
-        message: "Lucky you! You've won 5x your tokens back!",
-        confetti: false
+        message: "Lucky you! You've won 50 tokens!",
       },
       fourthPrize: {
         header: "FOURTH PRIZE",
         message: "Not bad, High Roller! You've won your tokens back!",
-        confetti: false
       },
       loser: {
         header: "Not this time!",
         message: "Roll again!",
-        confetti: false
       },
     };
-    const { header, message, confetti } = prizeMessages[diceState.prize];
+    const { header, message } = prizeMessages[diceState.prize];
     return (
       <Box sx={prizeStyle}>
         <h1>{header}</h1>
         <p>{message}</p>
-        { diceState.revealed && realConfetti(confetti)}
-        { diceState.revealed && fireWorksConfetti(confetti)}
       </Box>
     );
   }
