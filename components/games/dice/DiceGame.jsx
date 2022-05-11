@@ -61,17 +61,6 @@ export default function DiceGame({ plays, playGame, playing }) {
     }
   }, [plays]);
 
-  function playDice() {
-    axios
-      .get(`https://localhost:3001/play/dice/roll?user_id=${1}`)
-      .then((res) => {
-        dispatch({ type: "serverRoll", payload: res.data.game });
-      })
-      .catch((err) => {
-        dispatch({ type: "out" });
-      });
-  }
-
   const toggleModal = useCallback(() => {
     dispatch({ type: "toggleModal" });
   }, []);

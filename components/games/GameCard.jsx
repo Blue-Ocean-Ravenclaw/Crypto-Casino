@@ -18,7 +18,7 @@ export default function GameCard ({game, plays, playGame, playing}) {
   const [prize, setPrize] = useState(null);
 
   const newGame = useCallback(() => {
-    return axios.get(`/api/play?username=${username}&game=${game}`);
+    return axios.get(`/api/play/${username}/?card_name=${game}`);
   }, [game, username]);
 
   return (
