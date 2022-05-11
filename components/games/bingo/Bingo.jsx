@@ -152,14 +152,14 @@ export default function Bingo({plays, luck, playGame, playing}) {
           }}>
             { prize.length ? displayPrize() : null}
           </Box>
-          <Button
+          {/* <Button
           sx={{
             marginTop: 1
           }}
           variant='contained'
           onClick={playGame}>
             Play Again!
-        </Button>
+        </Button> */}
         </Modal>
     </Box>
   );
