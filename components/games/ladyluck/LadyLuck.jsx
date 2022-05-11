@@ -44,6 +44,25 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
     }
   }, [plays]);
 
+  function playLadyLuck() {
+    axios
+      .get(`/play/ladyLuck/roll?user_id=${1}`)
+      .then((res) => {
+        setBoard(processBoard(res.data.game.board));
+        setPlayerNums(res.data.game.playerNums);
+        setOutcomes(res.data.game.winDistribution);
+        setRevealed(false);
+        setCounter(0);
+      })
+      .catch((res) => {
+        setBoard([]);
+        setPlayerNums([]);
+        setOutcomes({});
+        setRevealed(false);
+        setCounter(0);
+      });
+  }
+
   return (
     <Box
       sx={{
