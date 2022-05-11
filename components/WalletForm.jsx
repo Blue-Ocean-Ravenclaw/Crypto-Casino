@@ -49,7 +49,6 @@ export default function WalletForm() {
 
       <List style={{ backgroundColor: '	#F5F5F5', padding: '20px', borderRadius: '2vh' }}>
         <Typography variant="h3" align="center" sx={{ mt: 2 }}>Cards</Typography>
-
         {card_inventory ? card_inventory.map((product) => (
           <ListItem key={product.card_name}
             sx={{
@@ -59,15 +58,10 @@ export default function WalletForm() {
               borderBottom: '2px solid black',
               m: 2,
             }}>
-
-            <Typography sx={{ fontSize: '2vh' }}
-            >{product.card_name.toUpperCase()}
-            </Typography>
-
+            <Typography sx={{ fontSize: '2vh' }}>{product.card_name.toUpperCase()}</Typography>
             <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>{product.quantity}</Typography>
           </ListItem>
         )) : null}
-
         <ListItem sx={{ pt: 5, pb: 2, display: 'flex', justifyContent: 'center' }}>
           <Typography sx={{ fontSize: { xs: '2.5vh', md: '3vh' } }}>TOKENS in your wallet: {tokens}</Typography>
         </ListItem>

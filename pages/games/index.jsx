@@ -64,7 +64,6 @@ function GameStore() {
   const context = useAppContext();
   const { tokens } = useAppContext();
 
-
   const handleOpen = (e) => {
     setOpen(true);
     let gameObj = games.filter(game => {
@@ -74,7 +73,6 @@ function GameStore() {
     setGameTitle(e.target.name);
     setTotal(gameObj[0].price)
   }
-
 
   const handleClose = () => {
     setOpen(false);
@@ -94,7 +92,6 @@ function GameStore() {
   }
 
   const handlePurchase = () => {
-
     if (total > tokens) {
       console.log('YOU BROKE')
     } else {
