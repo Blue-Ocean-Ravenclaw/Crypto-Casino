@@ -1,3 +1,6 @@
-const MyPromise = require("some-promise-lib");
-const confetti = require("canvas-confetti");
-confetti.Promise = MyPromise;
+import { realConfetti, fireWorksConfetti } from "../components/confetti.jsx";
+export default function Confetti() {
+  realConfetti(false);
+  // fireWorksConfetti(true);
+  return <div>confetti</div>;
+}
