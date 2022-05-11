@@ -9,7 +9,7 @@ import { Paper, Grid } from '@mui/material'
 export default function User() {
   const router = useRouter();
   const { currentUser } = useAuth();
-  const { username } = useAppContext();
+  const { username, tokens } = useAppContext();
   // const { } = useAppContext();
 
   const onLink = (href) => {
@@ -38,7 +38,8 @@ export default function User() {
 
   return (
     <div>
-      <span>{username} Tokens: {currentUser.token}</span>
+      <span>{username} </span>
+      {/* <span>Tokens: {tokens}</span> */}
       <Grid container direction='column' justifyContent="space-around" alignItems='center'>
         <Carousel sx={{ width: .8 }} navButtonsAlwaysVisible={true}>
           {
@@ -66,7 +67,7 @@ function Item(props) {
   return (
     <Paper height='200'>
       <Grid container justifyContent='center'>
-        < img src={props.item.image} width='auto' height='175' onClick={() => onLink('/play')}></img>
+        < img src={props.item.image} width='auto' height='175'></img>
       </Grid >
     </Paper>
   )
