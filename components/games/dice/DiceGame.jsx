@@ -62,45 +62,44 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
   }, []);
 
   function displayPrize () {
-    if (diceState.prize === 'grandPrize') {
-      return (
-        <Box>
-          <h1> GRAND PRIZE!!!! </h1>
-        </Box>
-      );
-    }
-    if (diceState.prize === 'secondPrize') {
-      return (
-        <Box >
-          <h1> Second prize! </h1>
-          <p> Bringing the HEAT! You've won 10x your tokens back!</p>
-        </Box>
-      );
-    }
-    if (diceState.prize === 'thirdPrize') {
-      return (
-        <Box>
-          <h1> Third prize!!!</h1>
-          <p> Lucky you! You've won 5x your tokens back!</p>
-        </Box>
-      );
-    }
-    if (diceState.prize === 'fourthPrize') {
-      return (
-        <Box>
-          <h1> Fourth prize!! </h1>
-          <p> Not bad, high roller! You've won your tokens back!</p>
-        </Box>
-      );
-    }
-    if (diceState.prize === 'loser') {
-      return (
-        <Box>
-          <h1> Not this time- roll again!! </h1>
-        </Box>
-      );
-    }
-  }
+    const prizeStyle = {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: '2px'
+
+    };
+    const prizeMessages = {
+      'grandPrize': {
+        header: 'GRAND PRIZE',
+        message: "You've won the biggest house prize- AN NFT!!!"
+      },
+      'secondPrize': {
+        header: "SECOND PRIZE!",
+        message: "Bring the heat! You've won 10x your tokens back!"
+      },
+      'thirdPrize': {
+        header: "THIRD PRIZE!",
+        message: "Lucky you! You've won 5x your tokens back!"
+      },
+      'fourthPrize': {
+        header: "FOURTH PRIZE",
+        message: "Not bad, High Roller! You've won your tokens back!"
+      },
+      'loser': {
+        header: 'Not this time!',
+        message: 'Roll again!'
+      }
+    };
+    const { header, message }= prizeMessages[diceState.prize];
+    return (
+      <Box sx = {prizeStyle}>
+        <h1>{header}</h1>
+        <p>{message}</p>
+      </Box>
+    );
+  };
 
   return (
     <Box sx={{
@@ -148,10 +147,9 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
           width: 400,
           height: 500
         }}>
-          { displayPrize() }
+          { diceState.prize.length ? displayPrize() : null}
         </Box>
       </Modal>
-      <Button onClick = {toggleModal}>Toggle Prize</Button>
     </Box>
   );
 }
