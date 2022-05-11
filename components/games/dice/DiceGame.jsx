@@ -86,7 +86,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
       },
       'loser': {
         header: 'Not this time!',
-        message: 'Roll again!'
+        message: `Best not to end the night on a loss!`
       }
     };
     const { header, message }= prizeMessages[diceState.prize];
@@ -141,10 +141,32 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
           backgroundColor: 'white',
           alignItems: 'center',
           justifyContent: 'center',
+          flexDirection: 'column',
           width: 400,
           height: 500
         }}>
           { diceState.prize.length ? displayPrize() : null}
+              {plays > 0
+          ? <Button
+              sx={{
+                width: 200,
+                color: '#fff'
+              }}
+              onClick={playGame}
+              color="dice"
+              variant="contained">
+                Roll Again!
+            </Button>
+          : <Button
+            sx={{
+              width: 200,
+              color: '#fff'
+            }}
+            // onClick={playGame}
+            color="dice"
+            variant="contained">
+              Buy more cards
+          </Button>}
         </Box>
       </Modal>
     </Box>
