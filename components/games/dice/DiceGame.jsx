@@ -70,7 +70,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
     const prizeMessages = {
       'grandPrize': {
         header: 'GRAND PRIZE',
-        message: "You've won the biggest house prize- AN NFT!!!"
+        message: "You hit the jackpot- AN NFT!!!"
       },
       'secondPrize': {
         header: "SECOND PRIZE!",
