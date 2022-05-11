@@ -38,14 +38,81 @@ const instructions = () => {
               <li> Two (2) matching numbers i.e. '2', '2': 4th Prize</li>
             </ul>
           </div>
-          <div className="dice-prize-structure"></div>
-          <h2> Prize Structure</h2>
-          <ul>
-            <li>Grand Prize: NFT</li>
-            <li>2nd Prize: 100 Tokens</li>
-            <li>3rd Prize: TBD</li>
-            <li>4th Prize: TBD</li>
-          </ul>
+        </div>
+        <div className="dice-prize-structure"></div>
+        <h2> Prize Structure</h2>
+        <ul>
+          <li>Grand Prize: NFT</li>
+          <li>2nd Prize: 150 Tokens</li>
+          <li>3rd Prize: 120 Tokens</li>
+          <li>4th Prize: 10 Tokens</li>
+        </ul>
+        <h2> Odds: Two in Five Plays Wins A Prize!</h2>
+
+        <div className="bingo-instructions">
+          <h2> Wild West Bingo </h2>
+          <h1>How To Play: </h1>
+          <ol>
+            <li>Begin by clicking the new card button.</li>
+            <li>
+              Scratch off the calling card numbers at the top of game card. As
+              you reveal the numbers, the cards with a corresponding match will
+              highlight. If you form a horizontal, vertical or diagonal line you
+              have won!
+            </li>
+            <li>
+              Check the prize structure for more information on what you win for
+              each bingo line(s).
+            </li>
+          </ol>
+          <div className="winning-numbers">
+            <h2> Winning Combinations</h2>
+            <ul>
+              <li>
+                {" "}
+                Form an 'X' on the bingo board. (Two Diagonal Lines): Grand
+                Prize
+              </li>
+              <li> Three (3) or more formed lines: Second Prize</li>
+              <li>Two (2) lines formed: 3rd Prize</li>
+              <li> One (1) line formed: 4th Prize</li>
+            </ul>
+          </div>
+          <div className="bingo-prize-structure">
+            <h2> Prize Structure</h2>
+            <ul>
+              <li>Grand Prize: NFT</li>
+              <li>2nd Prize: 200 Tokens</li>
+              <li>3rd Prize: 100 Tokens</li>
+              <li>4th Prize: 40 Tokens</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="lucky-lucy-instructions">
+          <h2> Lucky Lucy </h2>
+          <h1>How To Play: </h1>
+          <ol>
+            <li>Begin by clicking the new card button.</li>
+            <li>
+              Scratch off the players numbers that are covered by four-leaf
+              clovers.
+            </li>
+            <li>
+              Scratch off the card numbers covered by horseshoes and see if any
+              of your player numbers match!
+            </li>
+          </ol>
+          <div className="bingo-prize-structure">
+            <h2> Prize Structure</h2>
+            <ul>
+              <li>Grand Prize: NFT</li>
+              <li>2nd Prize: 500 Tokens</li>
+              <li>3rd Prize: 250 Tokens</li>
+              <li>4th Prize: 125 Tokens</li>
+              <li>5th Prize: 25 Tokens</li>
+            </ul>
+          </div>
         </div>
       </div>
     </Box>
