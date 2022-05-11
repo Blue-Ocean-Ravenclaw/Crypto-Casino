@@ -9,6 +9,7 @@ import Sequence from './Sequence.jsx';
 import { ScratchOff } from "@sky790312/react-scratch-off";
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
+import { realConfetti, fireWorksConfetti } from '../../../lib/confetti.js';
 
 //TODO: Make bingo numbers light up when you reveal their sequence number
 //TODO: Bingo! pop up when you hit a bingo
@@ -57,6 +58,10 @@ export default function Bingo({plays, luck, playGame, playing}) {
   }
 
   const displayPrize = () => {
+    if (revealed && prize !== 'loser') {
+      realConfetti(true);
+      fireWorksConfetti(prize === 'grandPrize');
+    }
     const prizeStyle = {
       display: 'flex',
       flexDirection: 'column',
