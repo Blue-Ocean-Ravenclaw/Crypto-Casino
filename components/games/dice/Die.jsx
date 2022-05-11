@@ -13,12 +13,12 @@ export default function Die ({roll, addCount, diceArr}) {
   }, [diceArr]);
 
   const diceIcons = [
-    <BsFillDice1Fill size={75} color={'#2A1E32'}/>,
-    <BsFillDice2Fill size={75} color={'#2A1E32'}/>,
-    <BsFillDice3Fill size={75} color={'#2A1E32'}/>,
-    <BsFillDice4Fill size={75} color={'#2A1E32'}/>,
-    <BsFillDice5Fill size={75} color={'#2A1E32'}/>,
-    <BsFillDice6Fill size={75} color={'#2A1E32'}/>
+    <BsFillDice1Fill size={75} color={'#FFF'}/>,
+    <BsFillDice2Fill size={75} color={'#FFF'}/>,
+    <BsFillDice3Fill size={75} color={'#FFF'}/>,
+    <BsFillDice4Fill size={75} color={'#FFF'}/>,
+    <BsFillDice5Fill size={75} color={'#FFF'}/>,
+    <BsFillDice6Fill size={75} color={'#FFF'}/>
   ];
 
   return (
@@ -36,7 +36,7 @@ export default function Die ({roll, addCount, diceArr}) {
           height={100}
           handleReveal={addCount}
           coverImgSrc={
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/1200px-Square_gray.svg.png"
+            "https://i.ibb.co/mBGP6rB/Dice-Scratch-Off.png"
           }
           revealPercentage={80}
         >
@@ -47,8 +47,6 @@ export default function Die ({roll, addCount, diceArr}) {
               alignItems: 'center',
               height: 100,
               width: 100,
-              border: '1px solid gray',
-              borderColor: "secondary.main",
             }}>
             {diceIcons[roll - 1]}
           </Box>

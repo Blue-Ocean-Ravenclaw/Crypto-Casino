@@ -37,6 +37,7 @@ export default function Bingo () {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        position: 'absolute',
         height: 580,
         width: 360,
         marginTop: 1,
@@ -51,12 +52,12 @@ export default function Bingo () {
         }}>
           <CardMedia
             component="img"
-            image='https://i.ibb.co/NY3GPm9/High-Roller.png'
+            image='https://i.ibb.co/2vvm31Q/High-Roller.png'
             sx={{
               position: 'absolute',
-              left: 8,
-              right: 8,
-              top: 8,
+              left: 0,
+              right: 0,
+              top: 0,
               width: 360,
               height: 580,
             }}

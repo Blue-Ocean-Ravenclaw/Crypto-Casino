@@ -63,9 +63,11 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
       {plays > 0
       ? <Button
           sx={{
-            width: 200
+            width: 200,
+            color: '#fff'
           }}
           onClick={playGame}
+          color="dice"
           variant="contained">
             Roll The dice
         </Button>

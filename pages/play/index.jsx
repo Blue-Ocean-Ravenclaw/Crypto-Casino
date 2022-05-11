@@ -44,11 +44,6 @@ export default function Games() {
       bgcolor: 'background.secondary',
       borderRadius: 2,
     }}>
-      {/* <CardHeader sx={{
-        bgcolor: 'main.primary'
-      }}
-      title='High Roller'>
-      </CardHeader> */}
       <CardContent sx={{
         display: 'flex',
         flexDirection: 'column',

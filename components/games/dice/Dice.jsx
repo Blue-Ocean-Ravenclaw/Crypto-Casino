@@ -22,7 +22,7 @@ export default function Dice ({diceArr, reveal}) {
       justifyContent: 'space-between',
       alignItems: 'center',
       height: 350,
-      marginTop: 15,
+      marginTop: 18,
       marginBottom: 3
     }}>
       {diceArr.map((roll, i) => <Die key={i} roll={roll} addCount={addCount} diceArr={diceArr} />)}
