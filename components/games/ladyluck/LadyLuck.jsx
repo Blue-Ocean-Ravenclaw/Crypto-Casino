@@ -15,6 +15,7 @@ export default function LadyLuck({plays, luck, playGame, playing}) {
   const [outcomes, setOutcomes] = useState({});
   const [revealed, setRevealed] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [prize, setPrize] = useState('');
   const reveal = useCallback(() => setCounter((prev) => {
     if (prev < 24) {
       return prev + 1;
@@ -30,6 +31,7 @@ export default function LadyLuck({plays, luck, playGame, playing}) {
       setBoard(processBoard(game.board));
       setPlayerNums(game.playerNums);
       setOutcomes(game.winDistribution);
+      setPrize(game.prize);
       setRevealed(false);
       setCounter(0);
     }
