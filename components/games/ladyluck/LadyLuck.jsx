@@ -82,15 +82,15 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
       },
       'doubleSeconds': {
         header: "SECOND PRIZE - AND MORE!",
-        message: "Hoooo-eee, we've got a winner! You've won 20x your tokens back!"
+        message: "Hoooo-eee, we've got a winner! You've won 300 tokens!"
       },
       'doubleThirds': {
         header: 'DOUBLE THE LUCK, DOUBLE THE FUN!',
-        message: "No kidding - you scored a double win! You've won 10x your tokens back!"
+        message: "No kidding - you scored a double win! You've won 150 tokens!"
       },
       'second' : {
         header: 'YOU WON!',
-        message: "Luck is in the air! You've won 5x your tokens back!"
+        message: "Luck is in the air! You've won 75 tokens!"
       },
       'third' : {
         header: 'YOU WON!',
