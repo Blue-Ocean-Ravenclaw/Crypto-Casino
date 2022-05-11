@@ -77,6 +77,7 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
   }, []);
 
   function displayPrize() {
+
     const prizeStyle = {
       display: "flex",
       flexDirection: "column",
