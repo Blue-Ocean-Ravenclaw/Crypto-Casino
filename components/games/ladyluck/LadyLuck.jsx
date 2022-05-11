@@ -20,17 +20,6 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
   const [outcomes, setOutcomes] = useState({});
   const [revealed, setRevealed] = useState(false);
   const [counter, setCounter] = useState(0);
-<<<<<<< HEAD
-  const [prize, setPrize] = useState('');
-  const reveal = useCallback(() => setCounter((prev) => {
-    if (prev < 24) {
-      return prev + 1;
-    } else {
-      setRevealed(true);
-      return prev;
-    }
-  }), []);
-=======
   const reveal = useCallback(
     () =>
       setCounter((prev) => {
@@ -43,7 +32,6 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
       }),
     []
   );
->>>>>>> a47b78b15ee413f465f154576e412b391956c9a7
 
   useEffect(() => {
     if (playing) {
