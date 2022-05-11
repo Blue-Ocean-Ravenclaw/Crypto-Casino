@@ -16,7 +16,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
   function reducer (state, action) { //Controls the Game State
     switch (action.type) {
       case 'roll':
-        let game = generateDiceGame();
+        let game = generateDiceGame(winner = true);
         let newDice = game.board;
         let newPrize = game.prize;
         return {...state, diceArr: newDice, prize: newPrize, revealed: false};
