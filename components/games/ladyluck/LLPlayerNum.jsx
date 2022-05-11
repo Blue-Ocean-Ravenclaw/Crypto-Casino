@@ -1,13 +1,11 @@
 import Box from '@mui/material/Box';
 import {useState, useEffect} from 'react';
+import { ScratchOff } from "@sky790312/react-scratch-off";
 
-export default function LLPlayerNum ({playerNums, num}) {
-  const [revealed, setRevealed] = useState(false);
-  function revealNum () {
-    setRevealed((prev) => !prev ? true : prev);
-  }
+export default function LLPlayerNum ({playerNums, num, reveal}) {
+  const [counter, setCounter] = useState(0);
   useEffect(() => {
-    setRevealed(false);
+    setCounter((prev) => prev + 1);
   }, [playerNums]);
 
   const hideStyle = {
@@ -35,8 +33,16 @@ export default function LLPlayerNum ({playerNums, num}) {
 
   return (
     <Box className='ll-player-number' sx={containerStyle}>
-      {!revealed ? <Box className='ll-player-hide' sx={hideStyle} onClick={revealNum} /> : null}
-      {num}
+      <ScratchOff
+          key={counter}
+          width={40}
+          height={40}
+          handleReveal={reveal}
+          coverImgSrc={
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/1200px-Square_gray.svg.png"
+          }
+          revealPercentage={80}
+        >{num}</ScratchOff>
     </Box>
   )
 }
