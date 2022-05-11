@@ -36,7 +36,7 @@ export default function Die ({roll, addCount, diceArr}) {
           height={100}
           handleReveal={addCount}
           coverImgSrc={
-            "https://i.ibb.co/mBGP6rB/Dice-Scratch-Off.png"
+            "https://i.ibb.co/LxF2M0k/Dice-Scratch-Off.png"
           }
           revealPercentage={80}
         >
