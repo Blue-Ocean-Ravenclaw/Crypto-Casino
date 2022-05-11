@@ -20,7 +20,7 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
     //Controls the Game State
     switch (action.type) {
       case 'roll':
-        let game = generateDiceGame(true);
+        let game = generateDiceGame();
         let newDice = game.board;
         let newPrize = game.prize;
         return { ...state, diceArr: newDice, prize: newPrize, revealed: false };
@@ -77,9 +77,9 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
   }, []);
 
   function displayPrize() {
-    if (diceState.revealed && diceState.prize === 'grandPrize' ) {
+    if (diceState.revealed && diceState.prize !== 'loser' ) {
       realConfetti(true);
-      fireWorksConfetti(true);
+      fireWorksConfetti(diceState.prize === 'grandPrize');
     }
     const prizeStyle = {
       display: "flex",
