@@ -3,10 +3,12 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import GameCard from '../../components/games/GameCard.jsx';
 import {useState, useCallback, useReducer} from 'react';
+import { useRouter } from 'next/router';
 
 export default function Games() {
   const initialState = {
@@ -33,37 +35,127 @@ export default function Games() {
   const [gameState, dispatch] = useReducer(reducer, initialState);
   const playGame = useCallback(() => dispatch({type: 'play'}), []);
 
+  const router = useRouter();
+
+  const onLink = (href) => {
+    router.push(href);
+  }
+
   return (
-    <Card sx={{
+    <Box sx={{
       display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      height: 570,
-      width: 300,
-      margin: 2,
-      bgcolor: 'background.secondary',
-      borderRadius: 2,
+      justifyContent: 'center',
     }}>
-      <CardContent sx={{
+      <Card sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        alignItems: 'center',
+        position: 'absolute',
+        height: 175,
+        width: 360,
+        margin: 1,
+        bgcolor: 'background.secondary',
+        borderRadius: 2,
       }}>
-        <Box sx={{
-          display: 'flex'
+        <CardContent sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
         }}>
-          <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
-          <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button>
-          <Button variant="contained" onClick={() => dispatch({type: 'LadyLuck'})}>Lady Luck</Button>
-        <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button>
-        </Box>
-        <GameCard
-          game={gameState.game}
-          plays={gameState.plays}
-          playGame={playGame}
-          playing={gameState.playing}
-        />
-      </CardContent>
-    </Card>
+            <CardMedia
+              component="img"
+              image='https://i.ibb.co/Dt2kH1Z/High-Roller-Select.png'
+              sx={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                width: 360,
+                height: 175,
+              }}
+              onClick={() => onLink('/play/dice')}
+            />
+        </CardContent>
+      </Card>
+      <Card sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 185,
+        height: 175,
+        width: 360,
+        margin: 1,
+        bgcolor: 'background.secondary',
+        borderRadius: 2,
+      }}>
+        <CardContent sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
+        }}>
+            <CardMedia
+              component="img"
+              image='https://i.ibb.co/xjFJKxM/Bingo-Select.png'
+              sx={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                width: 360,
+                height: 175,
+              }}
+              onClick={() => onLink('/play/bingo')}
+            />
+        </CardContent>
+      </Card>
+      <Card sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 370,
+        height: 175,
+        width: 360,
+        margin: 1,
+        bgcolor: 'background.secondary',
+        borderRadius: 2,
+      }}>
+        <CardContent sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
+        }}>
+            <CardMedia
+              component="img"
+              image='https://i.ibb.co/61fxwS3/Lucky-Lucy-Select.png'
+              sx={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                width: 360,
+                height: 175,
+              }}
+              onClick={() => onLink('/play/ladyLuck')}
+            />
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
+
+{/* <Box sx={{
+  display: 'flex'
+}}>
+  <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
+  <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button>
+  <Button variant="contained" onClick={() => dispatch({type: 'LadyLuck'})}>Lady Luck</Button>
+  <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button>
+</Box>
+<GameCard
+  game={gameState.game}
+  plays={gameState.plays}
+  playGame={playGame}
+  playing={gameState.playing}
+/> */}
