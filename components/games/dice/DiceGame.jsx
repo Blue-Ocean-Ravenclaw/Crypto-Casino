@@ -21,7 +21,7 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
         let newPrize = game.prize;
         return {...state, diceArr: newDice, prize: newPrize, revealed: false};
       case 'serverRoll':
-        return {...state, rolling: true};
+        return {...state, diceArr: action.payload.board, prize: action.payload.prize, revealed: false};
       case 'serverRolled':
         return {...state, rolling: false, diceArr: action.payload};
       case 'out':
@@ -44,18 +44,15 @@ export default function DiceGame ({plays, luck, playGame, playing}) {
     }
   }, [plays]);
 
-  // useEffect(() => {
-  //   if (diceState.rolling) {
-  //     axios.get('https://localhost:3000/games/rolldice')
-  //     .then((res) => {
-  //       dispatch({type: 'rolled', payload: res.data});
-  //     })
-  //     .catch((err)=> {
-  //       console.error(err);
-  //       dispatch({type: 'out'});
-  //     });
-  //   }
-  // }, [diceState.rolling]);
+  function playDice ()  {
+    axios.get(`https://localhost:3001/play/dice/roll?user_id=${1}`)
+     .then((res) => {
+       dispatch({type: 'serverRoll', payload: res.data.game})
+     })
+     .catch((err) => {
+       dispatch({type: 'out'});
+     });
+ }
 
   const toggleModal = useCallback(() => {
     dispatch({type: 'toggleModal'});
