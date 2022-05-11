@@ -1,12 +1,10 @@
 import DiceGame from './dice/DiceGame.jsx';
 import Bingo from './bingo/Bingo.jsx';
-import LadyLuck from './ladyluck/LadyLuck.jsx';
 import {useState} from 'react';
 
 const GameComponents = Object.freeze({
   Dice: DiceGame,
-  Bingo: Bingo,
-  LadyLuck: LadyLuck
+  Bingo: Bingo
 });
 
 export default function GameCard ({game, plays, playGame, playing}) {

@@ -39,6 +39,7 @@ export default function Games() {
       flexDirection: 'column',
       alignItems: 'center',
       height: 570,
+      width: 300,
       margin: 2,
       bgcolor: 'background.secondary',
       borderRadius: 2,
