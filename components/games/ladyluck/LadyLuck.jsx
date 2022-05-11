@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import LLBoard from "./LLBoard.jsx";
 import LLPlayerNum from "./LLPlayerNum.jsx";
+import Modal from '@mui/material/Modal';
 
 const processBoard = (array) => {
   return [
@@ -20,6 +21,7 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
   const [outcomes, setOutcomes] = useState({});
   const [revealed, setRevealed] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [prize, setPrize] = useState('');
   const reveal = useCallback(
     () =>
       setCounter((prev) => {
@@ -64,6 +66,54 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
       });
   }
 
+  const displayPrize = () => {
+    const prizeStyle = {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: '2px'
+
+    };
+    const prizeMessages = {
+      'grandPrize': {
+        header: 'GRAND PRIZE!!',
+        message: "JACKPOT!!! You won an NFT!"
+      },
+      'doubleSeconds': {
+        header: "SECOND PRIZE - AND MORE!",
+        message: "Hoooo-eee, we've got a winner! You've won 20x your tokens back!"
+      },
+      'doubleThirds': {
+        header: 'DOUBLE THE LUCK, DOUBLE THE FUN!',
+        message: "No kidding - you scored a double win! You've won 10x your tokens back!"
+      },
+      'seconds' : {
+        header: 'YOU WON!',
+        message: "Luck is in the air! You've won 5x your tokens back!"
+      },
+      'thirds' : {
+        header: 'YOU GOT IT',
+        message: "Nicely done! You've won your tokens back!"
+      },
+      'loser': {
+        header: 'So close!',
+        message: 'Not this time! Play again!'
+      }
+    };
+    const { header, message }= prizeMessages[prize];
+    return (
+      <Box sx = {prizeStyle}>
+        <h1>{header}</h1>
+        <p>{message}</p>
+      </Box>
+    );
+  }
+
+  const toggleModal = () => {
+    setRevealed(!revealed);
+  };
+
   return (
     <Box
       sx={{
@@ -103,6 +153,26 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
         ))}
       </Box>
       <LLBoard board={board} reveal={reveal} />
+      <Modal
+          open = {revealed}
+          onClose ={toggleModal}
+          sx = {{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <Box sx = {{
+            display: 'flex',
+            backgroundColor: 'white',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 400,
+            height: 500
+          }}>
+            { prize.length ? displayPrize() : null}
+          </Box>
+        </Modal>
     </Box>
   );
 }
