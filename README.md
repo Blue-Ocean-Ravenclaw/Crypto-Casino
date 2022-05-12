@@ -1,7 +1,7 @@
 # [Bingo NFT]
 Fullstack gaming social app that allows users to
 * Register an account
-* Purchase and choose from three scratch off games : High Roller; Wild Wild West Bingo; Luncky Lucy
+* Purchase and choose from three scratch off games : High Roller; Wild Wild West Bingo; Lucky Lucy
 * Users have potential to win tokens or NFTs
 * Users can socialize with other users in the chat room  
 
