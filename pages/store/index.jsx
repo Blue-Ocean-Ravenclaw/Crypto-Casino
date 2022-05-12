@@ -119,6 +119,7 @@ function GameStore() {
 
   return (
     <React.Fragment>
+      {console.log(stateResults)}
       <GlobalStyles
         styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
       />

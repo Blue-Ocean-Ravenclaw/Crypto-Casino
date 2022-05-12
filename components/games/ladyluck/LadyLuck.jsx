@@ -6,6 +6,7 @@ import LLBoard from "./LLBoard.jsx";
 import LLPlayerNum from "./LLPlayerNum.jsx";
 import Modal from '@mui/material/Modal';
 import { useRouter } from "next/router";
+import { useAppContext } from "../../../context/state.js";
 
 export default function LadyLuck({ newGame }) {
   const initialState = {
@@ -51,15 +52,15 @@ export default function LadyLuck({ newGame }) {
     router.push(href);
   };
   const toggleModal = () => dispatch({type: 'toggleModal'});
-
   const reveal = useCallback(() => dispatch({type: 'count'}), []);
+  const { stateRenderWallet } = useAppContext();
 
   function play () {
     newGame()
       .then((res) => {
         if (res.status === 200 && res.data.cards >= 0) {
-          console.log(res.data.game);
           dispatch({type: 'play', payload: res.data.game});
+          stateRenderWallet(prev=>!prev);
         } else {
           onLink('/store');
         }

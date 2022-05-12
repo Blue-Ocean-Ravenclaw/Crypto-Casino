@@ -14,13 +14,13 @@ const GameComponents = Object.freeze({
 
 export default function GameCard ({game, plays, playGame, playing}) {
   const Game = GameComponents[game];
-  const {username} = useAppContext();
+  const {stateResults} = useAppContext();
 
   const [prize, setPrize] = useState(null);
 
   const newGame = useCallback(() => {
-    return axios.get(`/api/play/${username}/?card_name=${game}`);
-  }, [game, username]);
+    return axios.get(`/api/play/${stateResults.username}/?card_name=${game}`);
+  }, [game, stateResults.username]);
 
   return (
     <Box sx={{
