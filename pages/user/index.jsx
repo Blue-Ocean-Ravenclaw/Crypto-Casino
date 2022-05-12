@@ -1,67 +1,70 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../../context/AuthContext.js";
+import { useAppContext } from '../../context/state.js';
 
 import Carousel from 'react-material-ui-carousel'
 import { Paper, Grid } from '@mui/material'
+import axios from 'axios';
 
 export default function User() {
   const router = useRouter();
   const { currentUser } = useAuth();
+  const { username, tokens } = useAppContext();
+  const [nfts, setNfts] = useState([]);
+  // const { } = useAppContext();
+
+  const onLink = (href) => {
+    router.push(href);
+  };
 
   // Only allows logged in user to access this page
   if (!currentUser) {
     router.push("/login");
   }
 
-  let sampleNfts = [
+  let boards = [
     {
-      "image": "https://i.gyazo.com/d86e26ca5e770ffaadf4a718e6712870.png",
-      "value": 1,
-      "name": "Lord 1",
-      "description": "My NFT 1"
+      "image": "https://i.gyazo.com/8d6cb9ecfc6086cc012e668a1ea8ca22.png",
+      "name": "Lucky Lucy"
     },
     {
-      "image": "https://i.gyazo.com/f6dbcbc81ea85bc7c5ec5c0ee3e3525e.png",
-      "value": 1,
-      "name": "Swag NFT 1",
-      "description": "Swag NFT 1"
+      "image": "https://i.gyazo.com/1690a9467a2da075402693412f4cb162.png",
+      "name": "Bingo"
     },
     {
-      "image": "https://i.gyazo.com/542eb14c971d634c37233359c388cddf.jpg",
-      "value": 1,
-      "name": "Crazy NFT 1",
-      "description": "Crazy NFT 1"
-    },
-    {
-      "image": "https://i.gyazo.com/bdbddb50508b7aadb51b895a822b254f.jpg",
-      "value": 1,
-      "name": "Crunk NFT 1",
-      "description": "Crunk NFT 1"
+      "image": "https://i.gyazo.com/1563373bca281a21cf4bdeea575bf23e.png",
+      "name": "High Roller"
     }
   ];
 
+  useEffect(() => {
+    axios.get('/api/nfts/admin')
+      .then((response) => {
+        setNfts(response.data.data);
+      })
+      .catch((err) => {
+        console.log('failed GET for admin NFTS', err)
+      })
+  }, []);
+
   return (
     <div>
-      User Page
+      <span>{username} </span>
+
       <Grid container direction='column' justifyContent="space-around" alignItems='center'>
         <Carousel sx={{ width: .8 }} navButtonsAlwaysVisible={true}>
           {
-            sampleNfts.map((item, i) => <Item key={i} item={item} />)
+            nfts.map((item, i) => <Item key={i} item={item} />)
           }
         </Carousel>
 
         <Carousel sx={{ width: .8 }} navButtonsAlwaysVisible={true}>
           {
-            sampleNfts.map((item, i) => <Item key={i} item={item} />)
+            boards.map((item, i) => <Item key={i} item={item} />)
           }
         </Carousel>
 
-        <Carousel sx={{ width: .8 }} navButtonsAlwaysVisible={true}>
-          {
-            sampleNfts.map((item, i) => <Item key={i} item={item} />)
-          }
-        </Carousel>
       </Grid>
     </div>
   );
@@ -71,7 +74,7 @@ function Item(props) {
   return (
     <Paper height='200'>
       <Grid container justifyContent='center'>
-        < img src={props.item.image} width='180' height='180' ></img>
+        < img src={props.item.image} width='auto' height='175'></img>
       </Grid >
     </Paper>
   )
