@@ -14,6 +14,15 @@ import axios from 'axios';
 //TODO: Bingo! pop up when you hit a bingo
 //TODO: Prizes
 export default function Bingo({plays, playGame, playing}) {
+  const initialState = {
+    //Initial Game State
+    boards: [],
+    sequences: [],
+    outcomes: [],
+    prize: "",
+    revealed: false
+  };
+
   const [boards, setBoards] = useState([]);
   const [sequences, setSequences] = useState([]);
   const [outcomes, setOutcomes] = useState([]);
@@ -23,7 +32,6 @@ export default function Bingo({plays, playGame, playing}) {
   useEffect(() => {
     if (playing) {
       const game = generateBingoGame();
-      //game = object, game.boards; game.sequence; game.outcomes.
       const { boards, sequence, outcomes, prize} = game;
       setBoards(boards);
       setSequences(sequence);
