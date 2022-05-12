@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
-import { realConfetti, fireWorksConfetti } from '../../../lib/confetti.js'
+import { realConfetti, fireWorksConfetti } from "../../../lib/confetti.js";
 
 export default function DiceGame({ plays, luck, playGame, playing }) {
   const initialState = {
@@ -19,7 +19,7 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
   function reducer(state, action) {
     //Controls the Game State
     switch (action.type) {
-      case 'roll':
+      case "roll":
         let game = generateDiceGame();
         let newDice = game.board;
         let newPrize = game.prize;
@@ -77,9 +77,9 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
   }, []);
 
   function displayPrize() {
-    if (diceState.revealed && diceState.prize !== 'loser' ) {
+    if (diceState.revealed && diceState.prize !== "loser") {
       realConfetti(true);
-      fireWorksConfetti(diceState.prize === 'grandPrize');
+      fireWorksConfetti(diceState.prize === "grandPrize");
     }
     const prizeStyle = {
       display: "flex",
@@ -89,8 +89,8 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
       borderRadius: "2px",
     };
     const prizeMessages = {
-      'grandPrize': {
-        header: 'GRAND PRIZE',
+      grandPrize: {
+        header: "GRAND PRIZE",
         message: "You hit the jackpot- an NFT!!!",
       },
       secondPrize: {
@@ -146,7 +146,7 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
             width: 200,
             color: "#fff",
           }}
-          onClick={() => onLink("/games")}
+          onClick={() => onLink("/store")}
           color="dice"
           variant="contained"
         >
@@ -161,7 +161,7 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          zIndex: '5'
+          zIndex: "5",
         }}
       >
         <Box
