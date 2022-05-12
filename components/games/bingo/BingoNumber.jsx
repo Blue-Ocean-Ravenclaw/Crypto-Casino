@@ -41,5 +41,5 @@ const revealedStyle = {
   width: 30,
   border: "1px solid gray",
   borderColor: "secondary.main",
-  color: "red",
+  color: "tertiary.main",
 };
