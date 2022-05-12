@@ -12,8 +12,8 @@ export function AppWrapper({ children }) {
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    axios.get(`/api/userpage/${currentUser && currentUser.email}`)
-    // axios.get(`/api/userpage/varun@varun.com`)
+    // axios.get(`/api/userpage/${currentUser && currentUser.email}`)
+    axios.get(`/api/userpage/varun@varun.com`)
       .then((res) => setResults(res.data))
       .catch((err) => console.log(err));
   }, [])
