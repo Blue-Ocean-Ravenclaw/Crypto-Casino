@@ -1,4 +1,3 @@
-import * as React from "react";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -18,7 +17,7 @@ export default function WalletForm() {
   const context = useAppContext();
 
   return (
-    <React.Fragment>
+    <>
       <Box sx={{ backgroundColor: "secondary.main", borderRadius: 2 }}>
         <Typography variant="h3" align="center">
           NFT Collection
@@ -50,7 +49,7 @@ export default function WalletForm() {
                   />
                 </ImageListItem>
               ))
-            : null}
+            : []}
         </ImageList>
       </Box>
 
@@ -94,7 +93,7 @@ export default function WalletForm() {
                 <Typography variant="h6">{product.quantity}</Typography>
               </ListItem>
             ))
-          : null}
+          : []}
         <ListItem
           sx={{ pt: 5, pb: 2, display: "flex", justifyContent: "center" }}
         >
@@ -103,6 +102,6 @@ export default function WalletForm() {
           </Typography>
         </ListItem>
       </List>
-    </React.Fragment>
+    </>
   );
 }

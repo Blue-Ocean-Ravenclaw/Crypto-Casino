@@ -20,7 +20,8 @@ export default function Bingo({ newGame }) {
     sequence: [],
     outcomes: [],
     prize: "",
-    revealed: false
+    revealed: false,
+    revealedNums: []
   };
   function reducer(state, action) {
     switch (action.type) {
@@ -29,15 +30,21 @@ export default function Bingo({ newGame }) {
         return {
           ...state,
           ...newGame,
-          revealed: false
+          revealed: false,
+          revealedNums: []
         };
       case "out":
         return initialState;
       case "toggleModal":
         let newReveal = !state.revealed;
         return { ...state, revealed: newReveal };
-      case "revealed":
-        return { ...state, revealed: true };
+      case 'reveal':
+        let newRevealedNums = state.revealedNums.concat([action.payload]);
+        let newRevealed = state.revealed;
+        if (newRevealedNums.length >= 25 ) {
+          newRevealed = true;
+        }
+        return { ...state, revealedNums: newRevealedNums, revealed: newRevealed};
       default:
         throw new Error();
         return initialState;
@@ -48,7 +55,6 @@ export default function Bingo({ newGame }) {
   const onLink = (href) => {
     router.push(href);
   };
-  const revealed = useCallback(() => dispatch({ type: "revealed" }), []);
   const toggleModal = () => dispatch({type: 'toggleModal'});
   const { stateRenderWallet } = useAppContext();
 
@@ -138,7 +144,7 @@ export default function Bingo({ newGame }) {
           flexDirection: 'row',
           margin: 1
         }}>
-          <Sequence sequences={game.sequence} revealed={revealed} />
+          <Sequence sequences={game.sequence} dispatch={dispatch} />
         </Box>
         <Box sx={{
           display: 'flex',
@@ -148,7 +154,7 @@ export default function Bingo({ newGame }) {
           width: 320,
           height: 320
         }}>
-          {game.boards.map((board, i) => <BingoBoard key={i} board={board} />)}
+          {game.boards.map((board, i) => <BingoBoard key={i} board={board} revealedNums={game.revealedNums} />)}
         </Box>
         <Button
           sx={{

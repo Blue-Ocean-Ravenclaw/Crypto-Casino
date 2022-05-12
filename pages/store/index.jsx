@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useState, useEffect, useContext } from "react";
 import { useAppContext } from "../../context/state.js";
 import axios from "axios";
@@ -96,7 +95,7 @@ function GameStore() {
 
   const handlePurchase = () => {
     if (total > tokens) {
-      console.log('YOU BROKE')
+      console.log("YOU BROKE");
     } else {
       axios.post(`/api/tokens/${stateResults.username}`, { tokens: (total * -1) })
         .then((res) => {
@@ -107,7 +106,7 @@ function GameStore() {
         .catch((err) => console.log(err));
     }
     handleClose();
-  }
+  };
 
   useEffect(() => {
     setTotal(game.price * gameCount);
@@ -118,8 +117,7 @@ function GameStore() {
   };
 
   return (
-    <React.Fragment>
-      {console.log(stateResults)}
+    <>
       <GlobalStyles
         styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
       />
@@ -247,7 +245,7 @@ function GameStore() {
           ))}
         </Grid>
       </Container>
-    </React.Fragment>
+    </>
   );
 }
 

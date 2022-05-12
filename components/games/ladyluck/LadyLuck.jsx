@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import LLBoard from "./LLBoard.jsx";
 import LLPlayerNum from "./LLPlayerNum.jsx";
-import Modal from '@mui/material/Modal';
+import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
 import { useAppContext } from "../../../context/state.js";
 
@@ -13,19 +13,19 @@ export default function LadyLuck({ newGame }) {
     board: [],
     playerNums: [],
     winDistribution: {},
-    prize: '',
+    prize: "",
     counter: 0,
-    revealed: false
+    revealed: false,
   };
   function reducer(state, action) {
     switch (action.type) {
-      case 'play':
+      case "play":
         let newGame = action.payload;
         return {
           ...state,
           ...newGame,
           revealed: false,
-          counter: 0
+          counter: 0,
         };
       case "out":
         return initialState;
@@ -34,13 +34,13 @@ export default function LadyLuck({ newGame }) {
         return { ...state, revealed: newReveal };
       case "revealed":
         return { ...state, revealed: true };
-      case 'count':
+      case "count":
         let newCount = state.counter + 1;
         let newRevealed = false;
         if (newCount === 25) {
           newRevealed = true;
         }
-        return {...state, counter: newCount, revealed: newRevealed};
+        return { ...state, counter: newCount, revealed: newRevealed };
       default:
         throw new Error();
         return initialState;
@@ -55,31 +55,31 @@ export default function LadyLuck({ newGame }) {
   const reveal = useCallback(() => dispatch({type: 'count'}), []);
   const { stateRenderWallet } = useAppContext();
 
-  function play () {
+  function play() {
     newGame()
       .then((res) => {
         if (res.status === 200 && res.data.cards >= 0) {
           dispatch({type: 'play', payload: res.data.game});
           stateRenderWallet(prev=>!prev);
         } else {
-          onLink('/store');
+          onLink("/store");
         }
       })
       .catch((err) => {
-        dispatch({type: 'out'});
+        dispatch({ type: "out" });
         console.error(err);
       });
   }
 
   const displayPrize = () => {
-    const { header, message }= prizeMessages[game.prize];
+    const { header, message } = prizeMessages[game.prize];
     return (
-      <Box sx = {prizeStyle}>
+      <Box sx={prizeStyle}>
         <h1>{header}</h1>
         <p>{message}</p>
       </Box>
     );
-  }
+  };
 
   return (
     <Box
@@ -121,60 +121,62 @@ export default function LadyLuck({ newGame }) {
       </Box>
       <LLBoard board={game.board} reveal={reveal} />
       <Modal
-          open = {game.revealed}
-          onClose ={toggleModal}
-          sx = {{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
+        open={game.revealed}
+        onClose={toggleModal}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            backgroundColor: "white",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 400,
+            height: 500,
           }}
         >
-          <Box sx = {{
-            display: 'flex',
-            backgroundColor: 'white',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 400,
-            height: 500
-          }}>
-            { game.prize.length ? displayPrize() : null}
-          </Box>
-        </Modal>
+          {game.prize.length ? displayPrize() : null}
+        </Box>
+      </Modal>
     </Box>
   );
 }
 
 const prizeStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  borderRadius: '2px'
-
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: "2px",
 };
 const prizeMessages = {
-  'grandPrize': {
-    header: 'GRAND PRIZE!!',
-    message: "JACKPOT!!! You won an NFT!"
+  grandPrize: {
+    header: "GRAND PRIZE!!",
+    message: "JACKPOT!!! You won an NFT!",
   },
-  'doubleSeconds': {
+  doubleSeconds: {
     header: "SECOND PRIZE - AND MORE!",
-    message: "Hoooo-eee, we've got a winner! You've won 20x your tokens back!"
+    message: "Hoooo-eee, we've got a winner! You've won 20x your tokens back!",
   },
-  'doubleThirds': {
-    header: 'DOUBLE THE LUCK, DOUBLE THE FUN!',
-    message: "No kidding - you scored a double win! You've won 10x your tokens back!"
+  doubleThirds: {
+    header: "DOUBLE THE LUCK, DOUBLE THE FUN!",
+    message:
+      "No kidding - you scored a double win! You've won 10x your tokens back!",
   },
-  'second' : {
-    header: 'YOU WON!',
-    message: "Luck is in the air! You've won 5x your tokens back!"
+  second: {
+    header: "YOU WON!",
+    message: "Luck is in the air! You've won 5x your tokens back!",
   },
-  'third' : {
-    header: 'YOU WON!',
-    message: "Nicely done! You've won your tokens back!"
+  third: {
+    header: "YOU WON!",
+    message: "Nicely done! You've won your tokens back!",
   },
-  'loser': {
-    header: 'So close!',
-    message: 'Not this time! Play again!'
-  }
+  loser: {
+    header: "So close!",
+    message: "Not this time! Play again!",
+  },
 };
