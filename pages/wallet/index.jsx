@@ -85,7 +85,7 @@ function Checkout() {
 
   const handlePurchase = () => {
     handleClose();
-    setRenderWallet((state) => state + 1);
+    // setRenderWallet((state) => state + 1);
 
     axios
       .post(`/api/tokens/${username}`, { tokens: tokens })
