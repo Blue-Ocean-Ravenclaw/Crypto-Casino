@@ -62,6 +62,15 @@ export default function Home() {
       >
         Enter
       </Button>
+      <Button
+        variant="contained"
+        onClick={handleLogOut}
+        sx={{
+          mt: 2,
+        }}
+      >
+        logout
+      </Button>
       {error ? (
         <Alert variant="filled" severity="error" sx={{ m: 2 }}>
           {error}

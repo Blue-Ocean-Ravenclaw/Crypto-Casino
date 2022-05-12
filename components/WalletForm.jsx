@@ -4,61 +4,100 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useAppContext } from "../context/state.js";
 import Image from "next/image";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import { BsCoin } from "react-icons/bs";
 import axios from "axios";
+import React from "react";
 
 export default function WalletForm() {
   const { card_inventory, tokens, nfts } = useAppContext();
-  const { stateResults } = useAppContext()
+  const { stateResults } = useAppContext();
   const context = useAppContext();
 
+  console.log(stateResults);
+
   return (
-    <>
-      <Box sx={{ backgroundColor: "secondary.main", borderRadius: 2 }}>
-        <Typography variant="h3" align="center">
-          NFT Collection
+    <React.Fragment>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "background.default",
+          border: 1,
+          borderColor: "primary.main",
+          borderRadius: 2,
+          mt: 2,
+          mb: 1,
+          pt: 1,
+        }}
+      >
+        <Typography
+          align="center"
+          sx={{
+            width: "95%",
+            borderRadius: 1,
+            bgcolor: "primary.main",
+            color: "text.white",
+            fontSize: 16,
+            fontWeight: 500,
+            py: "6px",
+            mb: 1,
+          }}
+        >
+          NFT COLLECTION
         </Typography>
         <ImageList
           sx={{
-            mx: "auto",
-            p: 2,
             width: "95%",
             height: "auto",
+            my: 0,
           }}
           cols={2}
-          gap={16}
+          gap={10}
           variant="quilted"
         >
           {stateResults.nfts
             ? stateResults.nfts.map((nft, idx) => (
-                <ImageListItem
-                  key={idx}
+                <Paper
+                  elevation={3}
                   sx={{
-                    borderRadius: 2,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    objectFit: "cover",
+                    height: 160,
+                    overflow: "hidden",
                   }}
                 >
-                  <img
-                    src={`${nft.image}`}
-                    srcSet={`${nft.image}`}
-                    alt="nft"
-                    loading="lazy"
-                  />
-                </ImageListItem>
+                  <ImageListItem
+                    key={idx}
+                    sx={{
+                      overflow: "hidden",
+                      objectFit: "cover",
+                      borderRadius: 1,
+                    }}
+                  >
+                    <img
+                      src={`${nft.image}`}
+                      srcSet={`${nft.image}`}
+                      alt="nft"
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                </Paper>
               ))
             : []}
         </ImageList>
       </Box>
 
       <List
-        // style={{
-        //   backgroundColor: "	#F5F5F5",
-        //   padding: "20px",
-        //   borderRadius: "2vh",
-        // }}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -66,42 +105,76 @@ export default function WalletForm() {
           alignItems: "center",
           bgcolor: "background.default",
           border: 1,
-          borderColor: "tertiary.main",
+          borderColor: "primary.main",
           borderRadius: 2,
+          pb: 0,
         }}
       >
-        <Typography variant="h3" align="center" sx={{ mt: 2 }}>
-          Cards
+        <Typography
+          align="center"
+          sx={{
+            width: "95%",
+            borderRadius: 1,
+            bgcolor: "primary.main",
+            color: "text.white",
+            fontSize: 16,
+            fontWeight: 500,
+            py: "6px",
+            mb: 1,
+          }}
+        >
+          GAME CARDS
         </Typography>
         {stateResults.card_inventory
           ? stateResults.card_inventory.map((product) => (
               <ListItem
                 key={product.card_name}
                 sx={{
-                  width: "90%",
+                  width: "100%",
                   display: "flex",
                   justifyContent: "space-between",
-                  borderBottom: "1px solid black",
-                  borderColor: "quaternary.main",
-                  m: 2,
+                  py: 3,
                   height: 20,
+                  borderTop: 1,
+                  borderColor: "primary.main",
                 }}
               >
-                <Typography sx={{ fontSize: "2vh" }}>
+                <Typography sx={{ fontSize: 14 }}>
                   {product.card_name.toUpperCase()}
                 </Typography>
-                <Typography variant="h6">{product.quantity}</Typography>
+                <Typography
+                  sx={{
+                    fontSize: 14,
+                    fontWeight: 600,
+                  }}
+                >
+                  {product.quantity}
+                </Typography>
               </ListItem>
             ))
-          : []}
-        <ListItem
-          sx={{ pt: 5, pb: 2, display: "flex", justifyContent: "center" }}
-        >
-          <Typography sx={{ fontSize: { xs: "2.5vh", md: "3vh" } }}>
-            TOKENS in your wallet: {stateResults.tokens}
-          </Typography>
-        </ListItem>
+          : null}
       </List>
-    </>
+      <Box
+        sx={{
+          pt: 2,
+          pb: 2,
+          display: "flex",
+          justifyContent: "center",
+          border: 1,
+          borderColor: "primary.main",
+          borderRadius: 2,
+          mt: 1,
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: { xs: 16, md: 20 },
+            fontWeight: 600,
+          }}
+        >
+          {stateResults.tokens} TOKENS
+        </Typography>
+      </Box>
+    </React.Fragment>
   );
 }
