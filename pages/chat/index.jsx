@@ -171,7 +171,7 @@ const Home = () => {
         {userSubmitted ? (
           <form onSubmit={handleSubmit}>
             <input
-              autofocus
+              autoFocus
               style={{
                 width: "80vw",
               }}
@@ -183,7 +183,7 @@ const Home = () => {
         ) : (
           <form onSubmit={handleUsername}>
             <input
-              autofocus
+              autoFocus
               style={{
                 width: "50vw",
               }}
