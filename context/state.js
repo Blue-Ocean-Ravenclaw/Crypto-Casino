@@ -13,8 +13,8 @@ export function AppWrapper({ children }) {
 
   let contextObj = {
     stateResults: results,
-    stateRenderWallet: setRenderWallet
-  }
+    stateRenderWallet: setRenderWallet,
+  };
 
   useEffect(() => {
     axios
@@ -24,5 +24,7 @@ export function AppWrapper({ children }) {
       .catch((err) => console.log(err));
   }, [renderWallet]);
 
-  return <AppContext.Provider value={contextObj}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={contextObj}>{children}</AppContext.Provider>
+  );
 }

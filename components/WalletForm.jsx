@@ -12,14 +12,14 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { BsCoin } from "react-icons/bs";
 import axios from "axios";
+import React from "react";
 
 export default function WalletForm() {
   const { card_inventory, tokens, nfts } = useAppContext();
-  const { stateResults } = useAppContext()
+  const { stateResults } = useAppContext();
   const context = useAppContext();
 
   return (
-<<<<<<< HEAD
     <React.Fragment>
       <Box
         sx={{
@@ -49,12 +49,6 @@ export default function WalletForm() {
           }}
         >
           NFT COLLECTION
-=======
-    <>
-      <Box sx={{ backgroundColor: "secondary.main", borderRadius: 2 }}>
-        <Typography variant="h3" align="center">
-          NFT Collection
->>>>>>> 608e41849e7212ad218011de5efa59e05c2a60c8
         </Typography>
         <ImageList
           sx={{
@@ -67,17 +61,10 @@ export default function WalletForm() {
           gap={10}
           variant="quilted"
         >
-<<<<<<< HEAD
           {nfts
             ? nfts.map((nft, idx) => (
                 <Paper
                   elevation={3}
-=======
-          {stateResults.nfts
-            ? stateResults.nfts.map((nft, idx) => (
-                <ImageListItem
-                  key={idx}
->>>>>>> 608e41849e7212ad218011de5efa59e05c2a60c8
                   sx={{
                     display: "flex",
                     justifyContent: "center",
