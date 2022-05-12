@@ -58,15 +58,10 @@ function Checkout() {
   const [tokens, setTokens] = useState(40);
   const [view, setView] = useState(0);
 
-<<<<<<< HEAD
-  const context = useAppContext();
-  const { username, setRenderWallet } = useAppContext();
-=======
   const { username } = useAppContext();
   const router = useRouter()
 
 
->>>>>>> ab8df1eaa03d3c7b30bf097afd9dff17a8838d21
 
   const handleOpen = (e) => {
     setOpen(true);
