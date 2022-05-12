@@ -93,143 +93,143 @@ function Checkout() {
 
   return (
     <Container maxWidth="md" sx={{ mb: 10 }}>
-      <Paper
+      {/* <Paper
         variant="outlined"
         sx={{ my: { xs: 2, md: 6 }, p: { xs: 1, md: 3 }, borderRadius: 2 }}
-      >
-        <WalletForm />
-        <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{ mt: 1, bgcolor: "primary.main" }}
-            onClick={handleOpen}
-          >
-            Buy Points!
-          </Button>
-        </Box>
-
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+      > */}
+      <WalletForm />
+      <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
+        <Button
+          fullWidth
+          variant="contained"
+          sx={{ mt: 1, bgcolor: "secondary.main" }}
+          onClick={handleOpen}
         >
-          {view === 0 ? (
-            <Box sx={style}>
-              <Typography
-                id="wasGameTitle"
-                variant="h6"
-                component="h2"
-                style={style.iconSpacing}
-              >
-                Tokens
-              </Typography>
-              <div style={style.iconSpacing}>
-                <IconButton onClick={handleDecrament}>
-                  <RemoveIcon style={style.largeIcon} />
-                </IconButton>
-                <span style={{ fontSize: "50px" }}>{tokens}</span>
-                <IconButton onClick={handleIncrement}>
-                  <AddIcon style={style.largeIcon} />
-                </IconButton>
-              </div>
-              <Typography
-                id="wasgametitle"
-                variant="h6"
-                component="h2"
-                style={style.iconSpacing}
-                sx={{ mb: 4 }}
-              >
-                Total: ${total}
-              </Typography>
-              <Button fullWidth variant="contained" onClick={() => setView(1)}>
-                Go To Checkout
-              </Button>
-            </Box>
-          ) : (
-            <Box sx={style}>
-              <Typography
-                id="wasGameTitle"
-                variant="h6"
-                component="h2"
-                style={style.iconSpacing}
-              >
-                {" "}
-                Payment Info{" "}
-              </Typography>
-              <Grid container spacing={3} sx={{ mb: 5 }}>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    // required
-                    id="cardName"
-                    label="Name on card"
-                    fullWidth
-                    autoComplete="cc-name"
-                    variant="standard"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    // required
-                    id="cardNumber"
-                    label="Card number"
-                    fullWidth
-                    autoComplete="cc-number"
-                    variant="standard"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    // required
-                    id="expDate"
-                    label="Expiry date"
-                    fullWidth
-                    autoComplete="cc-exp"
-                    variant="standard"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    // required
-                    id="cvv"
-                    label="CVV"
-                    helperText="Last three digits on signature strip"
-                    fullWidth
-                    autoComplete="cc-csc"
-                    variant="standard"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox color="secondary" name="saveCard" value="yes" />
-                    }
-                    label="Remember credit card details for next time"
-                  />
-                </Grid>
+          Buy Tokens
+        </Button>
+      </Box>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        {view === 0 ? (
+          <Box sx={style}>
+            <Typography
+              id="wasGameTitle"
+              variant="h6"
+              component="h2"
+              style={style.iconSpacing}
+            >
+              Tokens
+            </Typography>
+            <div style={style.iconSpacing}>
+              <IconButton onClick={handleDecrament}>
+                <RemoveIcon style={style.largeIcon} />
+              </IconButton>
+              <span style={{ fontSize: "50px" }}>{tokens}</span>
+              <IconButton onClick={handleIncrement}>
+                <AddIcon style={style.largeIcon} />
+              </IconButton>
+            </div>
+            <Typography
+              id="wasgametitle"
+              variant="h6"
+              component="h2"
+              style={style.iconSpacing}
+              sx={{ mb: 4 }}
+            >
+              Total: ${total}
+            </Typography>
+            <Button fullWidth variant="contained" onClick={() => setView(1)}>
+              Go To Checkout
+            </Button>
+          </Box>
+        ) : (
+          <Box sx={style}>
+            <Typography
+              id="wasGameTitle"
+              variant="h6"
+              component="h2"
+              style={style.iconSpacing}
+            >
+              {" "}
+              Payment Info{" "}
+            </Typography>
+            <Grid container spacing={3} sx={{ mb: 5 }}>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  // required
+                  id="cardName"
+                  label="Name on card"
+                  fullWidth
+                  autoComplete="cc-name"
+                  variant="standard"
+                />
               </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  // required
+                  id="cardNumber"
+                  label="Card number"
+                  fullWidth
+                  autoComplete="cc-number"
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  // required
+                  id="expDate"
+                  label="Expiry date"
+                  fullWidth
+                  autoComplete="cc-exp"
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  // required
+                  id="cvv"
+                  label="CVV"
+                  helperText="Last three digits on signature strip"
+                  fullWidth
+                  autoComplete="cc-csc"
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox color="secondary" name="saveCard" value="yes" />
+                  }
+                  label="Remember credit card details for next time"
+                />
+              </Grid>
+            </Grid>
 
-              <Typography
-                id="wasgametitle"
-                variant="h6"
-                component="h2"
-                style={style.iconSpacing}
-                sx={{ mb: 4 }}
-              >
-                Total: ${total}
-              </Typography>
+            <Typography
+              id="wasgametitle"
+              variant="h6"
+              component="h2"
+              style={style.iconSpacing}
+              sx={{ mb: 4 }}
+            >
+              Total: ${total}
+            </Typography>
 
-              <Button fullWidth variant="contained" onClick={handlePurchase}>
-                Purchase Tokens
-              </Button>
-              <Button fullWidth variant="outlined" onClick={() => setView(0)}>
-                Back
-              </Button>
-            </Box>
-          )}
-        </Modal>
-      </Paper>
+            <Button fullWidth variant="contained" onClick={handlePurchase}>
+              Purchase Tokens
+            </Button>
+            <Button fullWidth variant="outlined" onClick={() => setView(0)}>
+              Back
+            </Button>
+          </Box>
+        )}
+      </Modal>
+      {/* </Paper> */}
     </Container>
   );
 }
