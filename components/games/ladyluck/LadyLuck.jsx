@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import LLBoard from "./LLBoard.jsx";
 import LLPlayerNum from "./LLPlayerNum.jsx";
 import Modal from '@mui/material/Modal';
+import { realConfetti, fireWorksConfetti } from '../../../lib/confetti.js';
 
 const processBoard = (array) => {
   return [
@@ -42,7 +43,7 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
       setPlayerNums(game.playerNums);
       setOutcomes(game.winDistribution);
       setPrize(game.prize);
-      setRevealed(false);
+      setRevealed(true);
       setCounter(0);
     }
   }, [plays]);
@@ -67,6 +68,10 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
   }
 
   const displayPrize = () => {
+    if (revealed && prize !== 'loser') {
+      realConfetti(true);
+      fireWorksConfetti(prize === 'grandPrize');
+    }
     const prizeStyle = {
       display: 'flex',
       flexDirection: 'column',
@@ -159,7 +164,8 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
           sx = {{
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            zIndex: '5'
           }}
         >
           <Box sx = {{
