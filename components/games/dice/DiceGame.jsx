@@ -39,7 +39,7 @@ export default function DiceGame({ plays, newGame }) {
         return initialState;
     }
   }
-  const [diceState, dispatch] = useReducer(reducer, initialState);
+  const [gameState, dispatch] = useReducer(reducer, initialState);
   const reveal = useCallback(() => dispatch({ type: "revealed" }), []);
 
   const router = useRouter();
@@ -51,7 +51,8 @@ export default function DiceGame({ plays, newGame }) {
   function play () {
     newGame()
       .then((res) => {
-        if (res.data.cards >= 0) {
+        console.log(res);
+        if (res.status === 200 && res.data.cards >= 0) {
           dispatch({type: 'roll', payload: res.data.game});
         } else {
           onLink('/games');
@@ -100,12 +101,12 @@ export default function DiceGame({ plays, newGame }) {
         confetti: false
       },
     };
-    const { header, message, confetti } = prizeMessages[diceState.prize];
+    const { header, message, confetti } = prizeMessages[gameState.prize];
     return (
       <Box sx={prizeStyle}>
         <h1>{header}</h1>
         <p>{message}</p>
-        { diceState.revealed && realConfetti(confetti) }
+        { gameState.revealed && realConfetti(confetti) }
       </Box>
     );
   }
@@ -118,7 +119,7 @@ export default function DiceGame({ plays, newGame }) {
         alignItems: "center",
       }}
     >
-      <Dice diceArr={diceState.diceArr} reveal={reveal} />
+      <Dice diceArr={gameState.diceArr} reveal={reveal} />
       <Button
           sx={{
             width: 200,
@@ -130,9 +131,9 @@ export default function DiceGame({ plays, newGame }) {
         >
           Roll The dice
         </Button>
-      <Dice diceArr={diceState.diceArr} />
+      <Dice diceArr={gameState.diceArr} />
       <Modal
-        open={diceState.revealed}
+        open={gameState.revealed}
         onClose={toggleModal}
         sx={{
           display: "flex",
@@ -151,7 +152,7 @@ export default function DiceGame({ plays, newGame }) {
             height: 500,
           }}
         >
-          {diceState.prize.length ? displayPrize() : null}
+          {gameState.prize.length ? displayPrize() : null}
         </Box>
       </Modal>
     </Box>

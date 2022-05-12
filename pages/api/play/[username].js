@@ -21,16 +21,15 @@ export default async function handler(req, res) {
 
     const queryResponse = await db.query(query);
     const queryData = queryResponse.rows[0];
-    // console.log(queryResponse);
-    // const cards = queryResponse.rows[0].coalesce;
 
-    function createResponse () {
+    if (queryData) {
       let responseBody = {
         game: {},
-        cards: queryData.quantity
+        cards: -1
       };
+      if (queryData.quantity > 0) {
 
-      if (queryData && queryData.quantity > 0) {
+        responseBody.cards = queryData.quantity - 1;
         switch (card_name) {
           case 'highroller':
             responseBody.game = generateDiceGame();
@@ -44,10 +43,11 @@ export default async function handler(req, res) {
         }
         useCard(queryData.id_user, card_name);
       }
-      return responseBody;
+      res.status(200).send(responseBody);
+    } else {
+      res.status(204).send();
     }
 
-    res.status(200).send(createResponse());
   } else {
     res.status(500).send({ message: 'This endpoint only accepts GET requests.' });
   }
