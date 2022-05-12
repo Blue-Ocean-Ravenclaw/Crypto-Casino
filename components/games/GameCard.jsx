@@ -4,11 +4,12 @@ import LadyLuck from './ladyluck/LadyLuck.jsx';
 import Box from '@mui/material/Box';
 import {useState, useCallback} from 'react';
 import { useAppContext } from "../../context/state.js";
+import axios from 'axios';
 
 const GameComponents = Object.freeze({
-  Dice: DiceGame,
-  Bingo: Bingo,
-  LadyLuck: LadyLuck
+  highroller: DiceGame,
+  bingo: Bingo,
+  luckylucy: LadyLuck
 });
 
 export default function GameCard ({game, plays, playGame, playing}) {
@@ -29,6 +30,7 @@ export default function GameCard ({game, plays, playGame, playing}) {
         plays={plays}
         playGame={playGame}
         playing={playing}
+        newGame={newGame}
       />
     </Box>
   );

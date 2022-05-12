@@ -7,41 +7,34 @@ import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
 import { realConfetti } from '../../../lib/confetti.js'
 
-export default function DiceGame({ plays, playGame, playing }) {
+export default function DiceGame({ plays, newGame }) {
   const initialState = {
     //Initial Game State
     diceArr: [],
-    rolling: false,
     prize: "",
-    revealed: false,
+    revealed: false
   };
 
   function reducer(state, action) {
     //Controls the Game State
     switch (action.type) {
       case 'roll':
-        let game = generateDiceGame(true);
-        let newDice = game.board;
-        let newPrize = game.prize;
-        return { ...state, diceArr: newDice, prize: newPrize, revealed: false };
-      case "serverRoll":
         return {
           ...state,
           diceArr: action.payload.board,
           prize: action.payload.prize,
-          revealed: false,
+          revealed: false
         };
-      case "serverRolled":
-        return { ...state, rolling: false, diceArr: action.payload };
       case "out":
-        return { ...state, rolling: false, diceArr: [] };
+        return initialState;
       case "toggleModal":
         let newReveal = !state.revealed;
         return { ...state, revealed: newReveal };
       case "revealed":
         return { ...state, revealed: true };
       default:
-        return { ...state, rolling: false, diceArr: [] };
+        throw new Error();
+        return initialState;
     }
   }
   const [diceState, dispatch] = useReducer(reducer, initialState);
@@ -53,17 +46,22 @@ export default function DiceGame({ plays, playGame, playing }) {
     router.push(href);
   };
 
-  useEffect(() => {
-    //When plays variable decreases, roll the dice
-    if (playing) {
-      //Prevents roll on initial load
-      dispatch({ type: "roll" });
-    }
-  }, [plays]);
+  function play () {
+    newGame()
+      .then((res) => {
+        if (res.data.canPlay) {
+          dispatch({type: 'roll', payload: res.data.game});
+        } else {
+          onLink('/games');
+        }
+      })
+      .catch((err) => {
+        dispatch({type: 'out'});
+        console.error(err);
+      });
+  }
 
-  const toggleModal = useCallback(() => {
-    dispatch({ type: "toggleModal" });
-  }, []);
+  const toggleModal = useCallback(() => dispatch({ type: "toggleModal" }), []);
 
   function displayPrize() {
     const prizeStyle = {
@@ -106,7 +104,6 @@ export default function DiceGame({ plays, playGame, playing }) {
         <h1>{header}</h1>
         <p>{message}</p>
         { diceState.revealed && realConfetti(confetti) }
-
       </Box>
     );
   }
@@ -120,31 +117,17 @@ export default function DiceGame({ plays, playGame, playing }) {
       }}
     >
       <Dice diceArr={diceState.diceArr} reveal={reveal} />
-      {plays > 0 ? (
-        <Button
+      <Button
           sx={{
             width: 200,
             color: "#fff",
           }}
-          onClick={playGame}
+          onClick={play}
           color="dice"
           variant="contained"
         >
           Roll The dice
         </Button>
-      ) : (
-        <Button
-          sx={{
-            width: 200,
-            color: "#fff",
-          }}
-          onClick={() => onLink("/games")}
-          color="dice"
-          variant="contained"
-        >
-          Buy more cards
-        </Button>
-      )}
       <Dice diceArr={diceState.diceArr} />
       <Modal
         open={diceState.revealed}
