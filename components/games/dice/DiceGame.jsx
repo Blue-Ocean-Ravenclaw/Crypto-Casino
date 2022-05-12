@@ -20,7 +20,7 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
     //Controls the Game State
     switch (action.type) {
       case "roll":
-        let game = generateDiceGame();
+        let game = generateDiceGame(true);
         let newDice = game.board;
         let newPrize = game.prize;
         return { ...state, diceArr: newDice, prize: newPrize, revealed: false };
