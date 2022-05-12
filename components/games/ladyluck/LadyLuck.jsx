@@ -61,7 +61,7 @@ export default function LadyLuck({ newGame }) {
           console.log(res.data.game);
           dispatch({type: 'play', payload: res.data.game});
         } else {
-          onLink('/games');
+          onLink('/store');
         }
       })
       .catch((err) => {

@@ -53,7 +53,7 @@ export default function DiceGame({ newGame }) {
         if (res.status === 200 && res.data.cards >= 0) {
           dispatch({type: 'play', payload: res.data.game});
         } else {
-          onLink('/games');
+          onLink('/store');
         }
       })
       .catch((err) => {
