@@ -34,7 +34,12 @@ export default function LadyLuck({ newGame }) {
       case "revealed":
         return { ...state, revealed: true };
       case 'count':
-        return {...state, counter: state.counter + 1};
+        let newCount = state.counter + 1;
+        let newRevealed = false;
+        if (newCount === 25) {
+          newRevealed = true;
+        }
+        return {...state, counter: newCount, revealed: newRevealed};
       default:
         throw new Error();
         return initialState;
@@ -45,16 +50,9 @@ export default function LadyLuck({ newGame }) {
   const onLink = (href) => {
     router.push(href);
   };
-  const revealed = useCallback(() => dispatch({ type: "revealed" }), []);
   const toggleModal = () => dispatch({type: 'toggleModal'});
 
-  const reveal = useCallback(() => {
-    if (game.counter < 24) {
-      dispatch({type: 'count'});
-    } else {
-      dispatch({type: 'revealed'});
-    }
-  }, []);
+  const reveal = useCallback(() => dispatch({type: 'count'}), []);
 
   function play () {
     newGame()
