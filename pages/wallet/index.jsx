@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { useAppContext } from '../../context/state.js';
-
+import { useRouter } from 'next/router';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -62,8 +62,9 @@ function Checkout() {
   const [tokens, setTokens] = useState(40);
   const [view, setView] = useState(0);
 
-  const context = useAppContext();
   const { username } = useAppContext();
+  const router = useRouter()
+
 
 
   const handleOpen = (e) => {
@@ -73,6 +74,7 @@ function Checkout() {
   const handleClose = () => {
     setOpen(false);
     setTokens(40);
+    setView(0);
   };
 
 
@@ -88,10 +90,11 @@ function Checkout() {
 
   const handlePurchase = () => {
     handleClose();
-
     axios.post(`/api/tokens/${username}`, {tokens: tokens})
-      .then(results => console.log('success'))
+      .then(results => router.reload())
       .catch(errorn=> console.log(('No tokens inserted')))
+
+
   }
 
   useEffect(() => {
@@ -101,7 +104,6 @@ function Checkout() {
   return (
 
       <Container maxWidth="md" sx={{ mb: 10, }}>
-        {console.log(context)}
         <Paper variant="outlined" sx={{ my: { xs: 4, md: 6 },
                                          p: { xs: 3, md: 3 },
                                          borderRadius: '2vh',
@@ -137,14 +139,10 @@ function Checkout() {
                 <AddIcon style={style.largeIcon} />
               </IconButton>
             </div>
-            <Typography id='wasgametitle' variant="h6" component="h2" style={style.iconSpacing}>
-              Cost
-            </Typography>
-
             <Typography id='wasgametitle' variant="h6" component="h2" style={style.iconSpacing} sx={{mb: 4}}>
-              ${total}
+              Total: ${total}
             </Typography>
-            <Button fullWidth variant="contained" onClick={()=>setView(1)}>Purchase</Button>
+            <Button fullWidth variant="contained" onClick={()=>setView(1)}>Go To Checkout</Button>
           </Box >
 
         :
@@ -154,7 +152,7 @@ function Checkout() {
           <Grid container spacing={3} sx={{mb: 5}}>
             <Grid item xs={12} md={6}>
               <TextField
-                required
+                // required
                 id="cardName"
                 label="Name on card"
                 fullWidth
@@ -164,7 +162,7 @@ function Checkout() {
             </Grid>
             <Grid item xs={12} md={6}>
               <TextField
-                required
+                // required
                 id="cardNumber"
                 label="Card number"
                 fullWidth
@@ -174,7 +172,7 @@ function Checkout() {
             </Grid>
             <Grid item xs={12} md={6}>
               <TextField
-                required
+                // required
                 id="expDate"
                 label="Expiry date"
                 fullWidth
@@ -184,7 +182,7 @@ function Checkout() {
             </Grid>
             <Grid item xs={12} md={6}>
               <TextField
-                required
+                // required
                 id="cvv"
                 label="CVV"
                 helperText="Last three digits on signature strip"
@@ -200,6 +198,10 @@ function Checkout() {
               />
             </Grid>
           </Grid>
+
+          <Typography id='wasgametitle' variant="h6" component="h2" style={style.iconSpacing} sx={{mb: 4}}>
+              Total: ${total}
+            </Typography>
 
           <Button fullWidth variant="contained" onClick={handlePurchase}>Purchase Tokens</Button>
           <Button fullWidth variant="outlined" onClick={()=>setView(0)}>Back</Button>
