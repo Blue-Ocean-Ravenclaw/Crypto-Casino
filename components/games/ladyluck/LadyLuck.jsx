@@ -16,6 +16,15 @@ const processBoard = (array) => {
 };
 
 export default function LadyLuck({ plays, playGame, playing }) {
+  const initialState = {
+    //Initial Game State
+    board: [],
+    playerNums: [],
+    winDistribution: {},
+    prize: '',
+    counter: 0,
+    revealed: false
+  };
   const [board, setBoard] = useState([]);
   const [playerNums, setPlayerNums] = useState([]);
   const [outcomes, setOutcomes] = useState({});
