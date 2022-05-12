@@ -5,11 +5,15 @@ export default function BingoNumber({ board, num, revealedNums }) {
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    let stringNum = JSON.stringify(num);
-    if (revealedNums.includes(stringNum)) {
-      setRevealed((prev) => (!prev ? true : prev));
+    if (num === 'Free') {
+      setRevealed((prev) => prev ? prev : true);
     } else {
-      setRevealed((prev) => (prev ? false : prev));
+      let stringNum = JSON.stringify(num);
+      if (revealedNums.includes(stringNum)) {
+        setRevealed((prev) => (!prev ? true : prev));
+      } else {
+        setRevealed((prev) => (prev ? false : prev));
+      }
     }
   }, [revealedNums]);
 
