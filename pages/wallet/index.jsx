@@ -56,7 +56,7 @@ function Checkout() {
   const [tokens, setTokens] = useState(40);
   const [view, setView] = useState(0);
 
-  const { username } = useAppContext();
+  const { stateResults, stateRenderWallet } = useAppContext();
   const router = useRouter();
 
   const handleOpen = (e) => {
@@ -81,15 +81,10 @@ function Checkout() {
 
   const handlePurchase = () => {
     handleClose();
-<<<<<<< HEAD
-    // setRenderWallet((state) => state + 1);
-
-=======
->>>>>>> main
     axios
-      .post(`/api/tokens/${username}`, { tokens: tokens })
-      .then((results) => router.reload())
-      .catch((errorn) => console.log("No tokens inserted"));
+      .post(`/api/tokens/${stateResults.username}`, { tokens: tokens })
+      .then((results) => stateRenderWallet(prev=>!prev))
+      .catch((error) => console.log("No tokens inserted", error));
   };
 
   useEffect(() => {
@@ -102,9 +97,7 @@ function Checkout() {
         variant="outlined"
         sx={{ my: { xs: 2, md: 6 }, p: { xs: 1, md: 3 }, borderRadius: 2 }}
       >
-        {/* <Typography component="h2" variant="h1" align="center" sx={{ mb: 2 }}>
-          Wallet
-        </Typography> */}
+
         <WalletForm />
         <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
           <Button

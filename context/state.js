@@ -8,8 +8,13 @@ export const useAppContext = () => useContext(AppContext);
 
 export function AppWrapper({ children }) {
   const [results, setResults] = useState({});
-  const [renderWallet, setRenderWallet] = useState(0);
+  const [renderWallet, setRenderWallet] = useState(false);
   const { currentUser } = useAuth();
+
+  let contextObj = {
+    stateResults: results,
+    stateRenderWallet: setRenderWallet
+  }
 
   useEffect(() => {
     axios
@@ -18,7 +23,7 @@ export function AppWrapper({ children }) {
     //   .get(`/api/userpage/varun@varun.com`)
       .then((res) => setResults(res.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [renderWallet]);
 
-  return <AppContext.Provider value={results}>{children}</AppContext.Provider>;
+  return <AppContext.Provider value={contextObj}>{children}</AppContext.Provider>;
 }
