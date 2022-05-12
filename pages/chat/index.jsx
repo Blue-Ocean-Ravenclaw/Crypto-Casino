@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import MsgDisplay from "../../components/chatMsg.jsx";
 import io from "socket.io-client";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -6,7 +7,7 @@ import Typography from "@mui/material/Typography";
 
 let socket;
 
-const Home = () => {
+const Chat = () => {
   const [msg, setMsg] = useState("");
   const [username, setUsername] = useState("");
   const [usernameColor, setUsernameColor] = useState({});
@@ -42,7 +43,6 @@ const Home = () => {
         newUsernameColor[currentUser] = color;
         setUsernameColor(newUsernameColor);
       }
-
       setMsgList((msgList) => [...msgList, msgObj]);
     });
   };
@@ -72,80 +72,6 @@ const Home = () => {
     return color;
   };
 
-  const generateMsgDisplay = () => {
-    const msgDisplay = [];
-    msgList.forEach((msgObj, index) => {
-      // handle when msg is from client
-      if (msgObj.userId === userId) {
-        msgDisplay.push(
-          <div key={index}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-                flexDirection: "row",
-              }}
-            >
-              <Box
-                sx={{
-                  pl: 3,
-                }}
-              >
-                {msgObj.msg}
-              </Box>
-              <Typography
-                align="left"
-                color={usernameColor[msgObj.username]}
-                style={{
-                  fontWeight: 600,
-                  fontSize: "1rem",
-                  margin: " 0rem 0rem 0rem 0.5rem",
-                }}
-              >
-                {msgObj.username}
-              </Typography>
-            </Box>
-          </div>
-        );
-      } else {
-        // handle when msg is from others
-        msgDisplay.push(
-          <div key={index}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-start",
-                flexDirection: "row",
-              }}
-            >
-              <Typography
-                align="left"
-                color={usernameColor[msgObj.username]}
-                style={{
-                  fontWeight: 600,
-                  fontSize: "1rem",
-                  margin: " 0rem 0.5rem 0rem 0rem",
-                }}
-              >
-                {msgObj.username}
-              </Typography>
-              <Box
-                sx={{
-                  pr: 3,
-                }}
-              >
-                {msgObj.msg}
-              </Box>
-            </Box>
-          </div>
-        );
-      }
-    });
-    // dummy node for autoscroll
-    msgDisplay.push(<div key="dummy" ref={messagesEndRef} />);
-    return msgDisplay;
-  };
-
   return (
     <>
       <Box
@@ -166,7 +92,7 @@ const Home = () => {
             overflow: "scroll",
           }}
         >
-          {generateMsgDisplay()}
+          {MsgDisplay(msgList, messagesEndRef, userId, usernameColor)}
         </div>
         {userSubmitted ? (
           <form onSubmit={handleSubmit}>
@@ -208,4 +134,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Chat;

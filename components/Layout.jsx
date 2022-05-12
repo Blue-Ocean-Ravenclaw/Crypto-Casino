@@ -1,4 +1,3 @@
-import * as React from "react";
 import Navigation from "./Navigation";
 import { useRouter } from "next/router";
 
