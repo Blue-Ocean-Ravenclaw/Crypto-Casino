@@ -1,15 +1,20 @@
 import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
+import {RiCactusFill} from 'react-icons/ri';
 
 export default function BingoNumber({ board, num, revealedNums }) {
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    let stringNum = JSON.stringify(num);
-    if (revealedNums.includes(stringNum)) {
-      setRevealed((prev) => (!prev ? true : prev));
+    if (num === 'Free') {
+      setRevealed((prev) => prev ? prev : true);
     } else {
-      setRevealed((prev) => (prev ? false : prev));
+      let stringNum = JSON.stringify(num);
+      if (revealedNums.includes(stringNum)) {
+        setRevealed((prev) => (!prev ? true : prev));
+      } else {
+        setRevealed((prev) => (prev ? false : prev));
+      }
     }
   }, [revealedNums]);
 
@@ -18,7 +23,7 @@ export default function BingoNumber({ board, num, revealedNums }) {
       className="bingo-number"
       sx={revealed ? revealedStyle : containerStyle}
     >
-      {num}
+      {num === 'Free' ? <RiCactusFill /> : num}
     </Box>
   );
 }
