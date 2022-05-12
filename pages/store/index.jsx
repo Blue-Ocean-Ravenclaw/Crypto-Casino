@@ -119,82 +119,31 @@ function GameStore() {
       <GlobalStyles
         styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
       />
-      {/* <Container
-        // disableGutters
-        maxWidth="sm"
-        component="main"
-        sx={{
-          pt: 8,
-          pb: 6,
-        }}
-      >
-        <Typography
-          component="h1"
-          variant="h2"
-          align="center"
-          color="text.primary"
-          gutterBottom
-        >
-          GAMES
-        </Typography>
-        <Typography
-          variant="h5"
-          align="center"
-          color="text.primary"
-          component="p"
-        >
-          Get to winning with our current list of premium games. "The house
-          always wins" doesn't apply here - see the odds for each game below!
-          Feeling lucky?
-        </Typography>
-
-        <Typography
-          variant="h5"
-          align="center"
-          color="text.primary"
-          component="p"
-          sx={{ marginTop: 4 }}
-        >
-          You have {tokens} tokens to spend!
-        </Typography>
-      </Container> */}
-
       <Container maxWidth="md" sx={{ mt: 2, mb: 15 }}>
         <Grid container spacing={2} alignItems="flex-end">
           {games.map((game) => (
-            <Grid item key={game.title} xs={12} sm={6} md={4}>
-              <Card>
-                {/* <CardHeader
-                  title={game.title}
-                  subheader={game.subheader}
-                  titleTypographyProps={{ align: "center" }}
-                  action={game.icon}
-                  subheaderTypographyProps={{
-                    align: "center",
-                  }}
-                  sx={{
-                    backgroundColor: (theme) =>
-                      theme.palette.mode === "light"
-                        ? theme.palette.grey[200]
-                        : theme.palette.grey[700],
-                  }}
-                /> */}
+            <Grid
+              item
+              key={game.title}
+              xs={12}
+              sm={6}
+              md={4}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Card
+                sx={{
+                  width: 360,
+                }}
+              >
                 <CardContent
                   sx={{
                     padding: 0,
                     position: "relative",
                   }}
                 >
-                  {/* <Typography
-                    variant="h6"
-                    color="text.secondary"
-                    sx={{
-                      position: "absolute",
-                      right: 5,
-                    }}
-                  >
-                    {game.price}
-                  </Typography> */}
                   <CardMedia
                     component="img"
                     image={game.image}
@@ -203,36 +152,6 @@ function GameStore() {
                       height: 175,
                     }}
                   />
-                  {/* <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "baseline",
-                      // mb: 4,
-                      // mt: 2,
-                    }}
-                  >
-                    <Typography
-                      component="h2"
-                      variant="h3"
-                      color="text.primary"
-                    >
-                      {game.price}
-                    </Typography>
-                  </Box> */}
-
-                  {/* <ul>
-                    {game.description.map((line) => (
-                      <Typography
-                        component="li"
-                        variant="subtitle1"
-                        align="center"
-                        key={line}
-                      >
-                        {line}
-                      </Typography>
-                    ))}
-                  </ul> */}
                 </CardContent>
 
                 <CardActions>
