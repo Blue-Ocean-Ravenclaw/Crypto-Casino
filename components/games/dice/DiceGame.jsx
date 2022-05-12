@@ -20,11 +20,11 @@ export default function DiceGame({ plays, newGame }) {
   function reducer(state, action) {
     //Controls the Game State
     switch (action.type) {
-      case 'roll':
+      case 'play':
+        let newGame = action.payload
         return {
           ...state,
-          board: action.payload.board,
-          prize: action.payload.prize,
+          ...newGame,
           revealed: false
         };
       case "out":
@@ -53,7 +53,7 @@ export default function DiceGame({ plays, newGame }) {
       .then((res) => {
         console.log(res);
         if (res.status === 200 && res.data.cards >= 0) {
-          dispatch({type: 'roll', payload: res.data.game});
+          dispatch({type: 'play', payload: res.data.game});
         } else {
           onLink('/games');
         }

@@ -22,6 +22,30 @@ export default function Bingo({plays, playGame, playing}) {
     prize: "",
     revealed: false
   };
+  function reducer(state, action) {
+    //Controls the Game State
+    switch (action.type) {
+      case 'play':
+        let newGame = action.payload;
+        return {
+          ...state,
+          ...newGame,
+          revealed: false
+        };
+      case "out":
+        return initialState;
+      case "toggleModal":
+        let newReveal = !state.revealed;
+        return { ...state, revealed: newReveal };
+      case "revealed":
+        return { ...state, revealed: true };
+      default:
+        throw new Error();
+        return initialState;
+    }
+  }
+  const [gameState, dispatch] = useReducer(reducer, initialState);
+  const reveal = useCallback(() => dispatch({ type: "revealed" }), []);
 
   const [boards, setBoards] = useState([]);
   const [sequences, setSequences] = useState([]);
@@ -40,25 +64,6 @@ export default function Bingo({plays, playGame, playing}) {
       setRevealed(false);
     }
   }, [plays]);
-  function playBingo ()  {
-     axios.get(`https://localhost:3001/play/bingo/roll?user_id=${1}`)
-      .then((res) => {
-        const newBoards = game.boards;
-        let newSequences = game.sequence;
-        let outcomes = game.outcomes;
-        setBoards(res.data.game.boards);
-        setSequences(res.data.game.sequence);
-        setOutcome(res.data.game.outcomes);
-        setRevealed(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setBoards([]);
-        setSequences([]);
-        setOutcome([]);
-        setRevealed(false);
-      });
-  }
 
   const toggleModal = () => {
     setRevealed(!revealed);
