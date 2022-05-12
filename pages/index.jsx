@@ -17,7 +17,7 @@ export default function Home() {
       await logout();
       router.push("/login");
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       setError("Failed to log out");
     }
   };

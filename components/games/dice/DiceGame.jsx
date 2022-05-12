@@ -14,17 +14,17 @@ export default function DiceGame({ newGame }) {
   const initialState = {
     board: [],
     prize: "",
-    revealed: false
+    revealed: false,
   };
 
   function reducer(state, action) {
     switch (action.type) {
-      case 'play':
-        let newGame = action.payload
+      case "play":
+        let newGame = action.payload;
         return {
           ...state,
           ...newGame,
-          revealed: false
+          revealed: false,
         };
       case "out":
         return initialState;
@@ -47,19 +47,19 @@ export default function DiceGame({ newGame }) {
     router.push(href);
   };
 
-  function play () {
+  function play() {
     newGame()
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 200 && res.data.cards >= 0) {
           dispatch({type: 'play', payload: res.data.game});
           stateRenderWallet(prev=>!prev);
         } else {
-          onLink('/store');
+          onLink("/store");
         }
       })
       .catch((err) => {
-        dispatch({type: 'out'});
+        dispatch({ type: "out" });
         console.error(err);
       });
   }
@@ -90,16 +90,16 @@ export default function DiceGame({ newGame }) {
     >
       <Dice board={game.board} reveal={reveal} />
       <Button
-          sx={{
-            width: 200,
-            color: "#fff",
-          }}
-          onClick={play}
-          color="dice"
-          variant="contained"
-        >
-          Roll The dice
-        </Button>
+        sx={{
+          width: 200,
+          color: "#fff",
+        }}
+        onClick={play}
+        color="dice"
+        variant="contained"
+      >
+        Roll The dice
+      </Button>
       <Dice board={game.board} />
       <Modal
         open={game.revealed}
@@ -136,10 +136,10 @@ const prizeStyle = {
   borderRadius: "2px",
 };
 const prizeMessages = {
-  'grandPrize': {
-    header: 'GRAND PRIZE',
+  grandPrize: {
+    header: "GRAND PRIZE",
     message: "You hit the jackpot- AN NFT!!!",
-    confetti: true
+    confetti: true,
   },
   secondPrize: {
     header: "SECOND PRIZE!",
@@ -149,16 +149,16 @@ const prizeMessages = {
   thirdPrize: {
     header: "THIRD PRIZE!",
     message: "Lucky you! You've won 5x your tokens back!",
-    confetti: false
+    confetti: false,
   },
   fourthPrize: {
     header: "FOURTH PRIZE",
     message: "Not bad, High Roller! You've won your tokens back!",
-    confetti: false
+    confetti: false,
   },
   loser: {
     header: "Not this time!",
     message: "Roll again!",
-    confetti: false
+    confetti: false,
   },
 };
