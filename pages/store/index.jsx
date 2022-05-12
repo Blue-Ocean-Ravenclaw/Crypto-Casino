@@ -114,6 +114,7 @@ function GameStore() {
   }, [gameCount]);
 
   const onLink = (href) => {
+    handlePurchase();
     router.push(href);
   };
 
@@ -211,23 +212,23 @@ function GameStore() {
                         {/* Description placement. */}
                       </Typography>
 
-                      <Link
+                      {/* <Link
                         href="/play/"
                         style={{
                           textDecoration: "none",
                         }}
-                      >
+                      > */}
                         <Button
                           fullWidth
                           variant="contained"
-                          onClick={onLink}
+                          onClick={()=>onLink('/play')}
                           sx={{
                             bgcolor: gameColor,
                           }}
                         >
                           Purchase and play
                         </Button>
-                      </Link>
+                      {/* </Link> */}
                       <Button
                         fullWidth
                         variant="outlined"
