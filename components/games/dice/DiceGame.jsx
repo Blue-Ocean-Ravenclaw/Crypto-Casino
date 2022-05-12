@@ -12,7 +12,7 @@ import { realConfetti } from '../../../lib/confetti.js'
 export default function DiceGame({ plays, newGame }) {
   const initialState = {
     //Initial Game State
-    diceArr: [],
+    board: [],
     prize: "",
     revealed: false
   };
@@ -23,7 +23,7 @@ export default function DiceGame({ plays, newGame }) {
       case 'roll':
         return {
           ...state,
-          diceArr: action.payload.board,
+          board: action.payload.board,
           prize: action.payload.prize,
           revealed: false
         };
@@ -119,7 +119,7 @@ export default function DiceGame({ plays, newGame }) {
         alignItems: "center",
       }}
     >
-      <Dice diceArr={gameState.diceArr} reveal={reveal} />
+      <Dice board={gameState.board} reveal={reveal} />
       <Button
           sx={{
             width: 200,
@@ -131,7 +131,7 @@ export default function DiceGame({ plays, newGame }) {
         >
           Roll The dice
         </Button>
-      <Dice diceArr={gameState.diceArr} />
+      <Dice board={gameState.board} />
       <Modal
         open={gameState.revealed}
         onClose={toggleModal}
