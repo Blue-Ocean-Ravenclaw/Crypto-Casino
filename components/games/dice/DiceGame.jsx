@@ -7,6 +7,8 @@ import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
 import { realConfetti } from '../../../lib/confetti.js'
 
+//TODO: Create a 'Buy More Modal'
+//TODO: Move Prize Modals out of Game Component
 export default function DiceGame({ plays, newGame }) {
   const initialState = {
     //Initial Game State
@@ -49,7 +51,7 @@ export default function DiceGame({ plays, newGame }) {
   function play () {
     newGame()
       .then((res) => {
-        if (res.data.canPlay) {
+        if (res.data.cards >= 0) {
           dispatch({type: 'roll', payload: res.data.game});
         } else {
           onLink('/games');

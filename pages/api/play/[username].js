@@ -21,11 +21,10 @@ export default async function handler(req, res) {
 
     function createResponse () {
       let responseBody = {
-        canPlay: false,
-        game: {}
+        game: {},
+        cards: cards - 1
       };
       if (cards > 0) {
-        responseBody.canPlay = true;
         switch (req.query.card_name) {
           case 'highroller':
             responseBody.game = generateDiceGame();
