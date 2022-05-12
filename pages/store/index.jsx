@@ -209,13 +209,6 @@ function GameStore() {
                       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         {/* Description placement. */}
                       </Typography>
-
-                      {/* <Link
-                        href="/play/"
-                        style={{
-                          textDecoration: "none",
-                        }}
-                      > */}
                         <Button
                           fullWidth
                           variant="contained"
@@ -226,7 +219,6 @@ function GameStore() {
                         >
                           Purchase and play
                         </Button>
-                      {/* </Link> */}
                       <Button
                         fullWidth
                         variant="outlined"
