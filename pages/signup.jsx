@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../context/AuthContext";
-import axios from 'axios';
+import axios from "axios";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -17,7 +17,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 
-
 export default function SignUp() {
   const [userData, setUserData] = useState({
     email: "",
@@ -29,6 +28,10 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { signup } = useAuth();
+
+  const onLink = (href) => {
+    router.push(href);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,7 +46,11 @@ export default function SignUp() {
       setLoading(true);
       await signup(userData.email, userData.password);
       // call backend to post {email: userData.email, username: userData.username}
-      axios.post('/api/newUser', { username: userData.username, email: userData.email })
+      axios
+        .post("/api/newUser", {
+          username: userData.username,
+          email: userData.email,
+        })
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
       // rounting to main page after sucess sign up
@@ -82,7 +89,7 @@ export default function SignUp() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -166,14 +173,20 @@ export default function SignUp() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/login" variant="body2">
+              <Typography
+                variant="body2"
+                onClick={() => onLink("/login")}
+                sx={{
+                  color: "primary.main",
+                  textDecoration: "underline",
+                }}
+              >
                 Already have an account? Sign in
-              </Link>
+              </Typography>
             </Grid>
           </Grid>
         </Box>
       </Box>
-      {/* <Copyright sx={{ mt: 5 }} /> */}
     </Container>
   );
 }
