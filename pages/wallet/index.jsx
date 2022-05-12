@@ -58,7 +58,7 @@ function Checkout() {
   const [tokens, setTokens] = useState(40);
   const [view, setView] = useState(0);
 
-  const { username, setRenderWallet } = useAppContext();
+  const { username } = useAppContext();
   const router = useRouter()
 
 
@@ -85,7 +85,7 @@ function Checkout() {
 
   const handlePurchase = () => {
     handleClose();
-    setRenderWallet((state) => state + 1);
+    // setRenderWallet((state) => state + 1);
 
     axios
       .post(`/api/tokens/${username}`, { tokens: tokens })
