@@ -141,7 +141,7 @@ const Home = () => {
         );
       }
     });
-    // add a dummy node for autoscroll
+    // dummy node for autoscroll
     msgDisplay.push(<div key="dummy" ref={messagesEndRef} />);
     return msgDisplay;
   };
@@ -168,9 +168,7 @@ const Home = () => {
         >
           {generateMsgDisplay()}
         </div>
-        {!userSubmitted ? (
-          ""
-        ) : (
+        {userSubmitted ? (
           <form onSubmit={handleSubmit}>
             <input
               autofocus
@@ -182,9 +180,6 @@ const Home = () => {
               onChange={onChangeHandler}
             />
           </form>
-        )}
-        {userSubmitted ? (
-          ""
         ) : (
           <form onSubmit={handleUsername}>
             <input
