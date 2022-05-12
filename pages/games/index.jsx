@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { useAppContext } from '../../context/state.js';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import AppBar from '@mui/material/AppBar';
@@ -60,7 +61,7 @@ function GameStore() {
   const [gameTitle, setGameTitle] = useState('');
   const [total, setTotal] = useState(0);
   const [game, setGame] = useState({});
-
+  const router = useRouter();
   const context = useAppContext();
   const { tokens } = useAppContext();
 
@@ -99,7 +100,7 @@ function GameStore() {
         .then((res) => {
           console.log(game.dbTitle);
           axios.put(`/api/cards/${context.username}`, { card_name: game.dbTitle, quantity: gameCount })
-            .then((res) => `${gameCount} Cards purchased`)
+            .then((res) => router.reload())
             .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
@@ -114,9 +115,7 @@ function GameStore() {
 
   return (
     <React.Fragment>
-      {console.log(context)}
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
-
       <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
         <Typography
           component="h1"

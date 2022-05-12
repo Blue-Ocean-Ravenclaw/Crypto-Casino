@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
-import { realConfetti } from '../../../lib/confetti.js'
+import { realConfetti, fireWorksConfetti } from "../../../lib/confetti.js";
 
 //TODO: Create a 'Buy More Modal'
 //TODO: Move Prize Modals out of Game Component
@@ -65,12 +65,15 @@ export default function DiceGame({ newGame }) {
   const toggleModal = useCallback(() => dispatch({ type: "toggleModal" }), []);
 
   function displayPrize() {
-    const { header, message, confetti } = prizeMessages[game.prize];
+    if (game.revealed && game.prize !== "loser") {
+      realConfetti(true);
+      fireWorksConfetti(game.prize === "grandPrize");
+    }
+    const { header, message } = prizeMessages[game.prize];
     return (
       <Box sx={prizeStyle}>
         <h1>{header}</h1>
         <p>{message}</p>
-        { game.revealed && realConfetti(confetti) }
       </Box>
     );
   }
@@ -103,7 +106,7 @@ export default function DiceGame({ newGame }) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          zIndex: '5'
+          zIndex: "5",
         }}
       >
         <Box

@@ -9,6 +9,7 @@ import Sequence from './Sequence.jsx';
 import { ScratchOff } from "@sky790312/react-scratch-off";
 import Modal from '@mui/material/Modal';
 import { useRouter } from "next/router";
+import { realConfetti, fireWorksConfetti } from '../../../lib/confetti.js';
 
 //TODO: Make bingo numbers light up when you reveal their sequence number
 //TODO: Prizes
@@ -67,6 +68,9 @@ export default function Bingo({ newGame }) {
 
   const displayPrize = () => {
     const { header, message }= prizeMessages[game.prize];
+    if (game.revealed && game.prize !== 'loser') {
+      realConfetti(true);
+      fireWorksConfetti(game.prize === 'grandPrize');
     return (
       <Box sx = {prizeStyle}>
         <h1>{header}</h1>
@@ -118,7 +122,8 @@ export default function Bingo({ newGame }) {
           sx = {{
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            zIndex: '5'
           }}
         >
           <Box sx = {{
