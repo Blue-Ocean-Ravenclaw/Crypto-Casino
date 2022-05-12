@@ -19,6 +19,8 @@ export default function WalletForm() {
   const { stateResults } = useAppContext();
   const context = useAppContext();
 
+  console.log(stateResults);
+
   return (
     <React.Fragment>
       <Box
@@ -33,7 +35,7 @@ export default function WalletForm() {
           borderRadius: 2,
           mt: 2,
           mb: 1,
-          py: 1,
+          pt: 1,
         }}
       >
         <Typography
@@ -46,6 +48,7 @@ export default function WalletForm() {
             fontSize: 16,
             fontWeight: 500,
             py: "6px",
+            mb: 1,
           }}
         >
           NFT COLLECTION
@@ -54,15 +57,14 @@ export default function WalletForm() {
           sx={{
             width: "95%",
             height: "auto",
-            mt: 1,
-            mb: 0,
+            my: 0,
           }}
           cols={2}
           gap={10}
           variant="quilted"
         >
-          {nfts
-            ? nfts.map((nft, idx) => (
+          {stateResults.nfts
+            ? stateResults.nfts.map((nft, idx) => (
                 <Paper
                   elevation={3}
                   sx={{
@@ -170,7 +172,7 @@ export default function WalletForm() {
             fontWeight: 600,
           }}
         >
-          {tokens} TOKENS
+          {stateResults.tokens} TOKENS
         </Typography>
       </Box>
     </React.Fragment>

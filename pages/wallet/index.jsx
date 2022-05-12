@@ -28,12 +28,12 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 360,
   bgcolor: "background.paper",
-  border: "2px solid #000",
-  borderRadius: "20px",
+  borderRadius: 2,
   boxShadow: 24,
-  p: 4,
+  p: 1,
+  pt: 3,
   largeIcon: {
     width: 40,
     height: 40,
@@ -139,7 +139,7 @@ function Checkout() {
               variant="h6"
               component="h2"
               style={style.iconSpacing}
-              sx={{ mb: 4 }}
+              sx={{ mb: 3 }}
             >
               Total: ${total}
             </Typography>
