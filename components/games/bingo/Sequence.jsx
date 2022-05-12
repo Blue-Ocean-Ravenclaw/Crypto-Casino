@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import SequenceNumber from './SequenceNumber.jsx';
 import {useState, useEffect, useCallback} from 'react';
 
-export default function Sequence ({sequences, setRevealed}) {
+export default function Sequence ({sequences, revealed}) {
   const [revealCounter, setRevealCounter] = useState(0);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ export default function Sequence ({sequences, setRevealed}) {
   }, [sequences]);
   useEffect(() => {
     if (revealCounter === 25) {
-      setRevealed((prev) => !prev ? true : prev);
+      revealed()
     }
   }, [revealCounter]);
 
