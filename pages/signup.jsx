@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../context/AuthContext";
-import axios from 'axios';
+import axios from "axios";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -16,7 +16,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
-
 
 export default function SignUp() {
   const [userData, setUserData] = useState({
@@ -42,14 +41,16 @@ export default function SignUp() {
       setError("");
       setLoading(true);
       await signup(userData.email, userData.password);
-      // call backend to post {email: userData.email, username: userData.username}
-      axios.post('/api/newUser', { username: userData.username, email: userData.email })
-        .then((res) => console.log(res))
+      axios
+        .post("/api/newUser", {
+          username: userData.username,
+          email: userData.email,
+        })
+        // .then((res) => console.log(res))
         .catch((err) => console.log(err));
-      // rounting to main page after sucess sign up
       router.push("/user");
     } catch (err) {
-      console.log("failed ", err);
+      // console.log("failed ", err);
       setError("Failed to create an account");
     }
     setLoading(false);
@@ -173,7 +174,6 @@ export default function SignUp() {
           </Grid>
         </Box>
       </Box>
-      {/* <Copyright sx={{ mt: 5 }} /> */}
     </Container>
   );
 }
