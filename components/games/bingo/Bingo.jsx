@@ -9,10 +9,8 @@ import Sequence from './Sequence.jsx';
 import { ScratchOff } from "@sky790312/react-scratch-off";
 import Modal from '@mui/material/Modal';
 import { useRouter } from "next/router";
-import axios from 'axios';
 
 //TODO: Make bingo numbers light up when you reveal their sequence number
-//TODO: Bingo! pop up when you hit a bingo
 //TODO: Prizes
 export default function Bingo({ newGame }) {
   const initialState = {

@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import LLBoard from "./LLBoard.jsx";
 import LLPlayerNum from "./LLPlayerNum.jsx";
 import Modal from '@mui/material/Modal';
+import { useRouter } from "next/router";
 
 const processBoard = (array) => {
   return [
@@ -31,7 +32,8 @@ export default function LadyLuck({ plays, playGame, playing }) {
         return {
           ...state,
           ...newGame,
-          revealed: false
+          revealed: false,
+          counter: 0
         };
       case "out":
         return initialState;
@@ -40,11 +42,20 @@ export default function LadyLuck({ plays, playGame, playing }) {
         return { ...state, revealed: newReveal };
       case "revealed":
         return { ...state, revealed: true };
+      case 'count':
+        return {...state, counter: state.counter + 1};
       default:
         throw new Error();
         return initialState;
     }
   }
+  const [game, dispatch] = useReducer(reducer, initialState);
+  const router = useRouter();
+  const onLink = (href) => {
+    router.push(href);
+  };
+  const revealed = useCallback(() => dispatch({ type: "revealed" }), []);
+  const toggleModal = () => dispatch({type: 'toggleModal'});
 
   const [board, setBoard] = useState([]);
   const [playerNums, setPlayerNums] = useState([]);
