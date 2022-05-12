@@ -1,5 +1,6 @@
 import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
+import {RiCactusFill} from 'react-icons/ri';
 
 export default function BingoNumber({ board, num, revealedNums }) {
   const [revealed, setRevealed] = useState(false);
@@ -22,7 +23,7 @@ export default function BingoNumber({ board, num, revealedNums }) {
       className="bingo-number"
       sx={revealed ? revealedStyle : containerStyle}
     >
-      {num}
+      {num === 'Free' ? <RiCactusFill /> : num}
     </Box>
   );
 }
