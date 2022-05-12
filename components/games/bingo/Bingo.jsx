@@ -144,7 +144,8 @@ export default function Bingo({plays, luck, playGame, playing}) {
           sx = {{
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            zIndex: '5'
           }}
         >
           <Box sx = {{
