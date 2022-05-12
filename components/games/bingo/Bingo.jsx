@@ -52,7 +52,6 @@ export default function Bingo({ newGame }) {
   function play () {
     newGame()
       .then((res) => {
-        console.log(res);
         if (res.status === 200 && res.data.cards >= 0) {
           dispatch({type: 'play', payload: res.data.game});
         } else {

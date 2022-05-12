@@ -7,7 +7,7 @@ import LLPlayerNum from "./LLPlayerNum.jsx";
 import Modal from '@mui/material/Modal';
 import { useRouter } from "next/router";
 
-export default function LadyLuck({ plays, playGame, playing }) {
+export default function LadyLuck({ newGame }) {
   const initialState = {
     board: [],
     playerNums: [],
@@ -57,8 +57,19 @@ export default function LadyLuck({ plays, playGame, playing }) {
   }, []);
 
   function play () {
-    const newGame = getLadyLuck();
-    dispatch({type: 'play', payload: newGame});
+    newGame()
+      .then((res) => {
+        if (res.status === 200 && res.data.cards >= 0) {
+          console.log(res.data.game);
+          dispatch({type: 'play', payload: res.data.game});
+        } else {
+          onLink('/games');
+        }
+      })
+      .catch((err) => {
+        dispatch({type: 'out'});
+        console.error(err);
+      });
   }
 
   const displayPrize = () => {
