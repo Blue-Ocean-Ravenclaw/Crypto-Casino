@@ -1,8 +1,9 @@
 import { db } from '../../../server/model.js';
+import { generateDiceGame } from '../../../lib/dice.js';
 
 export default async function handler(req, res) {
 
-  if (req.method === 'PUT') {
+  if (req.method === 'GET') {
     const query = { text: '', values: [] };
 
     query.text = `
@@ -15,11 +16,28 @@ export default async function handler(req, res) {
     `;
     query.values = [req.query.username, req.query.card_name];
 
-    const cards = await db.query(query);
+    const queryResponse = await db.query(query);
+    const cards = queryResponse.rows[0].coalesce;
 
-    res.status(200).send({ message: `${req.query.username} has ${cards.rows[0].coalesce} cards` });
+    function createResponse () {
+      let responseBody = {
+        canPlay: false,
+        game: {}
+      };
+      if (cards > 0) {
+        responseBody.canPlay = true;
+        switch (req.query.card_name) {
+          case 'highroller':
+            responseBody.game = generateDiceGame();
+            return responseBody;
+        }
+      }
+      return responseBody;
+    }
+
+    res.status(200).send(createResponse());
   } else {
-    res.status(500).send({ message: 'This endpoint only accepts POST/PUT requests.' });
+    res.status(500).send({ message: 'This endpoint only accepts GET requests.' });
   }
 }
 
