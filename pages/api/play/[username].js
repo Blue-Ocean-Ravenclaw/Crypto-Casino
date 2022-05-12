@@ -32,13 +32,13 @@ export default async function handler(req, res) {
         responseBody.cards = queryData.quantity - 1;
         switch (card_name) {
           case 'highroller':
-            responseBody.game = generateDiceGame();
+            responseBody.game = await generateDiceGame();
             break;
           case 'bingo':
-            responseBody.game = generateBingoGame();
+            responseBody.game = await generateBingoGame();
             break;
-          case 'ladyluck':
-            responseBody.game = getLadyLuck();
+          case 'luckylucy':
+            responseBody.game = await getLadyLuck();
             break;
         }
         useCard(queryData.id_user, card_name);
