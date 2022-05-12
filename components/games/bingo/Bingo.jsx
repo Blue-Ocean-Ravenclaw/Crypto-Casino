@@ -2,7 +2,7 @@ import {
   generateBingoGame
 } from "../../../lib/bingo.js";
 import BingoBoard from './BingoBoard.jsx';
-import {useState, useReducer, useEffect} from 'react';
+import {useState, useReducer, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Sequence from './Sequence.jsx';
@@ -17,7 +17,7 @@ export default function Bingo({plays, playGame, playing}) {
   const initialState = {
     //Initial Game State
     boards: [],
-    sequences: [],
+    sequence: [],
     outcomes: [],
     prize: "",
     revealed: false
@@ -44,63 +44,20 @@ export default function Bingo({plays, playGame, playing}) {
         return initialState;
     }
   }
-  const [gameState, dispatch] = useReducer(reducer, initialState);
-  const reveal = useCallback(() => dispatch({ type: "revealed" }), []);
-
-  const [boards, setBoards] = useState([]);
-  const [sequences, setSequences] = useState([]);
-  const [outcomes, setOutcomes] = useState([]);
-  const [revealed, setRevealed] = useState(false);
-  const [prize, setPrize] = useState('');
-
-  useEffect(() => {
-    if (playing) {
-      const game = generateBingoGame();
-      const { boards, sequence, outcomes, prize} = game;
-      setBoards(boards);
-      setSequences(sequence);
-      setOutcomes(outcomes);
-      setPrize(prize);
-      setRevealed(false);
-    }
-  }, [plays]);
+  const [game, dispatch] = useReducer(reducer, initialState);
+  const revealed = useCallback(() => dispatch({ type: "revealed" }), []);
 
   const toggleModal = () => {
-    setRevealed(!revealed);
+    dispatch({type: 'toggleModal'});
+  }
+
+  function play () {
+    const newGame = generateBingoGame();
+    dispatch({type: 'play', payload: newGame});
   }
 
   const displayPrize = () => {
-    const prizeStyle = {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: '2px'
-
-    };
-    const prizeMessages = {
-      'grandPrize': {
-        header: 'GRAND PRIZE!!',
-        message: "YIPEE KI-YAY! You've won the wildest prize in the west - an NFT!!!!"
-      },
-      'secondPrize': {
-        header: "SECOND PRIZE!",
-        message: "When it comes to catching bingos, you're the baddest cowboy West of the Mississippi! You've won 10x your tokens back!"
-      },
-      'thirdPrize': {
-        header: 'THIRD PRIZE!',
-        message: "Well I'll be, a double bingo! You've won 5x your tokens back!"
-      },
-      'fourthPrize' : {
-        header: 'FOURTH PRIZE!',
-        message: "Giddy up, partner- you lassoed a bingo!"
-      },
-      'loser': {
-        header: 'Aw, shucks!',
-        message: 'Not this time, cowboy- get back on the horse and play again!'
-      }
-    };
-    const { header, message }= prizeMessages[prize];
+    const { header, message }= prizeMessages[game.prize];
     return (
       <Box sx = {prizeStyle}>
         <h1>{header}</h1>
@@ -126,7 +83,7 @@ export default function Bingo({plays, playGame, playing}) {
           flexDirection: 'row',
           margin: 1
         }}>
-          <Sequence sequences={sequences} setRevealed={setRevealed} />
+          <Sequence sequences={game.sequence} revealed={revealed} />
         </Box>
         <Box sx={{
           display: 'flex',
@@ -136,18 +93,18 @@ export default function Bingo({plays, playGame, playing}) {
           width: 320,
           height: 320
         }}>
-          {boards.map((board, i) => <BingoBoard key={i} board={board} />)}
+          {game.boards.map((board, i) => <BingoBoard key={i} board={board} />)}
         </Box>
         <Button
           sx={{
             marginTop: 1
           }}
           variant='contained'
-          onClick={playGame}>
+          onClick={play}>
             New Board
         </Button>
         <Modal
-          open = {revealed}
+          open = {game.revealed}
           onClose ={toggleModal}
           sx = {{
             display: 'flex',
@@ -163,16 +120,8 @@ export default function Bingo({plays, playGame, playing}) {
             width: 400,
             height: 500
           }}>
-            { prize.length ? displayPrize() : null}
+            { game.prize.length ? displayPrize() : null}
           </Box>
-          {/* <Button
-          sx={{
-            marginTop: 1
-          }}
-          variant='contained'
-          onClick={playGame}>
-            Play Again!
-        </Button> */}
         </Modal>
     </Box>
   );
@@ -184,4 +133,34 @@ const containerStyle = {
   flexWrap: 'wrap',
   width: 400,
   flexDirection: 'row'
+};
+const prizeStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '2px'
+
+};
+const prizeMessages = {
+  'grandPrize': {
+    header: 'GRAND PRIZE!!',
+    message: "YIPEE KI-YAY! You've won the wildest prize in the west - an NFT!!!!"
+  },
+  'secondPrize': {
+    header: "SECOND PRIZE!",
+    message: "When it comes to catching bingos, you're the baddest cowboy West of the Mississippi! You've won 10x your tokens back!"
+  },
+  'thirdPrize': {
+    header: 'THIRD PRIZE!',
+    message: "Well I'll be, a double bingo! You've won 5x your tokens back!"
+  },
+  'fourthPrize' : {
+    header: 'FOURTH PRIZE!',
+    message: "Giddy up, partner- you lassoed a bingo!"
+  },
+  'loser': {
+    header: 'Aw, shucks!',
+    message: 'Not this time, cowboy- get back on the horse and play again!'
+  }
 };

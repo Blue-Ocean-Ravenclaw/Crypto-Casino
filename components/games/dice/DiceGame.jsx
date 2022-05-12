@@ -39,7 +39,7 @@ export default function DiceGame({ plays, newGame }) {
         return initialState;
     }
   }
-  const [gameState, dispatch] = useReducer(reducer, initialState);
+  const [game, dispatch] = useReducer(reducer, initialState);
   const reveal = useCallback(() => dispatch({ type: "revealed" }), []);
 
   const router = useRouter();
@@ -101,12 +101,12 @@ export default function DiceGame({ plays, newGame }) {
         confetti: false
       },
     };
-    const { header, message, confetti } = prizeMessages[gameState.prize];
+    const { header, message, confetti } = prizeMessages[game.prize];
     return (
       <Box sx={prizeStyle}>
         <h1>{header}</h1>
         <p>{message}</p>
-        { gameState.revealed && realConfetti(confetti) }
+        { game.revealed && realConfetti(confetti) }
       </Box>
     );
   }
@@ -119,7 +119,7 @@ export default function DiceGame({ plays, newGame }) {
         alignItems: "center",
       }}
     >
-      <Dice board={gameState.board} reveal={reveal} />
+      <Dice board={game.board} reveal={reveal} />
       <Button
           sx={{
             width: 200,
@@ -131,9 +131,9 @@ export default function DiceGame({ plays, newGame }) {
         >
           Roll The dice
         </Button>
-      <Dice board={gameState.board} />
+      <Dice board={game.board} />
       <Modal
-        open={gameState.revealed}
+        open={game.revealed}
         onClose={toggleModal}
         sx={{
           display: "flex",
@@ -152,7 +152,7 @@ export default function DiceGame({ plays, newGame }) {
             height: 500,
           }}
         >
-          {gameState.prize.length ? displayPrize() : null}
+          {game.prize.length ? displayPrize() : null}
         </Box>
       </Modal>
     </Box>
