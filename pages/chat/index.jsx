@@ -82,10 +82,13 @@ const Chat = () => {
           flexDirection: "column",
           fontSize: "1rem",
           mb: 10,
+          position: "sticky",
         }}
       >
         <h1>Chat Room</h1>
+
         <div
+          // className="msgBox"
           style={{
             width: "85vw",
             height: "70vh",
