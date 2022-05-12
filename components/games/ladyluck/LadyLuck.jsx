@@ -43,7 +43,7 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
       setPlayerNums(game.playerNums);
       setOutcomes(game.winDistribution);
       setPrize(game.prize);
-      setRevealed(true);
+      setRevealed(false);
       setCounter(0);
     }
   }, [plays]);
