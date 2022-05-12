@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
-import { realConfetti } from '../../../lib/confetti.js'
+import { realConfetti } from "../../../lib/confetti.js";
 
 export default function DiceGame({ plays, luck, playGame, playing }) {
   const initialState = {
@@ -19,7 +19,7 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
   function reducer(state, action) {
     //Controls the Game State
     switch (action.type) {
-      case 'roll':
+      case "roll":
         let game = generateDiceGame(true);
         let newDice = game.board;
         let newPrize = game.prize;
@@ -85,10 +85,10 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
       borderRadius: "2px",
     };
     const prizeMessages = {
-      'grandPrize': {
-        header: 'GRAND PRIZE',
+      grandPrize: {
+        header: "GRAND PRIZE",
         message: "You hit the jackpot- AN NFT!!!",
-        confetti: true
+        confetti: true,
       },
       secondPrize: {
         header: "SECOND PRIZE!",
@@ -98,17 +98,17 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
       thirdPrize: {
         header: "THIRD PRIZE!",
         message: "Lucky you! You've won 5x your tokens back!",
-        confetti: false
+        confetti: false,
       },
       fourthPrize: {
         header: "FOURTH PRIZE",
         message: "Not bad, High Roller! You've won your tokens back!",
-        confetti: false
+        confetti: false,
       },
       loser: {
         header: "Not this time!",
         message: "Roll again!",
-        confetti: false
+        confetti: false,
       },
     };
     const { header, message, confetti } = prizeMessages[diceState.prize];
@@ -116,8 +116,7 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
       <Box sx={prizeStyle}>
         <h1>{header}</h1>
         <p>{message}</p>
-        { diceState.revealed && realConfetti(confetti) }
-
+        {diceState.revealed && realConfetti(confetti)}
       </Box>
     );
   }
@@ -149,7 +148,7 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
             width: 200,
             color: "#fff",
           }}
-          onClick={() => onLink("/games")}
+          onClick={() => onLink("/store")}
           color="dice"
           variant="contained"
         >
@@ -164,7 +163,7 @@ export default function DiceGame({ plays, luck, playGame, playing }) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          zIndex: '5'
+          zIndex: "5",
         }}
       >
         <Box
