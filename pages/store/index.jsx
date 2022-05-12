@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useState, useEffect, useContext } from "react";
 import { useAppContext } from "../../context/state.js";
 import axios from "axios";
@@ -59,9 +58,12 @@ function GameStore() {
   const [gameColor, setGameColor] = useState("");
   const [total, setTotal] = useState(0);
   const [game, setGame] = useState({});
+  const router = useRouter();
 
   const context = useAppContext();
   const { tokens } = useAppContext();
+
+  const { stateResults, stateRenderWallet } = useAppContext();
 
   const handleOpen = (e) => {
     setOpen(true);
@@ -93,31 +95,30 @@ function GameStore() {
 
   const handlePurchase = () => {
     if (total > tokens) {
-      console.log('YOU BROKE')
+      console.log("YOU BROKE");
     } else {
-      axios.post(`/api/tokens/${context.username}`, { tokens: (total * -1) })
+      axios.post(`/api/tokens/${stateResults.username}`, { tokens: (total * -1) })
         .then((res) => {
-          axios.put(`/api/cards/${context.username}`, { card_name: game.dbTitle, quantity: gameCount })
-            .then((res) => router.reload())
+          axios.put(`/api/cards/${stateResults.username}`, { card_name: game.dbTitle, quantity: gameCount })
+            .then((res) => stateRenderWallet(prev=>!prev))
             .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
     }
     handleClose();
-  }
+  };
 
   useEffect(() => {
     setTotal(game.price * gameCount);
   }, [gameCount]);
 
-  const router = useRouter();
-
   const onLink = (href) => {
+    handlePurchase();
     router.push(href);
   };
 
   return (
-    <React.Fragment>
+    <>
       <GlobalStyles
         styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
       />
@@ -208,24 +209,16 @@ function GameStore() {
                       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         {/* Description placement. */}
                       </Typography>
-
-                      <Link
-                        href="/play/"
-                        style={{
-                          textDecoration: "none",
-                        }}
-                      >
                         <Button
                           fullWidth
                           variant="contained"
-                          onClick={handlePurchase}
+                          onClick={()=>onLink('/play')}
                           sx={{
                             bgcolor: gameColor,
                           }}
                         >
                           Purchase and play
                         </Button>
-                      </Link>
                       <Button
                         fullWidth
                         variant="outlined"
@@ -245,7 +238,7 @@ function GameStore() {
           ))}
         </Grid>
       </Container>
-    </React.Fragment>
+    </>
   );
 }
 

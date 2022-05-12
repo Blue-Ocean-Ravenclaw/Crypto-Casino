@@ -56,7 +56,7 @@ function Checkout() {
   const [tokens, setTokens] = useState(40);
   const [view, setView] = useState(0);
 
-  const { username } = useAppContext();
+  const { stateResults, stateRenderWallet } = useAppContext();
   const router = useRouter();
 
   const handleOpen = (e) => {
@@ -82,9 +82,9 @@ function Checkout() {
   const handlePurchase = () => {
     handleClose();
     axios
-      .post(`/api/tokens/${username}`, { tokens: tokens })
-      .then((results) => router.reload())
-      .catch((errorn) => console.log("No tokens inserted"));
+      .post(`/api/tokens/${stateResults.username}`, { tokens: tokens })
+      .then((results) => stateRenderWallet((prev) => !prev))
+      .catch((error) => console.log("No tokens inserted", error));
   };
 
   useEffect(() => {

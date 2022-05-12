@@ -1,4 +1,3 @@
-import * as React from "react";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -16,9 +15,11 @@ import axios from "axios";
 
 export default function WalletForm() {
   const { card_inventory, tokens, nfts } = useAppContext();
+  const { stateResults } = useAppContext()
   const context = useAppContext();
 
   return (
+<<<<<<< HEAD
     <React.Fragment>
       <Box
         sx={{
@@ -48,6 +49,12 @@ export default function WalletForm() {
           }}
         >
           NFT COLLECTION
+=======
+    <>
+      <Box sx={{ backgroundColor: "secondary.main", borderRadius: 2 }}>
+        <Typography variant="h3" align="center">
+          NFT Collection
+>>>>>>> 608e41849e7212ad218011de5efa59e05c2a60c8
         </Typography>
         <ImageList
           sx={{
@@ -60,10 +67,17 @@ export default function WalletForm() {
           gap={10}
           variant="quilted"
         >
+<<<<<<< HEAD
           {nfts
             ? nfts.map((nft, idx) => (
                 <Paper
                   elevation={3}
+=======
+          {stateResults.nfts
+            ? stateResults.nfts.map((nft, idx) => (
+                <ImageListItem
+                  key={idx}
+>>>>>>> 608e41849e7212ad218011de5efa59e05c2a60c8
                   sx={{
                     display: "flex",
                     justifyContent: "center",
@@ -90,7 +104,7 @@ export default function WalletForm() {
                   </ImageListItem>
                 </Paper>
               ))
-            : null}
+            : []}
         </ImageList>
       </Box>
 
@@ -122,8 +136,8 @@ export default function WalletForm() {
         >
           GAME CARDS
         </Typography>
-        {card_inventory
-          ? card_inventory.map((product) => (
+        {stateResults.card_inventory
+          ? stateResults.card_inventory.map((product) => (
               <ListItem
                 key={product.card_name}
                 sx={{

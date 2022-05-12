@@ -2,12 +2,16 @@ import Box from '@mui/material/Box';
 import {useState, useEffect} from 'react';
 import { ScratchOff } from "@sky790312/react-scratch-off";
 
-export default function SequenceNumber ({sequences, num, reveal}) {
+export default function SequenceNumber ({sequences, num, dispatch}) {
   const [counter, setCounter] = useState(0);
 
-  useEffect(() => {
+  function revealNum () {
+    dispatch({ type: 'reveal', payload: num.slice(1) });
+  }
+
+  useEffect (() => {
     setCounter((prev) => prev + 1);
-  }, [sequences])
+  }, [sequences]);
 
   const hideStyle = {
     display: 'flex',
@@ -42,7 +46,7 @@ export default function SequenceNumber ({sequences, num, reveal}) {
             key={counter}
             width={40}
             height={40}
-            handleReveal={reveal}
+            handleReveal={revealNum}
             coverImgSrc={
               "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/1200px-Square_gray.svg.png"
             }
