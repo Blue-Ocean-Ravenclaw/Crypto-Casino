@@ -88,11 +88,11 @@ export default function LadyLuck({ plays, luck, playGame, playing }) {
         header: 'DOUBLE THE LUCK, DOUBLE THE FUN!',
         message: "No kidding - you scored a double win! You've won 10x your tokens back!"
       },
-      'seconds' : {
+      'second' : {
         header: 'YOU WON!',
         message: "Luck is in the air! You've won 5x your tokens back!"
       },
-      'thirds' : {
+      'third' : {
         header: 'YOU WON!',
         message: "Nicely done! You've won your tokens back!"
       },
