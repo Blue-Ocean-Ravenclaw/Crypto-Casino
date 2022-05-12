@@ -37,12 +37,11 @@ export default function Bingo({ newGame }) {
       case "toggleModal":
         let newReveal = !state.revealed;
         return { ...state, revealed: newReveal };
-      case "revealed":
-        return { ...state, revealed: true };
       case 'reveal':
         let newRevealedNums = state.revealedNums.concat([action.payload]);
         let newRevealed = state.revealed;
-        if (newRevealedNums.length > 20 ) {
+        console.log(newRevealedNums);
+        if (newRevealedNums.length >= 25 ) {
           newRevealed = true;
         }
         return { ...state, revealedNums: newRevealedNums, revealed: newRevealed};
@@ -56,7 +55,6 @@ export default function Bingo({ newGame }) {
   const onLink = (href) => {
     router.push(href);
   };
-  const revealed = useCallback(() => dispatch({ type: "revealed" }), []);
   const toggleModal = () => dispatch({type: 'toggleModal'});
 
   function play () {
@@ -144,7 +142,7 @@ export default function Bingo({ newGame }) {
           flexDirection: 'row',
           margin: 1
         }}>
-          <Sequence sequences={game.sequence} revealed={revealed} dispatch={dispatch} />
+          <Sequence sequences={game.sequence} dispatch={dispatch} />
         </Box>
         <Box sx={{
           display: 'flex',
@@ -154,7 +152,7 @@ export default function Bingo({ newGame }) {
           width: 320,
           height: 320
         }}>
-          {game.boards.map((board, i) => <BingoBoard key={i} board={board} />)}
+          {game.boards.map((board, i) => <BingoBoard key={i} board={board} revealedNums={game.revealedNums} />)}
         </Box>
         <Button
           sx={{
