@@ -49,7 +49,7 @@ export default function WalletForm() {
                   />
                 </ImageListItem>
               ))
-            : null}
+            : []}
         </ImageList>
       </Box>
 
@@ -93,7 +93,7 @@ export default function WalletForm() {
                 <Typography variant="h6">{product.quantity}</Typography>
               </ListItem>
             ))
-          : null}
+          : []}
         <ListItem
           sx={{ pt: 5, pb: 2, display: "flex", justifyContent: "center" }}
         >
