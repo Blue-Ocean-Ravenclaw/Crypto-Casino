@@ -100,6 +100,7 @@ const Chat = () => {
               autoFocus
               style={{
                 width: "80vw",
+                fontSize: "1rem",
               }}
               placeholder="Start chatting"
               value={msg}
@@ -112,6 +113,7 @@ const Chat = () => {
               autoFocus
               style={{
                 width: "50vw",
+                fontSize: "1rem",
               }}
               placeholder="Enter your name"
               value={username}
