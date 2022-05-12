@@ -29,8 +29,8 @@ const containerStyle = {
   alignItems: "center",
   height: 30,
   width: 30,
-  border: "1px solid gray",
-  borderColor: "secondary.main",
+  border: 1,
+  borderColor: "bingo.main",
   color: "white",
 };
 const revealedStyle = {
@@ -39,7 +39,7 @@ const revealedStyle = {
   alignItems: "center",
   height: 30,
   width: 30,
-  border: "1px solid gray",
-  borderColor: "secondary.main",
-  color: "tertiary.main",
+  border: 1,
+  borderColor: "bingo.main",
+  color: "bingo.main",
 };
