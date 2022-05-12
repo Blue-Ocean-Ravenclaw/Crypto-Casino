@@ -64,9 +64,9 @@ export default function LogIn() {
           Sign in
         </Typography>
         <Typography variant="body1" color="orange">
-          Testuser
+          {/* Testuser
           <div>potatoboi@gmail.com </div>
-          <div>DurangoBill </div>
+          <div>DurangoBill </div> */}
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -118,7 +118,6 @@ export default function LogIn() {
           </Grid>
         </Box>
       </Box>
-      {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
     </Container>
   );
 }

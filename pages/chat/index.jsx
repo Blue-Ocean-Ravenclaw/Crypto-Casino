@@ -141,7 +141,7 @@ const Home = () => {
         );
       }
     });
-    // add a dummy node for autoscroll
+    // dummy node for autoscroll
     msgDisplay.push(<div key="dummy" ref={messagesEndRef} />);
     return msgDisplay;
   };
@@ -155,6 +155,7 @@ const Home = () => {
           alignItems: "center",
           flexDirection: "column",
           fontSize: "1rem",
+          mb: 10,
         }}
       >
         <h1>Chat Room</h1>
@@ -167,9 +168,7 @@ const Home = () => {
         >
           {generateMsgDisplay()}
         </div>
-        {!userSubmitted ? (
-          ""
-        ) : (
+        {userSubmitted ? (
           <form onSubmit={handleSubmit}>
             <input
               autofocus
@@ -181,9 +180,6 @@ const Home = () => {
               onChange={onChangeHandler}
             />
           </form>
-        )}
-        {userSubmitted ? (
-          ""
         ) : (
           <form onSubmit={handleUsername}>
             <input

@@ -20,7 +20,6 @@ export default function WalletForm() {
 
   return (
     <React.Fragment>
-
       <Box sx={{ backgroundColor: 'pink', borderRadius: '2vh', py: 3 }}>
         <Typography variant="h3" align="center" sx={{ mt: 2 }}>NFT Collection</Typography>
         <ImageList sx={{
