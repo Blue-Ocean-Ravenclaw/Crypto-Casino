@@ -155,6 +155,7 @@ const Home = () => {
           alignItems: "center",
           flexDirection: "column",
           fontSize: "1rem",
+          mb: 10,
         }}
       >
         <h1>Chat Room</h1>

@@ -198,20 +198,3 @@ export default function Games() {
     </Box>
   );
 }
-
-{
-  /* <Box sx={{
-  display: 'flex'
-}}>
-  <Button variant="contained" onClick={() => dispatch({type: 'Dice'})}>Dice</Button>
-  <Button variant="contained" onClick={() => dispatch({type: 'Bingo'})}>Bingo</Button>
-  <Button variant="contained" onClick={() => dispatch({type: 'LadyLuck'})}>Lady Luck</Button>
-  <Button variant="contained" onClick={() => dispatch({type: 'buy'})}>+</Button>
-</Box>
-<GameCard
-  game={gameState.game}
-  plays={gameState.plays}
-  playGame={playGame}
-  playing={gameState.playing}
-/> */
-}
