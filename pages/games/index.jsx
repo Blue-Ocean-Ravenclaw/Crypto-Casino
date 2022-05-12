@@ -98,6 +98,7 @@ function GameStore() {
     } else {
       axios.post(`/api/tokens/${context.username}`, { tokens: (total * -1) })
         .then((res) => {
+          console.log(game.dbTitle);
           axios.put(`/api/cards/${context.username}`, { card_name: game.dbTitle, quantity: gameCount })
             .then((res) => router.reload())
             .catch((err) => console.log(err));
