@@ -97,15 +97,12 @@ function Checkout() {
         variant="outlined"
         sx={{ my: { xs: 2, md: 6 }, p: { xs: 1, md: 3 }, borderRadius: 2 }}
       >
-        {/* <Typography component="h2" variant="h1" align="center" sx={{ mb: 2 }}>
-          Wallet
-        </Typography> */}
         <WalletForm />
         <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
           <Button
             fullWidth
             variant="contained"
-            sx={{ mt: 1, bgcolor: "quaternary.main" }}
+            sx={{ mt: 1, bgcolor: "primary.main" }}
             onClick={handleOpen}
           >
             Buy Points!

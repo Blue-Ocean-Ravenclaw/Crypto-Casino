@@ -18,7 +18,13 @@ export default function WalletForm() {
 
   return (
     <React.Fragment>
-      <Box sx={{ backgroundColor: "secondary.main", borderRadius: 2 }}>
+      <Box
+        sx={{
+          backgroundColor: "primary.main",
+          borderRadius: 2,
+          mb: 1,
+        }}
+      >
         <Typography variant="h3" align="center">
           NFT Collection
         </Typography>
@@ -54,11 +60,6 @@ export default function WalletForm() {
       </Box>
 
       <List
-        // style={{
-        //   backgroundColor: "	#F5F5F5",
-        //   padding: "20px",
-        //   borderRadius: "2vh",
-        // }}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -66,7 +67,7 @@ export default function WalletForm() {
           alignItems: "center",
           bgcolor: "background.default",
           border: 1,
-          borderColor: "tertiary.main",
+          borderColor: "primary.main",
           borderRadius: 2,
         }}
       >
@@ -82,7 +83,7 @@ export default function WalletForm() {
                   display: "flex",
                   justifyContent: "space-between",
                   borderBottom: "1px solid black",
-                  borderColor: "quaternary.main",
+                  borderColor: "primary.main",
                   m: 2,
                   height: 20,
                 }}
@@ -98,7 +99,7 @@ export default function WalletForm() {
           sx={{ pt: 5, pb: 2, display: "flex", justifyContent: "center" }}
         >
           <Typography sx={{ fontSize: { xs: "2.5vh", md: "3vh" } }}>
-            TOKENS in your wallet: {tokens}
+            {tokens} TOKENS
           </Typography>
         </ListItem>
       </List>
