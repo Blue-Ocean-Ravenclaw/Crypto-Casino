@@ -117,11 +117,20 @@ export default function DiceGame({ newGame }) {
             backgroundColor: "white",
             alignItems: "center",
             justifyContent: "center",
+            flexDirection: 'column',
             width: 400,
             height: 500,
           }}
         >
           {game.prize.length ? displayPrize() : null}
+          <Button
+              sx={{
+                marginTop: 1
+              }}
+              variant='contained'
+              onClick={play}>
+                Play Again
+            </Button>
         </Box>
       </Modal>
     </Box>
