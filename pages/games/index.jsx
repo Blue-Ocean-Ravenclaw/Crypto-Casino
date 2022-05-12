@@ -100,7 +100,7 @@ function GameStore() {
         .then((res) => {
           console.log(game.dbTitle);
           axios.put(`/api/cards/${context.username}`, { card_name: game.dbTitle, quantity: gameCount })
-            .then((res) => router.reload())
+            .then((res) => console.log('success'))
             .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
