@@ -67,10 +67,49 @@ export default function Bingo({ newGame }) {
 
 
   const displayPrize = () => {
+    const containerStyle = {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      width: 400,
+      flexDirection: 'row'
+    };
+    const prizeStyle = {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: '2px'
+
+    };
+    const prizeMessages = {
+      'grandPrize': {
+        header: 'GRAND PRIZE!!',
+        message: "YIPEE KI-YAY! You've won the wildest prize in the west - an NFT!!!!"
+      },
+      'secondPrize': {
+        header: "SECOND PRIZE!",
+        message: "When it comes to catching bingos, you're the baddest cowboy West of the Mississippi! You've won 10x your tokens back!"
+      },
+      'thirdPrize': {
+        header: 'THIRD PRIZE!',
+        message: "Well I'll be, a double bingo! You've won 5x your tokens back!"
+      },
+      'fourthPrize' : {
+        header: 'FOURTH PRIZE!',
+        message: "Giddy up, partner- you lassoed a bingo!"
+      },
+      'loser': {
+        header: 'Aw, shucks!',
+        message: 'Not this time, cowboy- get back on the horse and play again!'
+      }
+    };
     const { header, message }= prizeMessages[game.prize];
     if (game.revealed && game.prize !== 'loser') {
       realConfetti(true);
       fireWorksConfetti(game.prize === 'grandPrize');
+    }
     return (
       <Box sx = {prizeStyle}>
         <h1>{header}</h1>
@@ -140,41 +179,3 @@ export default function Bingo({ newGame }) {
     </Box>
   );
 }
-const containerStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  width: 400,
-  flexDirection: 'row'
-};
-const prizeStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  borderRadius: '2px'
-
-};
-const prizeMessages = {
-  'grandPrize': {
-    header: 'GRAND PRIZE!!',
-    message: "YIPEE KI-YAY! You've won the wildest prize in the west - an NFT!!!!"
-  },
-  'secondPrize': {
-    header: "SECOND PRIZE!",
-    message: "When it comes to catching bingos, you're the baddest cowboy West of the Mississippi! You've won 10x your tokens back!"
-  },
-  'thirdPrize': {
-    header: 'THIRD PRIZE!',
-    message: "Well I'll be, a double bingo! You've won 5x your tokens back!"
-  },
-  'fourthPrize' : {
-    header: 'FOURTH PRIZE!',
-    message: "Giddy up, partner- you lassoed a bingo!"
-  },
-  'loser': {
-    header: 'Aw, shucks!',
-    message: 'Not this time, cowboy- get back on the horse and play again!'
-  }
-};
