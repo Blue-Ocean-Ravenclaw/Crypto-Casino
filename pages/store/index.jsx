@@ -58,9 +58,12 @@ function GameStore() {
   const [gameColor, setGameColor] = useState("");
   const [total, setTotal] = useState(0);
   const [game, setGame] = useState({});
+  const router = useRouter();
 
   const context = useAppContext();
   const { tokens } = useAppContext();
+
+  const { stateResults, stateRenderWallet } = useAppContext();
 
   const handleOpen = (e) => {
     setOpen(true);
@@ -94,15 +97,10 @@ function GameStore() {
     if (total > tokens) {
       console.log("YOU BROKE");
     } else {
-      axios
-        .post(`/api/tokens/${context.username}`, { tokens: total * -1 })
+      axios.post(`/api/tokens/${stateResults.username}`, { tokens: (total * -1) })
         .then((res) => {
-          axios
-            .put(`/api/cards/${context.username}`, {
-              card_name: game.dbTitle,
-              quantity: gameCount,
-            })
-            .then((res) => router.reload())
+          axios.put(`/api/cards/${stateResults.username}`, { card_name: game.dbTitle, quantity: gameCount })
+            .then((res) => stateRenderWallet(prev=>!prev))
             .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
@@ -113,8 +111,6 @@ function GameStore() {
   useEffect(() => {
     setTotal(game.price * gameCount);
   }, [gameCount]);
-
-  const router = useRouter();
 
   const onLink = (href) => {
     router.push(href);
@@ -222,7 +218,7 @@ function GameStore() {
                         <Button
                           fullWidth
                           variant="contained"
-                          onClick={handlePurchase}
+                          onClick={onLink}
                           sx={{
                             bgcolor: gameColor,
                           }}

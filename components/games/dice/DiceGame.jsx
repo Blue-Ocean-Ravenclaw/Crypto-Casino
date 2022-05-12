@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
 import { realConfetti, fireWorksConfetti } from "../../../lib/confetti.js";
+import { useAppContext } from "../../../context/state.js";
 
 //TODO: Create a 'Buy More Modal'
 //TODO: Move Prize Modals out of Game Component
@@ -39,8 +40,8 @@ export default function DiceGame({ newGame }) {
   }
   const [game, dispatch] = useReducer(reducer, initialState);
   const reveal = useCallback(() => dispatch({ type: "revealed" }), []);
-
   const router = useRouter();
+  const { stateRenderWallet } = useAppContext();
 
   const onLink = (href) => {
     router.push(href);
@@ -51,7 +52,8 @@ export default function DiceGame({ newGame }) {
       .then((res) => {
         // console.log(res);
         if (res.status === 200 && res.data.cards >= 0) {
-          dispatch({ type: "play", payload: res.data.game });
+          dispatch({type: 'play', payload: res.data.game});
+          stateRenderWallet(prev=>!prev);
         } else {
           onLink("/store");
         }

@@ -13,6 +13,7 @@ import axios from "axios";
 
 export default function WalletForm() {
   const { card_inventory, tokens, nfts } = useAppContext();
+  const { stateResults } = useAppContext()
   const context = useAppContext();
 
   return (
@@ -32,8 +33,8 @@ export default function WalletForm() {
           gap={16}
           variant="quilted"
         >
-          {nfts
-            ? nfts.map((nft, idx) => (
+          {stateResults.nfts
+            ? stateResults.nfts.map((nft, idx) => (
                 <ImageListItem
                   key={idx}
                   sx={{
@@ -72,8 +73,8 @@ export default function WalletForm() {
         <Typography variant="h3" align="center" sx={{ mt: 2 }}>
           Cards
         </Typography>
-        {card_inventory
-          ? card_inventory.map((product) => (
+        {stateResults.card_inventory
+          ? stateResults.card_inventory.map((product) => (
               <ListItem
                 key={product.card_name}
                 sx={{
@@ -97,7 +98,7 @@ export default function WalletForm() {
           sx={{ pt: 5, pb: 2, display: "flex", justifyContent: "center" }}
         >
           <Typography sx={{ fontSize: { xs: "2.5vh", md: "3vh" } }}>
-            TOKENS in your wallet: {tokens}
+            TOKENS in your wallet: {stateResults.tokens}
           </Typography>
         </ListItem>
       </List>
