@@ -9,7 +9,7 @@ import { realConfetti } from '../../../lib/confetti.js'
 
 //TODO: Create a 'Buy More Modal'
 //TODO: Move Prize Modals out of Game Component
-export default function DiceGame({ plays, newGame }) {
+export default function DiceGame({ newGame }) {
   const initialState = {
     //Initial Game State
     board: [],
@@ -67,40 +67,6 @@ export default function DiceGame({ plays, newGame }) {
   const toggleModal = useCallback(() => dispatch({ type: "toggleModal" }), []);
 
   function displayPrize() {
-    const prizeStyle = {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: "2px",
-    };
-    const prizeMessages = {
-      'grandPrize': {
-        header: 'GRAND PRIZE',
-        message: "You hit the jackpot- AN NFT!!!",
-        confetti: true
-      },
-      secondPrize: {
-        header: "SECOND PRIZE!",
-        message: "Bring the heat! You've won 10x your tokens back!",
-        confetti: false,
-      },
-      thirdPrize: {
-        header: "THIRD PRIZE!",
-        message: "Lucky you! You've won 5x your tokens back!",
-        confetti: false
-      },
-      fourthPrize: {
-        header: "FOURTH PRIZE",
-        message: "Not bad, High Roller! You've won your tokens back!",
-        confetti: false
-      },
-      loser: {
-        header: "Not this time!",
-        message: "Roll again!",
-        confetti: false
-      },
-    };
     const { header, message, confetti } = prizeMessages[game.prize];
     return (
       <Box sx={prizeStyle}>
@@ -158,3 +124,38 @@ export default function DiceGame({ plays, newGame }) {
     </Box>
   );
 }
+
+const prizeStyle = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: "2px",
+};
+const prizeMessages = {
+  'grandPrize': {
+    header: 'GRAND PRIZE',
+    message: "You hit the jackpot- AN NFT!!!",
+    confetti: true
+  },
+  secondPrize: {
+    header: "SECOND PRIZE!",
+    message: "Bring the heat! You've won 10x your tokens back!",
+    confetti: false,
+  },
+  thirdPrize: {
+    header: "THIRD PRIZE!",
+    message: "Lucky you! You've won 5x your tokens back!",
+    confetti: false
+  },
+  fourthPrize: {
+    header: "FOURTH PRIZE",
+    message: "Not bad, High Roller! You've won your tokens back!",
+    confetti: false
+  },
+  loser: {
+    header: "Not this time!",
+    message: "Roll again!",
+    confetti: false
+  },
+};

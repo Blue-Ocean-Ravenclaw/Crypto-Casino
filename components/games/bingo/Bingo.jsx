@@ -2,18 +2,19 @@ import {
   generateBingoGame
 } from "../../../lib/bingo.js";
 import BingoBoard from './BingoBoard.jsx';
-import {useState, useReducer, useEffect, useCallback } from 'react';
+import {useReducer, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Sequence from './Sequence.jsx';
 import { ScratchOff } from "@sky790312/react-scratch-off";
 import Modal from '@mui/material/Modal';
+import { useRouter } from "next/router";
 import axios from 'axios';
 
 //TODO: Make bingo numbers light up when you reveal their sequence number
 //TODO: Bingo! pop up when you hit a bingo
 //TODO: Prizes
-export default function Bingo({plays, playGame, playing}) {
+export default function Bingo({ newGame }) {
   const initialState = {
     //Initial Game State
     boards: [],
@@ -45,16 +46,29 @@ export default function Bingo({plays, playGame, playing}) {
     }
   }
   const [game, dispatch] = useReducer(reducer, initialState);
+  const router = useRouter();
+  const onLink = (href) => {
+    router.push(href);
+  };
   const revealed = useCallback(() => dispatch({ type: "revealed" }), []);
-
-  const toggleModal = () => {
-    dispatch({type: 'toggleModal'});
-  }
+  const toggleModal = () => dispatch({type: 'toggleModal'});
 
   function play () {
-    const newGame = generateBingoGame();
-    dispatch({type: 'play', payload: newGame});
+    newGame()
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200 && res.data.cards >= 0) {
+          dispatch({type: 'play', payload: res.data.game});
+        } else {
+          onLink('/games');
+        }
+      })
+      .catch((err) => {
+        dispatch({type: 'out'});
+        console.error(err);
+      });
   }
+
 
   const displayPrize = () => {
     const { header, message }= prizeMessages[game.prize];
