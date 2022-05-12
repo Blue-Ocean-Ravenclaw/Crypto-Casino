@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../../context/AuthContext.js";
 import { useAppContext } from '../../context/state.js';
 
 import Carousel from 'react-material-ui-carousel'
 import { Paper, Grid } from '@mui/material'
+import axios from 'axios';
 
 export default function User() {
   const router = useRouter();
   const { currentUser } = useAuth();
   const { username, tokens } = useAppContext();
+  const [nfts, setNfts] = useState([]);
   // const { } = useAppContext();
 
   const onLink = (href) => {
@@ -21,7 +23,7 @@ export default function User() {
     router.push("/login");
   }
 
-  let sampleNfts = [
+  let boards = [
     {
       "image": "https://i.gyazo.com/8d6cb9ecfc6086cc012e668a1ea8ca22.png",
       "name": "Lucky Lucy"
@@ -36,28 +38,33 @@ export default function User() {
     }
   ];
 
+  useEffect(() => {
+    axios.get('/api/nfts/admin')
+      .then((response) => {
+        setNfts(response.data.data);
+      })
+      .catch((err) => {
+        console.log('failed GET for admin NFTS', err)
+      })
+  }, []);
+
   return (
     <div>
       <span>{username} </span>
-      {/* <span>Tokens: {tokens}</span> */}
+
       <Grid container direction='column' justifyContent="space-around" alignItems='center'>
         <Carousel sx={{ width: .8 }} navButtonsAlwaysVisible={true}>
           {
-            sampleNfts.map((item, i) => <Item key={i} item={item} />)
+            nfts.map((item, i) => <Item key={i} item={item} />)
           }
         </Carousel>
 
         <Carousel sx={{ width: .8 }} navButtonsAlwaysVisible={true}>
           {
-            sampleNfts.map((item, i) => <Item key={i} item={item} />)
+            boards.map((item, i) => <Item key={i} item={item} />)
           }
         </Carousel>
 
-        <Carousel sx={{ width: .8 }} navButtonsAlwaysVisible={true}>
-          {
-            sampleNfts.map((item, i) => <Item key={i} item={item} />)
-          }
-        </Carousel>
       </Grid>
     </div>
   );
