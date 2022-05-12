@@ -122,6 +122,7 @@ function GameStore() {
           align="center"
           color="text.primary"
           gutterBottom
+
         >
           GAMES
         </Typography>
