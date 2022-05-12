@@ -13,17 +13,18 @@ export function AppWrapper({ children }) {
 
   let contextObj = {
     stateResults: results,
-    stateRenderWallet: setRenderWallet
-  }
+    stateRenderWallet: setRenderWallet,
+  };
 
   useEffect(() => {
     axios
-    .get(`/api/userpage/${currentUser && currentUser.email}`)
-    // axios
-    //   .get(`/api/userpage/varun@varun.com`)
+      .get(`/api/userpage/${currentUser && currentUser.email}`)
+      // .get(`/api/userpage/varun@varun.com`)
       .then((res) => setResults(res.data))
       .catch((err) => console.log(err));
   }, [renderWallet]);
 
-  return <AppContext.Provider value={contextObj}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={contextObj}>{children}</AppContext.Provider>
+  );
 }

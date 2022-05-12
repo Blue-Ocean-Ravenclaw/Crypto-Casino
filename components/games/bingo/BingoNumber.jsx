@@ -1,42 +1,45 @@
-import Box from '@mui/material/Box';
-import {useState, useEffect} from 'react';
+import Box from "@mui/material/Box";
+import { useState, useEffect } from "react";
 
-export default function BingoNumber ({board, num, revealedNums}) {
+export default function BingoNumber({ board, num, revealedNums }) {
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     let stringNum = JSON.stringify(num);
     if (revealedNums.includes(stringNum)) {
-      setRevealed((prev) => !prev ? true : prev);
+      setRevealed((prev) => (!prev ? true : prev));
     } else {
-      setRevealed((prev) => prev ? false : prev);
+      setRevealed((prev) => (prev ? false : prev));
     }
   }, [revealedNums]);
 
   return (
-    <Box className='bingo-number' sx={revealed ? revealedStyle : containerStyle}>
+    <Box
+      className="bingo-number"
+      sx={revealed ? revealedStyle : containerStyle}
+    >
       {num}
     </Box>
-  )
+  );
 }
 
 const containerStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   height: 30,
   width: 30,
-  border: '1px solid gray',
-  borderColor: "secondary.main",
-  color: 'white',
+  border: 1,
+  borderColor: "bingo.main",
+  color: "white",
 };
 const revealedStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   height: 30,
   width: 30,
-  border: '1px solid gray',
-  borderColor: "secondary.main",
-  color: 'tertiary.main',
+  border: 1,
+  borderColor: "bingo.main",
+  color: "bingo.main",
 };
