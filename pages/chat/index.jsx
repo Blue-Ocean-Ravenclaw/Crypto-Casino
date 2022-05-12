@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import io from "Socket.IO-client";
+import io from "socket.io-client";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -171,7 +171,7 @@ const Home = () => {
         {userSubmitted ? (
           <form onSubmit={handleSubmit}>
             <input
-              autofocus
+              autoFocus
               style={{
                 width: "80vw",
               }}
@@ -183,7 +183,7 @@ const Home = () => {
         ) : (
           <form onSubmit={handleUsername}>
             <input
-              autofocus
+              autoFocus
               style={{
                 width: "50vw",
               }}

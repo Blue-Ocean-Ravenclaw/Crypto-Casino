@@ -46,6 +46,10 @@ export default function LogIn() {
     });
   };
 
+  const onLink = (href) => {
+    router.push(href);
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -57,16 +61,11 @@ export default function LogIn() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
-        </Typography>
-        <Typography variant="body1" color="orange">
-          {/* Testuser
-          <div>potatoboi@gmail.com </div>
-          <div>DurangoBill </div> */}
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -106,14 +105,28 @@ export default function LogIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Typography
+                variant="body2"
+                onClick={() => onLink("/login")}
+                sx={{
+                  color: "primary.main",
+                  textDecoration: "underline",
+                }}
+              >
                 Forgot password?
-              </Link>
+              </Typography>
             </Grid>
             <Grid item>
-              <Link href="/signup" variant="body2">
+              <Typography
+                variant="body2"
+                onClick={() => onLink("/signup")}
+                sx={{
+                  color: "primary.main",
+                  textDecoration: "underline",
+                }}
+              >
                 {"Don't have an account? Sign Up"}
-              </Link>
+              </Typography>
             </Grid>
           </Grid>
         </Box>

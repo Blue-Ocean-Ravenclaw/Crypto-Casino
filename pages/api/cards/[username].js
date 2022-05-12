@@ -20,4 +20,3 @@ export default async function handler(req, res) {
     res.status(500).send({ message: 'This endpoint only accepts POST/PUT requests.' });
   }
 }
-
