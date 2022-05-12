@@ -1,39 +1,37 @@
-import * as React from 'react';
-import { useState, useEffect, useContext } from 'react';
-import { useAppContext } from '../../context/state.js';
+import * as React from "react";
+import { useState, useEffect, useContext } from "react";
+import { useAppContext } from "../../context/state.js";
 
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Toolbar from '@mui/material/Toolbar';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import WalletForm from '../../components/WalletForm';
-import Modal from '@mui/material/Modal';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import IconButton from '@mui/material/IconButton';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
-import axios from 'axios';
-
-
+import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Toolbar from "@mui/material/Toolbar";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import WalletForm from "../../components/WalletForm";
+import Modal from "@mui/material/Modal";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Grid from "@mui/material/Grid";
+import axios from "axios";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  borderRadius: '20px',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  borderRadius: "20px",
   boxShadow: 24,
   p: 4,
   largeIcon: {
@@ -41,20 +39,16 @@ const style = {
     height: 40,
   },
   iconSpacing: {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    fontSize: 30
+    display: "flex",
+    justifyContent: "space-evenly",
+    fontSize: 30,
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9,
-    marginTop:'30'
+    paddingTop: "56.25%", // 16:9,
+    marginTop: "30",
   },
 };
-
-
-
-
 
 function Checkout() {
   const [open, setOpen] = useState(false);
@@ -63,154 +57,186 @@ function Checkout() {
   const [view, setView] = useState(0);
 
   const context = useAppContext();
-  const { username } = useAppContext();
-
+  const { username, setRenderWallet } = useAppContext();
 
   const handleOpen = (e) => {
     setOpen(true);
-  }
+  };
 
   const handleClose = () => {
     setOpen(false);
     setTokens(40);
   };
 
-
   const handleDecrament = () => {
-    tokens <= 1 ? setTokens(0) : setTokens(prev=>prev-10);
+    tokens <= 1 ? setTokens(0) : setTokens((prev) => prev - 10);
     setTotal(tokens * 0.1);
-  }
+  };
 
   const handleIncrement = () => {
-    setTokens(prev => prev + 10);
+    setTokens((prev) => prev + 10);
     setTotal(tokens * 0.1);
-  }
+  };
 
   const handlePurchase = () => {
     handleClose();
+    setRenderWallet((state) => state + 1);
 
-    axios.post(`/api/tokens/${username}`, {tokens: tokens})
-      .then(results => console.log('success'))
-      .catch(errorn=> console.log(('No tokens inserted')))
-  }
+    axios
+      .post(`/api/tokens/${username}`, { tokens: tokens })
+      .then((results) => console.log("success"))
+      .catch((errorn) => console.log("No tokens inserted"));
+  };
 
   useEffect(() => {
-    setTotal(tokens * 0.1)
-  }, [tokens])
+    setTotal(tokens * 0.1);
+  }, [tokens]);
 
   return (
-
-      <Container maxWidth="md" sx={{ mb: 10, }}>
-        {console.log(context)}
-        <Paper variant="outlined" sx={{ my: { xs: 4, md: 6 },
-                                         p: { xs: 3, md: 3 },
-                                         borderRadius: '2vh',
-                                         }} >
-          <Typography component="h2" variant="h1" align="center" sx={{mb: 2}}>
-            Wallet
-          </Typography>
-          <WalletForm />
-          <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-            <Button variant="contained" sx={{ my: 3, ml: 1 }} onClick={handleOpen}>Buy Points!</Button>
-          </Box>
+    <Container maxWidth="md" sx={{ mb: 10 }}>
+      {console.log(context)}
+      <Paper
+        variant="outlined"
+        sx={{ my: { xs: 4, md: 6 }, p: { xs: 3, md: 3 }, borderRadius: "2vh" }}
+      >
+        <Typography component="h2" variant="h1" align="center" sx={{ mb: 2 }}>
+          Wallet
+        </Typography>
+        <WalletForm />
+        <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
+          <Button
+            variant="contained"
+            sx={{ my: 3, ml: 1 }}
+            onClick={handleOpen}
+          >
+            Buy Points!
+          </Button>
+        </Box>
 
         <Modal
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description">
+          aria-describedby="modal-modal-description"
+        >
+          {view === 0 ? (
+            <Box sx={style}>
+              <Typography
+                id="wasGameTitle"
+                variant="h6"
+                component="h2"
+                style={style.iconSpacing}
+              >
+                Tokens
+              </Typography>
+              <div style={style.iconSpacing}>
+                <IconButton onClick={handleDecrament}>
+                  <RemoveIcon style={style.largeIcon} />
+                </IconButton>
+                <span style={{ fontSize: "50px" }}>{tokens}</span>
+                <IconButton onClick={handleIncrement}>
+                  <AddIcon style={style.largeIcon} />
+                </IconButton>
+              </div>
+              <Typography
+                id="wasgametitle"
+                variant="h6"
+                component="h2"
+                style={style.iconSpacing}
+              >
+                Cost
+              </Typography>
 
-          {view === 0 ?
+              <Typography
+                id="wasgametitle"
+                variant="h6"
+                component="h2"
+                style={style.iconSpacing}
+                sx={{ mb: 4 }}
+              >
+                ${total}
+              </Typography>
+              <Button fullWidth variant="contained" onClick={() => setView(1)}>
+                Purchase
+              </Button>
+            </Box>
+          ) : (
+            <Box sx={style}>
+              <Typography
+                id="wasGameTitle"
+                variant="h6"
+                component="h2"
+                style={style.iconSpacing}
+              >
+                {" "}
+                Payment Info{" "}
+              </Typography>
+              <Grid container spacing={3} sx={{ mb: 5 }}>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    id="cardName"
+                    label="Name on card"
+                    fullWidth
+                    autoComplete="cc-name"
+                    variant="standard"
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    id="cardNumber"
+                    label="Card number"
+                    fullWidth
+                    autoComplete="cc-number"
+                    variant="standard"
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    id="expDate"
+                    label="Expiry date"
+                    fullWidth
+                    autoComplete="cc-exp"
+                    variant="standard"
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    id="cvv"
+                    label="CVV"
+                    helperText="Last three digits on signature strip"
+                    fullWidth
+                    autoComplete="cc-csc"
+                    variant="standard"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox color="secondary" name="saveCard" value="yes" />
+                    }
+                    label="Remember credit card details for next time"
+                  />
+                </Grid>
+              </Grid>
 
-          <Box sx={style}>
-            <Typography id='wasGameTitle' variant="h6" component="h2" style={style. iconSpacing}>
-              Tokens
-            </Typography>
-            <div style={style.iconSpacing}>
-              <IconButton
-                onClick={handleDecrament}>
-                <RemoveIcon style={style.largeIcon} />
-              </IconButton>
-              <span style={{ fontSize: '50px' }}>{tokens}</span>
-              <IconButton
-                onClick={handleIncrement}>
-                <AddIcon style={style.largeIcon} />
-              </IconButton>
-            </div>
-            <Typography id='wasgametitle' variant="h6" component="h2" style={style.iconSpacing}>
-              Cost
-            </Typography>
-
-            <Typography id='wasgametitle' variant="h6" component="h2" style={style.iconSpacing} sx={{mb: 4}}>
-              ${total}
-            </Typography>
-            <Button fullWidth variant="contained" onClick={()=>setView(1)}>Purchase</Button>
-          </Box >
-
-        :
-
-          <Box sx={style}>
-            <Typography id='wasGameTitle' variant="h6" component="h2" style={style. iconSpacing}> Payment Info </Typography>
-          <Grid container spacing={3} sx={{mb: 5}}>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="cardName"
-                label="Name on card"
-                fullWidth
-                autoComplete="cc-name"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="cardNumber"
-                label="Card number"
-                fullWidth
-                autoComplete="cc-number"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="expDate"
-                label="Expiry date"
-                fullWidth
-                autoComplete="cc-exp"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="cvv"
-                label="CVV"
-                helperText="Last three digits on signature strip"
-                fullWidth
-                autoComplete="cc-csc"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-                label="Remember credit card details for next time"
-              />
-            </Grid>
-          </Grid>
-
-          <Button fullWidth variant="contained" onClick={handlePurchase}>Purchase Tokens</Button>
-          <Button fullWidth variant="outlined" onClick={()=>setView(0)}>Back</Button>
-        </Box >
-        }
-      </Modal>
+              <Button fullWidth variant="contained" onClick={handlePurchase}>
+                Purchase Tokens
+              </Button>
+              <Button fullWidth variant="outlined" onClick={() => setView(0)}>
+                Back
+              </Button>
+            </Box>
+          )}
+        </Modal>
       </Paper>
-     </Container>
+    </Container>
   );
 }
 
-export default function CO () {
-  return <Checkout />
+export default function CO() {
+  return <Checkout />;
 }

@@ -23,6 +23,7 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
 import Modal from "@mui/material/Modal";
 import { games } from "../../context/games.js";
+import { useRouter } from "next/router";
 
 const style = {
   position: "absolute",
@@ -113,6 +114,12 @@ function GameStore() {
   useEffect(() => {
     setTotal(game.price * gameCount);
   }, [gameCount]);
+
+  const router = useRouter();
+
+  const onLink = (href) => {
+    router.push(href);
+  };
 
   return (
     <React.Fragment>
@@ -207,7 +214,12 @@ function GameStore() {
                         {/* Description placement. */}
                       </Typography>
 
-                      <Link href="/play/">
+                      <Link
+                        href="/play/"
+                        style={{
+                          textDecoration: "none",
+                        }}
+                      >
                         <Button
                           fullWidth
                           variant="contained"
