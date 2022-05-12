@@ -45,18 +45,16 @@ export default function SignUp() {
       setError("");
       setLoading(true);
       await signup(userData.email, userData.password);
-      // call backend to post {email: userData.email, username: userData.username}
       axios
         .post("/api/newUser", {
           username: userData.username,
           email: userData.email,
         })
-        .then((res) => console.log(res))
+        // .then((res) => console.log(res))
         .catch((err) => console.log(err));
-      // rounting to main page after sucess sign up
       router.push("/user");
     } catch (err) {
-      console.log("failed ", err);
+      // console.log("failed ", err);
       setError("Failed to create an account");
     }
     setLoading(false);

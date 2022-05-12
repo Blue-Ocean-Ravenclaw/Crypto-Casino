@@ -22,6 +22,18 @@ export default function Home() {
     }
   };
 
+  const handleEnterClick = () => {
+    if (currentUser) {
+      onLink("/user");
+    } else {
+      onLink("/login");
+    }
+  };
+
+  const onLink = (href) => {
+    router.push(href);
+  };
+
   return (
     <Box
       sx={{
@@ -41,17 +53,15 @@ export default function Home() {
       >
         Welcome to Crypto Casino
       </Typography>
-      <Typography variant="h6" component="h2">
-        Hi {currentUser && currentUser.email}!
-      </Typography>
-      <div></div>
-      {!currentUser ? (
-        <a href="/login">LogIn</a>
-      ) : (
-        <Button variant="contained" onClick={handleLogOut}>
-          Sign Out
-        </Button>
-      )}
+      <Button
+        variant="contained"
+        onClick={handleEnterClick}
+        sx={{
+          mt: 2,
+        }}
+      >
+        Enter
+      </Button>
       {error ? (
         <Alert variant="filled" severity="error" sx={{ m: 2 }}>
           {error}
