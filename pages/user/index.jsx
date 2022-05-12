@@ -11,7 +11,7 @@ import axios from "axios";
 export default function User() {
   const router = useRouter();
   const { currentUser } = useAuth();
-  const { username, tokens } = useAppContext();
+  const { stateResults } = useAppContext();
   const [nfts, setNfts] = useState([]);
 
   // Only allows logged in user to access this page
@@ -70,7 +70,7 @@ export default function User() {
               color: "primary.main",
             }}
           >
-            {username}
+            {stateResults.username}
           </Typography>
           <Typography
             sx={{
@@ -80,7 +80,7 @@ export default function User() {
               fontWeight: 600,
             }}
           >
-            {tokens}
+            {stateResults.tokens}
           </Typography>
         </Box>
         <Box
