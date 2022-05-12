@@ -11,14 +11,12 @@ import { realConfetti } from '../../../lib/confetti.js'
 //TODO: Move Prize Modals out of Game Component
 export default function DiceGame({ newGame }) {
   const initialState = {
-    //Initial Game State
     board: [],
     prize: "",
     revealed: false
   };
 
   function reducer(state, action) {
-    //Controls the Game State
     switch (action.type) {
       case 'play':
         let newGame = action.payload

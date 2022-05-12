@@ -16,7 +16,6 @@ import axios from 'axios';
 //TODO: Prizes
 export default function Bingo({ newGame }) {
   const initialState = {
-    //Initial Game State
     boards: [],
     sequence: [],
     outcomes: [],
@@ -24,7 +23,6 @@ export default function Bingo({ newGame }) {
     revealed: false
   };
   function reducer(state, action) {
-    //Controls the Game State
     switch (action.type) {
       case 'play':
         let newGame = action.payload;

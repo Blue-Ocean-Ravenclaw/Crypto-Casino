@@ -17,7 +17,6 @@ const processBoard = (array) => {
 
 export default function LadyLuck({ plays, playGame, playing }) {
   const initialState = {
-    //Initial Game State
     board: [],
     playerNums: [],
     winDistribution: {},
@@ -25,6 +24,28 @@ export default function LadyLuck({ plays, playGame, playing }) {
     counter: 0,
     revealed: false
   };
+  function reducer(state, action) {
+    switch (action.type) {
+      case 'play':
+        let newGame = action.payload;
+        return {
+          ...state,
+          ...newGame,
+          revealed: false
+        };
+      case "out":
+        return initialState;
+      case "toggleModal":
+        let newReveal = !state.revealed;
+        return { ...state, revealed: newReveal };
+      case "revealed":
+        return { ...state, revealed: true };
+      default:
+        throw new Error();
+        return initialState;
+    }
+  }
+
   const [board, setBoard] = useState([]);
   const [playerNums, setPlayerNums] = useState([]);
   const [outcomes, setOutcomes] = useState({});
