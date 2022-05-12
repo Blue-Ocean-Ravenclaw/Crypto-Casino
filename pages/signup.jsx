@@ -29,6 +29,10 @@ export default function SignUp() {
   const router = useRouter();
   const { signup } = useAuth();
 
+  const onLink = (href) => {
+    router.push(href);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (userData.password !== userData.passwordConfirm) {
@@ -83,7 +87,7 @@ export default function SignUp() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -167,9 +171,16 @@ export default function SignUp() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/login" variant="body2">
+              <Typography
+                variant="body2"
+                onClick={() => onLink("/login")}
+                sx={{
+                  color: "primary.main",
+                  textDecoration: "underline",
+                }}
+              >
                 Already have an account? Sign in
-              </Link>
+              </Typography>
             </Grid>
           </Grid>
         </Box>
