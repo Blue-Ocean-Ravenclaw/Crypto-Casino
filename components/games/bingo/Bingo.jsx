@@ -9,6 +9,7 @@ import Sequence from './Sequence.jsx';
 import { ScratchOff } from "@sky790312/react-scratch-off";
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
+import { realConfetti, fireWorksConfetti } from '../../../lib/confetti.js';
 
 //TODO: Make bingo numbers light up when you reveal their sequence number
 //TODO: Bingo! pop up when you hit a bingo
@@ -57,6 +58,10 @@ export default function Bingo({plays, luck, playGame, playing}) {
   }
 
   const displayPrize = () => {
+    if (revealed && prize !== 'loser') {
+      realConfetti(true);
+      fireWorksConfetti(prize === 'grandPrize');
+    }
     const prizeStyle = {
       display: 'flex',
       flexDirection: 'column',
@@ -72,15 +77,15 @@ export default function Bingo({plays, luck, playGame, playing}) {
       },
       'secondPrize': {
         header: "SECOND PRIZE!",
-        message: "When it comes to catching bingos, you're the baddest cowboy West of the Mississippi! You've won 10x your tokens back!"
+        message: "When it comes to catching bingos, you're the baddest cowboy West of the Mississippi! You've won 200 tokens!"
       },
       'thirdPrize': {
         header: 'THIRD PRIZE!',
-        message: "Well I'll be, a double bingo! You've won 5x your tokens back!"
+        message: "Well I'll be, a double bingo! You've won 100 tokens!"
       },
       'fourthPrize' : {
         header: 'FOURTH PRIZE!',
-        message: "Giddy up, partner- you lassoed a bingo!"
+        message: "Giddy up, partner- you lassoed a bingo! You've won 40 tokens!"
       },
       'loser': {
         header: 'Aw, shucks!',
@@ -139,7 +144,8 @@ export default function Bingo({plays, luck, playGame, playing}) {
           sx = {{
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            zIndex: '5'
           }}
         >
           <Box sx = {{
