@@ -40,7 +40,6 @@ export default function Bingo({ newGame }) {
       case 'reveal':
         let newRevealedNums = state.revealedNums.concat([action.payload]);
         let newRevealed = state.revealed;
-        console.log(newRevealedNums);
         if (newRevealedNums.length >= 25 ) {
           newRevealed = true;
         }
