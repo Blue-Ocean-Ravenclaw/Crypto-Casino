@@ -1,6 +1,6 @@
 import {
   Server
-} from 'Socket.IO'
+} from 'socket.io'
 import {
   v4 as uuidv4
 } from 'uuid';

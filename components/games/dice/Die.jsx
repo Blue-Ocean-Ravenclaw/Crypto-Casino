@@ -5,12 +5,12 @@ import Box from '@mui/material/Box';
 import { ScratchOff } from "@sky790312/react-scratch-off";
 import { BsFillDice1Fill, BsFillDice2Fill, BsFillDice3Fill, BsFillDice4Fill, BsFillDice5Fill, BsFillDice6Fill } from 'react-icons/bs';
 
-export default function Die ({roll, addCount, diceArr}) {
+export default function Die ({roll, addCount, board}) {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => { //Reset to hidden on render
     setCounter((prev) => prev + 1);
-  }, [diceArr]);
+  }, [board]);
 
   const diceIcons = [
     <BsFillDice1Fill size={75} color={'#FFF'}/>,

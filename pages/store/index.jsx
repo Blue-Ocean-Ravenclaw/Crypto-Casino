@@ -93,23 +93,18 @@ function GameStore() {
 
   const handlePurchase = () => {
     if (total > tokens) {
-      console.log("YOU BROKE");
+      console.log('YOU BROKE')
     } else {
-      axios
-        .post(`/api/tokens/${context.username}`, { tokens: total * -1 })
+      axios.post(`/api/tokens/${context.username}`, { tokens: (total * -1) })
         .then((res) => {
-          axios
-            .put(`/api/cards/${context.username}`, {
-              card_name: game.dbTitle,
-              quantity: gameCount,
-            })
-            .then((res) => `${gameCount} Cards purchased`)
+          axios.put(`/api/cards/${context.username}`, { card_name: game.dbTitle, quantity: gameCount })
+            .then((res) => router.reload())
             .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
     }
     handleClose();
-  };
+  }
 
   useEffect(() => {
     setTotal(game.price * gameCount);

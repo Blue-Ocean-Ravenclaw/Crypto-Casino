@@ -11,8 +11,6 @@ export default function BingoBoard ({board}) {
     );
   }
 
-
-
   const boardStyle = {
     display: 'flex',
     justifyContent: 'center',
