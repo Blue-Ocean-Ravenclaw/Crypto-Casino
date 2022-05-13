@@ -1,0 +1,13 @@
+
+
+.chat {
+  width: 85vw;
+  /* height: 70vh; */
+  /* max-height: env(keyboard-inset-height); */
+  /* overflow: scroll; */
+  /* color: pink; */
+  color: 'white';
+  background-color: red;
+}
+
+

@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import styles from './chat.module.css';
 
 let socket;
 
@@ -15,6 +16,16 @@ const Chat = () => {
   const [msgList, setMsgList] = useState([]);
   const [userId, setUserId] = useState("");
   const messagesEndRef = useRef(null);
+
+  const isInitiallyVisible = false;
+  const [isKeyboardVisible, setKeyboardVisible] = useState(isInitiallyVisible);
+
+  useEffect(() => {
+    window.visualViewport.addEventListener('resize', () => {
+      setKeyboardVisible(!isKeyboardVisible)
+    })
+  }, [isKeyboardVisible])
+
 
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -72,6 +83,9 @@ const Chat = () => {
     return color;
   };
 
+  const color = isKeyboardVisible ? 'red' : 'purple';
+  const height = isKeyboardVisible ? '0vh' : '70vh';
+
   return (
     <>
       <Box
@@ -86,10 +100,13 @@ const Chat = () => {
       >
         <h1>Chat Room</h1>
         <div
+          // className={styles.chat}
           style={{
             width: "85vw",
             height: "70vh",
             overflow: "scroll",
+            // maxHeight: height,
+            // backgroundColor: color
           }}
         >
           {MsgDisplay(msgList, messagesEndRef, userId, usernameColor)}
