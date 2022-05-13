@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { useAppContext } from '../../context/state.js';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import AppBar from '@mui/material/AppBar';
@@ -61,6 +62,7 @@ function GameStore() {
   const [total, setTotal] = useState(0);
   const [game, setGame] = useState({});
 
+  const router = useRouter();
   const context = useAppContext();
   const { tokens } = useAppContext();
 
@@ -97,14 +99,21 @@ function GameStore() {
     } else {
       axios.post(`/api/tokens/${context.username}`, { tokens: (total * -1) })
         .then((res) => {
+          console.log(game.dbTitle);
           axios.put(`/api/cards/${context.username}`, { card_name: game.dbTitle, quantity: gameCount })
-            .then((res) => `${gameCount} Cards purchased`)
+            .then((res) => reouter.reload())
             .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
     }
     handleClose();
   }
+
+  const onLink = (href) => {
+    handlePurchase();
+    router.push(href);
+  };
+
 
   useEffect(() => {
     setTotal(game.price * gameCount)
@@ -115,7 +124,6 @@ function GameStore() {
     <React.Fragment>
       {console.log(context)}
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
-
       <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
         <Typography
           component="h1"
@@ -232,9 +240,7 @@ function GameStore() {
                       </Typography>
 
 
-                      <Link href="/play/">
-                        <Button fullWidth variant="contained" onClick={handlePurchase}>Purchase and play</Button>
-                      </Link>
+                      <Button fullWidth variant="contained" onClick={()=>onLink('/play')}>Purchase and play</Button>
                       <Button fullWidth variant="outlined" onClick={handlePurchase}>Add games to wallet</Button>
 
                     </Box >

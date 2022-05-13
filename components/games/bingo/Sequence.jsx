@@ -2,20 +2,7 @@ import Box from '@mui/material/Box';
 import SequenceNumber from './SequenceNumber.jsx';
 import {useState, useEffect, useCallback} from 'react';
 
-export default function Sequence ({sequences, setRevealed}) {
-  const [revealCounter, setRevealCounter] = useState(0);
-
-  useEffect(() => {
-    setRevealCounter(0);
-  }, [sequences]);
-  useEffect(() => {
-    if (revealCounter === 25) {
-      setRevealed((prev) => !prev ? true : prev);
-    }
-  }, [revealCounter]);
-
-  const reveal = useCallback(() => setRevealCounter((prev) => prev < 25 ? prev + 1 : prev), []);
-
+export default function Sequence ({sequences, dispatch}) {
 
   const sequenceStyle = {
     display: 'flex',
@@ -27,7 +14,7 @@ export default function Sequence ({sequences, setRevealed}) {
 
   return (
     <Box className='sequence' sx={sequenceStyle}>
-      {sequences.map((num, i) => <SequenceNumber key={num} sequences={sequences} num={num} reveal={reveal} />)}
+      {sequences.map((num, i) => <SequenceNumber key={num} sequences={sequences} num={num} dispatch={dispatch} />)}
     </Box>
   );
 }

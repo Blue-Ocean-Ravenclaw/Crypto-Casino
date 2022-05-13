@@ -12,7 +12,7 @@ import { useState, useCallback, useReducer } from "react";
 export default function Games() {
   const initialState = {
     plays: 5,
-    game: "LadyLuck",
+    game: "luckylucy",
     playing: false, //Prevents game from rollng the dice again if you buy tickets
   };
   function reducer(state, action) {
