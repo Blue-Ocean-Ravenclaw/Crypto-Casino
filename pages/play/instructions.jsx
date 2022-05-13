@@ -43,11 +43,11 @@ const instructions = () => {
         <h2> Prize Structure</h2>
         <ul>
           <li>Grand Prize: NFT</li>
-          <li>2nd Prize: 150 Tokens</li>
-          <li>3rd Prize: 120 Tokens</li>
+          <li>2nd Prize: 100 Tokens</li>
+          <li>3rd Prize: 50 Tokens</li>
           <li>4th Prize: 10 Tokens</li>
         </ul>
-        <h2> Odds: Two in Five Plays Wins A Prize!</h2>
+        <h2> Odds: 2 in 5 Plays Wins A Prize!</h2>
 
         <div className="bingo-instructions">
           <h2> Wild West Bingo </h2>
@@ -73,7 +73,7 @@ const instructions = () => {
                 Form an 'X' on the bingo board. (Two Diagonal Lines): Grand
                 Prize
               </li>
-              <li> Three (3) or more formed lines: Second Prize</li>
+              <li> Three (3) or more formed lines: 2nd Prize</li>
               <li>Two (2) lines formed: 3rd Prize</li>
               <li> One (1) line formed: 4th Prize</li>
             </ul>
@@ -86,6 +86,7 @@ const instructions = () => {
               <li>3rd Prize: 100 Tokens</li>
               <li>4th Prize: 40 Tokens</li>
             </ul>
+
           </div>
         </div>
 
