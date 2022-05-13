@@ -35,6 +35,7 @@ export default function Games() {
         display: "flex",
         justifyContent: "center",
         height: 800,
+        mt: 1,
       }}
     >
       <Card
