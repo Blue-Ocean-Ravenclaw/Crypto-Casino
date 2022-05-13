@@ -152,7 +152,7 @@ export default function Bingo({ newGame }) {
         <Box
           sx={{
             display: "flex",
-            backgroundColor: "tertiary.main",
+            backgroundColor: "bingo.main",
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
@@ -164,7 +164,7 @@ export default function Bingo({ newGame }) {
           <Button
             sx={{
               marginTop: 1,
-              bgcolor: "bingo.main",
+              bgcolor: "bingo.secondary",
             }}
             variant="contained"
             onClick={play}
