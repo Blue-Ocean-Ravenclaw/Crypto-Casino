@@ -178,26 +178,21 @@ const prizeMessages = {
   grandPrize: {
     header: "NFT",
     message: "",
-    confetti: true,
   },
   secondPrize: {
     header: "100",
     message: "TOKENS",
-    confetti: false,
   },
   thirdPrize: {
     header: "50",
     message: "TOKENS",
-    confetti: false,
   },
   fourthPrize: {
     header: "10",
     message: "TOKENS",
-    confetti: false,
   },
   loser: {
     header: "0",
     message: "TOKENS",
-    confetti: false,
   },
 };
