@@ -119,7 +119,7 @@ async function prizeTransaction(username, card_name, game) {
           }
           break;
         case "luckylucy":
-          tokens = 15; //base cost
+          tokens = 25; //base cost
           switch (game.prize) {
             case "doubleSeconds":
               tokens *= 20;
