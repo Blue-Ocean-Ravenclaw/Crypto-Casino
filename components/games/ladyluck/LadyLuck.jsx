@@ -53,7 +53,7 @@ export default function LadyLuck({ newGame }) {
         return { ...state,
           revealedNums: newRevealedNums,
           counter: newCount,
-          reveal: newReveal
+          revealed: newReveal
          };
       default:
         throw new Error();
