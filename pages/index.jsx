@@ -17,7 +17,6 @@ export default function Home() {
       await logout();
       router.push("/login");
     } catch (e) {
-      // console.log(e);
       setError("Failed to log out");
     }
   };
@@ -41,14 +40,32 @@ export default function Home() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        overflow: "hidden",
       }}
     >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          position: "absolute",
+          top: 0,
+          zIndex: -1,
+          overflow: "hidden",
+          width: "100%",
+          height: "auto",
+        }}
+      >
+        <img src="https://i.ibb.co/Lx77C5g/HomePage.png"></img>
+      </Box>
       <Typography
         variant="h3"
         component="h2"
         sx={{
           textAlign: "center",
+          color: "text.white",
+          mt: 10,
+          fontWeight: 500,
+          width: 350,
         }}
       >
         Welcome to Crypto Casino
@@ -58,15 +75,26 @@ export default function Home() {
         onClick={handleEnterClick}
         sx={{
           mt: 2,
+          width: 200,
+          bgcolor: "tertiary.main",
+          "&:hover": {
+            bgcolor: "tertiary.dark",
+          },
         }}
       >
         Enter
       </Button>
       <Button
-        variant="contained"
+        variant="outlined"
         onClick={handleLogOut}
         sx={{
-          mt: 2,
+          mt: 0.5,
+          width: 200,
+          color: "tertiary.main",
+          borderColor: "tertiary.main",
+          "&:hover": {
+            borderColor: "tertiary.dark",
+          },
         }}
       >
         logout

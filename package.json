@@ -8,6 +8,7 @@
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@fontsource/roboto": "^4.5.5",
     "@mui/core": "^5.0.0-alpha.54",
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.6.4",

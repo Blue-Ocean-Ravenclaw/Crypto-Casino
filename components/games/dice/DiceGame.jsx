@@ -4,6 +4,7 @@ import Dice from "./Dice.jsx";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import { realConfetti, fireWorksConfetti } from "../../../lib/confetti.js";
 import { useAppContext } from "../../../context/state.js";
@@ -52,8 +53,8 @@ export default function DiceGame({ newGame }) {
       .then((res) => {
         // console.log(res);
         if (res.status === 200 && res.data.cards >= 0) {
-          dispatch({type: 'play', payload: res.data.game});
-          stateRenderWallet(prev=>!prev);
+          dispatch({ type: "play", payload: res.data.game });
+          stateRenderWallet((prev) => !prev);
         } else {
           onLink("/store");
         }
@@ -74,8 +75,33 @@ export default function DiceGame({ newGame }) {
     const { header, message } = prizeMessages[game.prize];
     return (
       <Box sx={prizeStyle}>
-        <h1>{header}</h1>
-        <p>{message}</p>
+        <Typography
+          sx={{
+            fontSize: 150,
+            fontWeight: 600,
+            lineHeight: "130px",
+            fontFamily: "Roboto",
+            color: "dice.secondary",
+          }}
+        >
+          {header}
+        </Typography>
+        <Box
+          sx={{
+            mt: 2,
+          }}
+        >
+          {game.nft ? <img src={game.nft} /> : null}
+        </Box>
+        <Typography
+          sx={{
+            textAlign: "center",
+            fontSize: 24,
+            mb: 2,
+          }}
+        >
+          {message}
+        </Typography>
       </Box>
     );
   }
@@ -117,20 +143,24 @@ export default function DiceGame({ newGame }) {
             backgroundColor: "white",
             alignItems: "center",
             justifyContent: "center",
-            flexDirection: 'column',
-            width: 400,
-            height: 500,
+            flexDirection: "column",
+            width: 360,
+            height: 360,
+            bgcolor: "transparent",
+            color: "white",
           }}
         >
           {game.prize.length ? displayPrize() : null}
           <Button
-              sx={{
-                marginTop: 1
-              }}
-              variant='contained'
-              onClick={play}>
-                Play Again
-            </Button>
+            sx={{
+              marginTop: 1,
+              bgcolor: "dice.main",
+            }}
+            variant="contained"
+            onClick={play}
+          >
+            Play Again
+          </Button>
         </Box>
       </Modal>
     </Box>
@@ -146,28 +176,28 @@ const prizeStyle = {
 };
 const prizeMessages = {
   grandPrize: {
-    header: "GRAND PRIZE",
-    message: "You hit the jackpot- AN NFT!!!",
+    header: "NFT",
+    message: "",
     confetti: true,
   },
   secondPrize: {
-    header: "SECOND PRIZE!",
-    message: "Bring the heat! You've won 10x your tokens back!",
+    header: "100",
+    message: "TOKENS",
     confetti: false,
   },
   thirdPrize: {
-    header: "THIRD PRIZE!",
-    message: "Lucky you! You've won 5x your tokens back!",
+    header: "50",
+    message: "TOKENS",
     confetti: false,
   },
   fourthPrize: {
-    header: "FOURTH PRIZE",
-    message: "Not bad, High Roller! You've won your tokens back!",
+    header: "10",
+    message: "TOKENS",
     confetti: false,
   },
   loser: {
-    header: "Not this time!",
-    message: "Roll again!",
+    header: "0",
+    message: "TOKENS",
     confetti: false,
   },
 };
