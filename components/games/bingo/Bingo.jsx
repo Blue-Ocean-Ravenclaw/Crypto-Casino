@@ -20,6 +20,7 @@ export default function Bingo({ newGame }) {
     prize: "",
     revealed: false,
     revealedNums: [],
+    nft: null,
   };
   function reducer(state, action) {
     switch (action.type) {
@@ -77,48 +78,15 @@ export default function Bingo({ newGame }) {
   }
 
   const displayPrize = () => {
-    const prizeStyle = {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: "2px",
-      color: "white",
-      textAlign: "center"
-    };
-    const prizeMessages = {
-      grandPrize: {
-        header: "GRAND PRIZE!!",
-        message:
-          "YIPEE KI-YAY! You've won the wildest prize in the west - an NFT!!!!",
-      },
-      secondPrize: {
-        header: "SECOND PRIZE!",
-        message:
-          "When it comes to catching bingos, you're the baddest cowboy West of the Mississippi! You've won 10x your tokens back!",
-      },
-      thirdPrize: {
-        header: "THIRD PRIZE!",
-        message:
-          "Well I'll be, a double bingo! You've won 5x your tokens back!",
-      },
-      fourthPrize: {
-        header: "FOURTH PRIZE!",
-        message: "Giddy up, partner- you lassoed a bingo!",
-      },
-      loser: {
-        header: "Aw, shucks!",
-        message: "Not this time, cowboy- get back on the horse and play again!",
-      },
-    };
-    const { header, message } = prizeMessages[game.prize];
     if (game.revealed && game.prize !== "loser") {
       realConfetti(true);
       fireWorksConfetti(game.prize === "grandPrize");
     }
+    const { header, message } = prizeMessages[game.prize];
     return (
       <Box sx={prizeStyle}>
         <h1>{header}</h1>
+        { game.nft ? <img src={game.nft}/> : null}
         <p>{message}</p>
       </Box>
     );
@@ -126,13 +94,13 @@ export default function Bingo({ newGame }) {
 
   return (
     <Box
-      sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        flexDirection: "column",
-        marginTop: 14,
-      }}
+    sx={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      flexDirection: "column",
+      marginTop: 14,
+    }}
     >
       <Box
         sx={{
@@ -144,7 +112,7 @@ export default function Bingo({ newGame }) {
           flexDirection: "row",
           margin: 1,
         }}
-      >
+        >
         <Sequence sequences={game.sequence} dispatch={dispatch} />
       </Box>
       <Box
@@ -156,10 +124,10 @@ export default function Bingo({ newGame }) {
           width: 320,
           height: 320,
         }}
-      >
+        >
         {game.boards.map((board, i) => (
           <BingoBoard key={i} board={board} revealedNums={game.revealedNums} />
-        ))}
+          ))}
       </Box>
       <Button
         sx={{
@@ -168,7 +136,7 @@ export default function Bingo({ newGame }) {
         }}
         variant="contained"
         onClick={play}
-      >
+        >
         New Board
       </Button>
       <Modal
@@ -180,7 +148,7 @@ export default function Bingo({ newGame }) {
           alignItems: "center",
           zIndex: "5",
         }}
-      >
+        >
         <Box
           sx={{
             display: "flex",
@@ -191,7 +159,7 @@ export default function Bingo({ newGame }) {
             width: 400,
             height: 500,
           }}
-        >
+          >
           {game.prize.length ? displayPrize() : null}
           <Button
             sx={{
@@ -200,7 +168,7 @@ export default function Bingo({ newGame }) {
             }}
             variant="contained"
             onClick={play}
-          >
+            >
             Play Again
           </Button>
         </Box>
@@ -208,3 +176,40 @@ export default function Bingo({ newGame }) {
     </Box>
   );
 }
+
+
+const prizeStyle = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: "2px",
+  color: "white",
+  textAlign: "center"
+};
+
+const prizeMessages = {
+  grandPrize: {
+    header: "GRAND PRIZE!!",
+    message:
+    "YIPEE KI-YAY! You've won the wildest prize in the west - an NFT!!!!",
+  },
+  secondPrize: {
+    header: "SECOND PRIZE!",
+    message:
+      "When it comes to catching bingos, you're the baddest cowboy West of the Mississippi! You've won 10x your tokens back!",
+  },
+  thirdPrize: {
+    header: "THIRD PRIZE!",
+    message:
+      "Well I'll be, a double bingo! You've won 5x your tokens back!",
+  },
+  fourthPrize: {
+    header: "FOURTH PRIZE!",
+    message: "Giddy up, partner- you lassoed a bingo!",
+  },
+  loser: {
+    header: "Aw, shucks!",
+    message: "Not this time, cowboy- get back on the horse and play again!",
+  },
+};
