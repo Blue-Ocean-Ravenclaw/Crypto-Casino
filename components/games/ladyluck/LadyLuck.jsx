@@ -132,7 +132,7 @@ export default function LadyLuck({ newGame }) {
         <Box
           sx={{
             display: "flex",
-            backgroundColor: "white",
+            backgroundColor: "tertiary.main",
             alignItems: "center",
             justifyContent: "center",
             flexDirection: 'column',
@@ -161,6 +161,7 @@ const prizeStyle = {
   justifyContent: "center",
   alignItems: "center",
   borderRadius: "2px",
+  color: "color"
 };
 const prizeMessages = {
   grandPrize: {
