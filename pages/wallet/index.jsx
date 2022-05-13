@@ -117,7 +117,14 @@ function Checkout() {
         <Button
           fullWidth
           variant="contained"
-          sx={{ mt: 1, bgcolor: "tertiary.main", fontWeight: 600 }}
+          sx={{
+            mt: 1,
+            bgcolor: "tertiary.main",
+            fontWeight: 600,
+            "&:hover": {
+              bgcolor: "tertiary.dark",
+            },
+          }}
           onClick={handleOpen}
         >
           Buy Tokens

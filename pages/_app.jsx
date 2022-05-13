@@ -5,6 +5,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 const theme = createTheme({
   palette: {
@@ -26,7 +30,9 @@ const theme = createTheme({
       main: "#FF4949",
     },
     tertiary: {
+      light: "#FFB675",
       main: "#FF8D29",
+      dark: "#CC7121",
     },
     quaternary: {
       main: "#FFCD38",
@@ -42,6 +48,15 @@ const theme = createTheme({
     ladyLuck: {
       main: "#EF3F32",
       secondary: "#FDC536",
+    },
+  },
+  components: {
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "rgba(0,0,0,0.9)",
+        },
+      },
     },
   },
 });

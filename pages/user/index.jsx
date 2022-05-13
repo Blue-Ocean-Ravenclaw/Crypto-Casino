@@ -4,15 +4,24 @@ import { useAuth } from "../../context/AuthContext.js";
 import { useAppContext } from "../../context/state.js";
 
 import Carousel from "react-material-ui-carousel";
-import { Paper, Grid, Box, Stack, Typography } from "@mui/material";
+import {
+  Paper,
+  Grid,
+  Box,
+  Stack,
+  Button,
+  Typography,
+  Alert,
+} from "@mui/material";
 import { BsCoin } from "react-icons/bs";
 import axios from "axios";
 
 export default function User() {
   const router = useRouter();
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const { stateResults } = useAppContext();
   const [nfts, setNfts] = useState([]);
+  const [error, setError] = useState("");
 
   // Only allows logged in user to access this page
   if (!currentUser) {
@@ -48,6 +57,16 @@ export default function User() {
       });
   }, []);
 
+  const handleLogOut = async () => {
+    setError("");
+    try {
+      await logout();
+      router.push("/login");
+    } catch (e) {
+      setError("Failed to log out");
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -56,6 +75,7 @@ export default function User() {
         justifyContent: "center",
         alignItems: "center",
         mt: 2,
+        mb: 10,
       }}
     >
       <Paper
@@ -121,29 +141,6 @@ export default function User() {
           mt: 2,
         }}
       >
-        {/* <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: 175,
-            width: 360,
-            border: 1,
-            borderRadius: 2,
-            borderColor: "primary.main",
-            color: "primary.main",
-            bgcolor: "#FFF",
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: 20,
-            }}
-          >
-            Promotional events coming soon!
-          </Typography>
-        </Box> */}
-
         <Carousel sx={{ width: 360 }} navButtonsAlwaysVisible={false}>
           {nfts.map((item, i) => (
             <NFTItem key={i} item={item} />
@@ -160,6 +157,28 @@ export default function User() {
             <GameItem key={i} item={item} />
           ))}
         </Carousel>
+        <Button
+          variant="outlined"
+          onClick={handleLogOut}
+          sx={{
+            mt: 0.5,
+            width: 360,
+            color: "tertiary.main",
+            borderColor: "tertiary.main",
+            "&:hover": {
+              borderColor: "tertiary.dark",
+            },
+          }}
+        >
+          logout
+        </Button>
+        {error ? (
+          <Alert variant="filled" severity="error" sx={{ m: 2 }}>
+            {error}
+          </Alert>
+        ) : (
+          ""
+        )}
       </Stack>
     </Box>
   );

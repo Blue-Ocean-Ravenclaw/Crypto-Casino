@@ -52,6 +52,7 @@ export default function SignUp() {
         })
         // .then((res) => console.log(res))
         .catch((err) => console.log(err));
+      router.reload();
       router.push("/user");
     } catch (err) {
       // console.log("failed ", err);
