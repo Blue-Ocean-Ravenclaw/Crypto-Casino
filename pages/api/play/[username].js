@@ -40,7 +40,11 @@ export default async function handler(req, res) {
             break;
         }
         useCard(queryData.id_user, card_name);
-        responseBody.game.nft = await prizeTransaction(username, card_name, responseBody.game);
+        responseBody.game.nft = await prizeTransaction(
+          username,
+          card_name,
+          responseBody.game
+        );
       }
       res.status(200).send(responseBody);
     } else {
@@ -115,7 +119,7 @@ async function prizeTransaction(username, card_name, game) {
           }
           break;
         case "luckylucy":
-          tokens = 15; //base cost
+          tokens = 25; //base cost
           switch (game.prize) {
             case "doubleSeconds":
               tokens *= 20;
