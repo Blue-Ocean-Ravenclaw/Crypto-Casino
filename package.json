@@ -30,8 +30,6 @@
     "socket.io-client": "^4.5.0"
   },
   "devDependencies": {
-    "@openzeppelin/contracts": "^4.6.0",
-    "truffle": "^5.5.13",
     "webpack": "^5.72.0"
   }
 }
