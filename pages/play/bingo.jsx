@@ -12,7 +12,7 @@ import {useState, useCallback, useReducer} from 'react';
 export default function Bingo () {
   const initialState = {
     plays: 5,
-    game: 'Bingo',
+    game: 'bingo',
     playing: false //Prevents game from rollng the dice again if you buy tickets
   }
   function reducer (state, action) { //Controls State of Game Page

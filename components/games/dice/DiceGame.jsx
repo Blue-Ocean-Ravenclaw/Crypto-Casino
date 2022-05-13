@@ -1,152 +1,173 @@
-import {useEffect, useReducer, useCallback} from 'react';
-import {generateDiceGame} from '../../../lib/dice.js';
-import Dice from './Dice.jsx';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
+import { useEffect, useReducer, useCallback } from "react";
+import { generateDiceGame } from "../../../lib/dice.js";
+import Dice from "./Dice.jsx";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import { useRouter } from "next/router";
+import { realConfetti, fireWorksConfetti } from "../../../lib/confetti.js";
+import { useAppContext } from "../../../context/state.js";
 
-export default function DiceGame ({plays, luck, playGame, playing}) {
-  const initialState = { //Initial Game State
-    diceArr: [],
-    rolling: false,
-    prize: '',
-    revealed: false
-  }
+//TODO: Create a 'Buy More Modal'
+//TODO: Move Prize Modals out of Game Component
+export default function DiceGame({ newGame }) {
+  const initialState = {
+    board: [],
+    prize: "",
+    revealed: false,
+  };
 
-  function reducer (state, action) { //Controls the Game State
+  function reducer(state, action) {
     switch (action.type) {
-      case 'roll':
-        let game = generateDiceGame();
-        let newDice = game.board;
-        let newPrize = game.prize;
-        return {...state, diceArr: newDice, prize: newPrize, revealed: false};
-      case 'serverRoll':
-        return {...state, diceArr: action.payload.board, prize: action.payload.prize, revealed: false};
-      case 'serverRolled':
-        return {...state, rolling: false, diceArr: action.payload};
-      case 'out':
-        return {...state, rolling: false, diceArr: []};
-      case 'toggleModal':
-        let newReveal = !state.revealed
-        return {...state, revealed: newReveal};
-      case 'revealed':
-        return {...state, revealed: true};
+      case "play":
+        let newGame = action.payload;
+        return {
+          ...state,
+          ...newGame,
+          revealed: false,
+        };
+      case "out":
+        return initialState;
+      case "toggleModal":
+        let newReveal = !state.revealed;
+        return { ...state, revealed: newReveal };
+      case "revealed":
+        return { ...state, revealed: true };
       default:
-        return {...state, rolling: false, diceArr: []};
+        throw new Error();
+        return initialState;
     }
   }
-  const [diceState, dispatch] = useReducer(reducer, initialState);
-  const reveal = useCallback(() => dispatch({type: 'revealed'}), []);
+  const [game, dispatch] = useReducer(reducer, initialState);
+  const reveal = useCallback(() => dispatch({ type: "revealed" }), []);
+  const router = useRouter();
+  const { stateRenderWallet } = useAppContext();
 
-  useEffect(() => { //When plays variable decreases, roll the dice
-    if (playing) { //Prevents roll on initial load
-      dispatch({type: 'roll'});
+  const onLink = (href) => {
+    router.push(href);
+  };
+
+  function play() {
+    newGame()
+      .then((res) => {
+        // console.log(res);
+        if (res.status === 200 && res.data.cards >= 0) {
+          dispatch({type: 'play', payload: res.data.game});
+          stateRenderWallet(prev=>!prev);
+        } else {
+          onLink("/store");
+        }
+      })
+      .catch((err) => {
+        dispatch({ type: "out" });
+        console.error(err);
+      });
+  }
+
+  const toggleModal = useCallback(() => dispatch({ type: "toggleModal" }), []);
+
+  function displayPrize() {
+    if (game.revealed && game.prize !== "loser") {
+      realConfetti(true);
+      fireWorksConfetti(game.prize === "grandPrize");
     }
-  }, [plays]);
-
-  function playDice ()  {
-    axios.get(`https://localhost:3001/play/dice/roll?user_id=${1}`)
-     .then((res) => {
-       dispatch({type: 'serverRoll', payload: res.data.game})
-     })
-     .catch((err) => {
-       dispatch({type: 'out'});
-     });
- }
-
-  const toggleModal = useCallback(() => {
-    dispatch({type: 'toggleModal'});
-  }, []);
-
-  function displayPrize () {
-    const prizeStyle = {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: '2px'
-
-    };
-    const prizeMessages = {
-      'grandPrize': {
-        header: 'GRAND PRIZE',
-        message: "You've won the biggest house prize- AN NFT!!!"
-      },
-      'secondPrize': {
-        header: "SECOND PRIZE!",
-        message: "Bring the heat! You've won 10x your tokens back!"
-      },
-      'thirdPrize': {
-        header: "THIRD PRIZE!",
-        message: "Lucky you! You've won 5x your tokens back!"
-      },
-      'fourthPrize': {
-        header: "FOURTH PRIZE",
-        message: "Not bad, High Roller! You've won your tokens back!"
-      },
-      'loser': {
-        header: 'Not this time!',
-        message: 'Roll again!'
-      }
-    };
-    const { header, message }= prizeMessages[diceState.prize];
+    const { header, message } = prizeMessages[game.prize];
     return (
-      <Box sx = {prizeStyle}>
+      <Box sx={prizeStyle}>
         <h1>{header}</h1>
         <p>{message}</p>
       </Box>
     );
-  };
+  }
 
   return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }}>
-      <Dice diceArr={diceState.diceArr} reveal={reveal} />
-      {plays > 0
-      ? <Button
-          sx={{
-            width: 200,
-            color: '#fff'
-          }}
-          onClick={playGame}
-          color="dice"
-          variant="contained">
-            Roll The dice
-        </Button>
-      : <Button
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Dice board={game.board} reveal={reveal} />
+      <Button
         sx={{
           width: 200,
-          color: '#fff'
+          color: "#fff",
         }}
-        // onClick={playGame}
+        onClick={play}
         color="dice"
-        variant="contained">
-          Buy more cards
-      </Button>}
-      <Dice diceArr={diceState.diceArr} />
+        variant="contained"
+      >
+        Roll The dice
+      </Button>
+      <Dice board={game.board} />
       <Modal
-        open = {diceState.revealed}
-        onClose ={toggleModal}
-        sx = {{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
+        open={game.revealed}
+        onClose={toggleModal}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: "5",
         }}
       >
-        <Box sx = {{
-          display: 'flex',
-          backgroundColor: 'white',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 400,
-          height: 500
-        }}>
-          { diceState.prize.length ? displayPrize() : null}
+        <Box
+          sx={{
+            display: "flex",
+            backgroundColor: "white",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: 'column',
+            width: 400,
+            height: 500,
+          }}
+        >
+          {game.prize.length ? displayPrize() : null}
+          <Button
+              sx={{
+                marginTop: 1
+              }}
+              variant='contained'
+              onClick={play}>
+                Play Again
+            </Button>
         </Box>
       </Modal>
     </Box>
   );
 }
+
+const prizeStyle = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: "2px",
+};
+const prizeMessages = {
+  grandPrize: {
+    header: "GRAND PRIZE",
+    message: "You hit the jackpot- AN NFT!!!",
+    confetti: true,
+  },
+  secondPrize: {
+    header: "SECOND PRIZE!",
+    message: "Bring the heat! You've won 10x your tokens back!",
+    confetti: false,
+  },
+  thirdPrize: {
+    header: "THIRD PRIZE!",
+    message: "Lucky you! You've won 5x your tokens back!",
+    confetti: false,
+  },
+  fourthPrize: {
+    header: "FOURTH PRIZE",
+    message: "Not bad, High Roller! You've won your tokens back!",
+    confetti: false,
+  },
+  loser: {
+    header: "Not this time!",
+    message: "Roll again!",
+    confetti: false,
+  },
+};

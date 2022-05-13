@@ -14,7 +14,7 @@ import HighRoller from "../../components/games/dice/HighRoller.png";
 export default function Bingo() {
   const initialState = {
     plays: 5,
-    game: "Dice",
+    game: "highroller",
     playing: false, //Prevents game from rollng the dice again if you buy tickets
   };
   function reducer(state, action) {
@@ -36,6 +36,8 @@ export default function Bingo() {
       sx={{
         display: "flex",
         justifyContent: "center",
+        height: 800,
+        mt: 1,
       }}
     >
       <Card
