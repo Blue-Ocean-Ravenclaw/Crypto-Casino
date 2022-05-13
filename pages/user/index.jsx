@@ -49,49 +49,68 @@ export default function User() {
   }, []);
 
   return (
-    <div>
-      <Box
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        mt: 2,
+      }}
+    >
+      <Paper
+        elevation={2}
         sx={{
           display: "flex",
-          m: 2,
+          justifyContent: "center",
+          alignItems: "center",
+          width: 360,
+          height: 40,
+          bgcolor: "tertiary.main",
+          color: "white",
         }}
       >
         <Box
           sx={{
-            width: 360,
-            pr: 0.75,
             display: "flex",
-            justifyContent: "space-between",
+            m: 2,
           }}
         >
-          <Typography
+          <Box
             sx={{
-              fontWeight: 600,
-              color: "primary.main",
+              width: 320,
+              pr: 0.75,
+              display: "flex",
+              justifyContent: "space-between",
             }}
           >
-            {stateResults.username}
-          </Typography>
-          <Typography
+            <Typography
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {stateResults.username}
+            </Typography>
+            <Typography
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                fontWeight: 600,
+              }}
+            >
+              {stateResults.tokens}
+            </Typography>
+          </Box>
+          <Box
             sx={{
               display: "flex",
-              alignItems: "center",
-              color: "primary.main",
-              fontWeight: 600,
+              mt: 0.4,
             }}
           >
-            {stateResults.tokens}
-          </Typography>
+            {<BsCoin />}
+          </Box>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            mt: 0.4,
-          }}
-        >
-          {<BsCoin />}
-        </Box>
-      </Box>
+      </Paper>
       <Stack
         spacing={2}
         sx={{
@@ -102,7 +121,7 @@ export default function User() {
           mt: 2,
         }}
       >
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -123,43 +142,71 @@ export default function User() {
           >
             Promotional events coming soon!
           </Typography>
-        </Box>
+        </Box> */}
 
         <Carousel sx={{ width: 360 }} navButtonsAlwaysVisible={false}>
           {nfts.map((item, i) => (
-            <Item key={i} item={item} />
+            <NFTItem key={i} item={item} />
           ))}
         </Carousel>
 
         <Carousel
           sx={{
             width: 360,
-            height: 210,
           }}
           navButtonsAlwaysVisible={false}
         >
           {boards.map((item, i) => (
-            <Item key={i} item={item} />
+            <GameItem key={i} item={item} />
           ))}
         </Carousel>
       </Stack>
-    </div>
+    </Box>
   );
 }
 
-function Item(props) {
+function NFTItem(props) {
+  return (
+    <Paper elevation={3}>
+      <Grid
+        container
+        justifyContent="center"
+        sx={{
+          borderRadius: 2,
+        }}
+      >
+        <img
+          src={props.item.image}
+          width="360"
+          height="360"
+          object-fit="cover"
+        ></img>
+      </Grid>
+    </Paper>
+  );
+}
+
+function GameItem(props) {
   const router = useRouter();
   const onLink = (href) => {
     router.push(href);
   };
 
   return (
-    <Paper height="200">
-      <Grid container justifyContent="center">
+    <Paper elevation={3}>
+      <Grid
+        container
+        justifyContent="center"
+        sx={{
+          borderRadius: 2,
+        }}
+      >
         <img
           src={props.item.image}
-          width="auto"
+          width="360"
           height="175"
+          object-fit="cover"
+          border-radius="20%"
           onClick={() => {
             onLink(props.item.path);
           }}

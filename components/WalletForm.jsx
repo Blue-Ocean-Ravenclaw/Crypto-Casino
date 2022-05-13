@@ -74,6 +74,7 @@ export default function WalletForm() {
                     objectFit: "cover",
                     height: 160,
                     overflow: "hidden",
+                    mb: 1,
                   }}
                 >
                   <ImageListItem

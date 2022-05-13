@@ -52,8 +52,8 @@ const style = {
 
 function Checkout() {
   const [open, setOpen] = useState(false);
-  const [total, setTotal] = useState(4);
-  const [tokens, setTokens] = useState(40);
+  const [total, setTotal] = useState(1);
+  const [tokens, setTokens] = useState(100);
   const [view, setView] = useState(0);
 
   const { stateResults, stateRenderWallet } = useAppContext();
@@ -65,7 +65,7 @@ function Checkout() {
 
   const handleClose = () => {
     setOpen(false);
-    setTokens(40);
+    setTokens(100);
     setView(0);
   };
 
@@ -76,6 +76,21 @@ function Checkout() {
 
   const handleIncrement = () => {
     setTokens((prev) => prev + 10);
+    setTotal(tokens * 0.1);
+  };
+
+  const increment100 = () => {
+    setTokens((prev) => prev + 100);
+    setTotal(tokens * 0.1);
+  };
+
+  const increment1000 = () => {
+    setTokens((prev) => prev + 1000);
+    setTotal(tokens * 0.1);
+  };
+
+  const increment10000 = () => {
+    setTokens((prev) => prev + 10000);
     setTotal(tokens * 0.1);
   };
 
@@ -102,7 +117,7 @@ function Checkout() {
         <Button
           fullWidth
           variant="contained"
-          sx={{ mt: 1, bgcolor: "secondary.main" }}
+          sx={{ mt: 1, bgcolor: "tertiary.main", fontWeight: 600 }}
           onClick={handleOpen}
         >
           Buy Tokens
@@ -133,6 +148,17 @@ function Checkout() {
               <IconButton onClick={handleIncrement}>
                 <AddIcon style={style.largeIcon} />
               </IconButton>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-around",
+                marginBottom: "5vh",
+              }}
+            >
+              <IconButton onClick={increment100}>+100</IconButton>
+              <IconButton onClick={increment1000}>+1000</IconButton>
+              <IconButton onClick={increment10000}>+10000</IconButton>
             </div>
             <Typography
               id="wasgametitle"
