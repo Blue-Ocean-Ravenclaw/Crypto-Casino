@@ -9,11 +9,8 @@ CREATE DATABASE blueocean;
 --connect to the db
 \c blueocean
 
--- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
--- SET FOREIGN_KEY_CHECKS=0;
-
 -- ---
--- Table 'user'
+-- Table 'users'
 --
 -- ---
 
@@ -78,25 +75,12 @@ CSV HEADER;
 ALTER TABLE nfts ADD FOREIGN KEY (id_user) REFERENCES users (id);
 ALTER TABLE card_inventory ADD FOREIGN KEY (id_user) REFERENCES users (id);
 
-
 -- ---
--- Table Properties
+-- Indexing
 -- ---
-
--- ALTER TABLE `user` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `nfts` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `card_inventory` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- ---
--- Test Data
--- ---
-
--- INSERT INTO `user` (`id`,`username`,`tokens`,`email`,`wallet_address`) VALUES
--- ('','','','','');
--- INSERT INTO `nfts` (`id`,`id_user`,`description`,`external_url`,`image`,`name`,`value`) VALUES
--- ('','','','','','','');
--- INSERT INTO `card_inventory` (`id`,`id_user`,`card_name`,`quantity`) VALUES
--- ('','','','');
+CREATE INDEX "users_username" ON users (username);
+CREATE INDEX "nfts_id_user" ON nfts (id_user);
+CREATE INDEX "card_inventory_id_user" ON card_inventory (id_user);
 
 --Sets value(id) of users/card inventory so that net row can be inserted at end of dataset.
 SELECT setval('users_id_seq', (SELECT MAX(id) from users) +1);
