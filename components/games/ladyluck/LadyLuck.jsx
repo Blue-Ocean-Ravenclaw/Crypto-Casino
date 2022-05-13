@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import LLBoard from "./LLBoard.jsx";
 import LLPlayerNum from "./LLPlayerNum.jsx";
 import Modal from "@mui/material/Modal";
-import Typography from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import { useAppContext } from "../../../context/state.js";
 import { realConfetti, fireWorksConfetti } from "../../../lib/confetti.js";
@@ -29,7 +29,7 @@ export default function LadyLuck({ newGame }) {
           ...newGame,
           revealed: false,
           counter: 0,
-          revealedNums: []
+          revealedNums: [],
         };
       case "out":
         return initialState;
@@ -40,7 +40,7 @@ export default function LadyLuck({ newGame }) {
       case "revealBoard":
         let newCounter = state.counter + 1;
         if (newCounter > 24) {
-          return { ...state, revealed: true, counter: newCounter};
+          return { ...state, revealed: true, counter: newCounter };
         } else {
           return { ...state, counter: newCounter };
         }
@@ -51,11 +51,12 @@ export default function LadyLuck({ newGame }) {
         if (newCount === 25) {
           newReveal = true;
         }
-        return { ...state,
+        return {
+          ...state,
           revealedNums: newRevealedNums,
           counter: newCount,
-          revealed: newReveal
-         };
+          revealed: newReveal,
+        };
       default:
         throw new Error();
         return initialState;
@@ -66,13 +67,8 @@ export default function LadyLuck({ newGame }) {
   const onLink = (href) => {
     router.push(href);
   };
-<<<<<<< HEAD
   const toggleModal = () => dispatch({ type: "toggleModal" });
-  const reveal = useCallback(() => dispatch({ type: "count" }), []);
-=======
-  const toggleModal = () => dispatch({type: 'toggleModal'});
-  const reveal = useCallback(() => dispatch({type: 'revealBoard'}), []);
->>>>>>> d4e2d5992298ea17dc2b0db3872740df46eb3d46
+  const reveal = useCallback(() => dispatch({ type: "revealBoard" }), []);
   const { stateRenderWallet } = useAppContext();
 
   function play() {
@@ -99,16 +95,13 @@ export default function LadyLuck({ newGame }) {
     const { header, message } = prizeMessages[game.prize];
     return (
       <Box sx={prizeStyle}>
-        {/* <h1>{header}</h1>
-        {game.nft ? <img src={game.nft} /> : null}
-        <p>{message}</p> */}
         <Typography
           sx={{
             fontSize: 150,
             fontWeight: 600,
             lineHeight: "130px",
             fontFamily: "Roboto",
-            color: "ladyLuck.main",
+            color: "ladyLuck.secondary",
           }}
         >
           {header}
@@ -125,6 +118,7 @@ export default function LadyLuck({ newGame }) {
             textAlign: "center",
             fontSize: 24,
             mb: 2,
+            color: "white",
           }}
         >
           {message}
@@ -175,7 +169,11 @@ export default function LadyLuck({ newGame }) {
           />
         ))}
       </Box>
-      <LLBoard board={game.board} reveal={reveal} revealedNums={game.revealedNums} />
+      <LLBoard
+        board={game.board}
+        reveal={reveal}
+        revealedNums={game.revealedNums}
+      />
       <Modal
         open={game.revealed}
         onClose={toggleModal}
@@ -201,6 +199,7 @@ export default function LadyLuck({ newGame }) {
           <Button
             sx={{
               marginTop: 1,
+              bgcolor: "ladyLuck.main",
             }}
             variant="contained"
             onClick={play}
@@ -221,29 +220,57 @@ const prizeStyle = {
   borderRadius: "2px",
   color: "color",
 };
+
 const prizeMessages = {
   grandPrize: {
-    header: "GRAND PRIZE!!",
-    message: "JACKPOT!!! You won an NFT!",
+    header: "NFT",
+    message: "",
   },
   doubleSeconds: {
-    header: "SECOND PRIZE - AND MORE!",
-    message: "Hoooo-eee, we've got a winner! You've won 500 tokens",
+    header: "500",
+    message: "TOKENS",
   },
   doubleThirds: {
-    header: "DOUBLE THE LUCK, DOUBLE THE FUN!",
-    message: "No kidding - you scored a double win! You've won 250 tokens!",
+    header: "250",
+    message: "TOKENS",
   },
   second: {
-    header: "YOU WON!",
-    message: "Luck is in the air! You've won 125 tokens!",
+    header: "125",
+    message: "TOKENS",
   },
   third: {
-    header: "YOU WON!",
-    message: "Nicely done! You've won 25 tokens back!",
+    header: "25",
+    message: "TOKENS",
   },
   loser: {
-    header: "So close!",
-    message: "Not this time! Play again!",
+    header: "0",
+    message: "TOKENS",
   },
 };
+
+// const prizeMessages = {
+//   grandPrize: {
+//     header: "GRAND PRIZE!!",
+//     message: "JACKPOT!!! You won an NFT!",
+//   },
+//   doubleSeconds: {
+//     header: "SECOND PRIZE - AND MORE!",
+//     message: "Hoooo-eee, we've got a winner! You've won 500 tokens",
+//   },
+//   doubleThirds: {
+//     header: "DOUBLE THE LUCK, DOUBLE THE FUN!",
+//     message: "No kidding - you scored a double win! You've won 250 tokens!",
+//   },
+//   second: {
+//     header: "YOU WON!",
+//     message: "Luck is in the air! You've won 125 tokens!",
+//   },
+//   third: {
+//     header: "YOU WON!",
+//     message: "Nicely done! You've won 25 tokens back!",
+//   },
+//   loser: {
+//     header: "So close!",
+//     message: "Not this time! Play again!",
+//   },
+// };
