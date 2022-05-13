@@ -7,6 +7,7 @@ import LLPlayerNum from "./LLPlayerNum.jsx";
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
 import { useAppContext } from "../../../context/state.js";
+import { realConfetti, fireWorksConfetti } from '../../../lib/confetti.js';
 
 export default function LadyLuck({ newGame }) {
   const initialState = {
@@ -16,6 +17,7 @@ export default function LadyLuck({ newGame }) {
     prize: "",
     counter: 0,
     revealed: false,
+    nft: null
   };
   function reducer(state, action) {
     switch (action.type) {
@@ -72,10 +74,15 @@ export default function LadyLuck({ newGame }) {
   }
 
   const displayPrize = () => {
+    if (game.revealed && game.prize !== "loser") {
+      realConfetti(true);
+      fireWorksConfetti(game.prize === "grandPrize");
+    }
     const { header, message } = prizeMessages[game.prize];
     return (
       <Box sx={prizeStyle}>
         <h1>{header}</h1>
+        { game.nft ? <img src={game.nft} /> : null}
         <p>{message}</p>
       </Box>
     );
@@ -127,6 +134,7 @@ export default function LadyLuck({ newGame }) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          zIndex: "5"
         }}
       >
         <Box
@@ -170,20 +178,20 @@ const prizeMessages = {
   },
   doubleSeconds: {
     header: "SECOND PRIZE - AND MORE!",
-    message: "Hoooo-eee, we've got a winner! You've won 20x your tokens back!",
+    message: "Hoooo-eee, we've got a winner! You've won 500 tokens",
   },
   doubleThirds: {
     header: "DOUBLE THE LUCK, DOUBLE THE FUN!",
     message:
-      "No kidding - you scored a double win! You've won 10x your tokens back!",
+      "No kidding - you scored a double win! You've won 250 tokens!",
   },
   second: {
     header: "YOU WON!",
-    message: "Luck is in the air! You've won 5x your tokens back!",
+    message: "Luck is in the air! You've won 125 tokens!",
   },
   third: {
     header: "YOU WON!",
-    message: "Nicely done! You've won your tokens back!",
+    message: "Nicely done! You've won 25 tokens back!",
   },
   loser: {
     header: "So close!",
