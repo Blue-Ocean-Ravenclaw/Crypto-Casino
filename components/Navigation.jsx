@@ -47,6 +47,7 @@ function Navigation() {
           bgcolor: "tertiary.main",
           maxWidth: 600,
           minWidth: 375,
+          zIndex: 100,
         }}
         elevation={6}
       >

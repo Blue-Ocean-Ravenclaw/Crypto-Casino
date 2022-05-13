@@ -91,7 +91,7 @@ export default function DiceGame({ newGame }) {
             mt: 2,
           }}
         >
-          {game.nft ? <img src={game.nft} /> : null}
+          {game.nft ? <img height={360} width={360} src={game.nft} /> : null}
         </Box>
         <Typography
           sx={{
