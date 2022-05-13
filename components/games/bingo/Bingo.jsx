@@ -77,20 +77,14 @@ export default function Bingo({ newGame }) {
   }
 
   const displayPrize = () => {
-    const containerStyle = {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      flexWrap: "wrap",
-      width: 400,
-      flexDirection: "row",
-    };
     const prizeStyle = {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
       borderRadius: "2px",
+      color: "white",
+      textAlign: "center"
     };
     const prizeMessages = {
       grandPrize: {
@@ -190,7 +184,7 @@ export default function Bingo({ newGame }) {
         <Box
           sx={{
             display: "flex",
-            backgroundColor: "white",
+            backgroundColor: "tertiary.main",
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
