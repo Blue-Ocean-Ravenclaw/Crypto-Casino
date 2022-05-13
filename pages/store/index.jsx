@@ -29,12 +29,11 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 360,
   bgcolor: "background.paper",
-  border: "2px solid #000",
-  borderRadius: "20px",
+  borderRadius: 2,
   boxShadow: 24,
-  p: 4,
+  p: 1,
   largeIcon: {
     width: 40,
     height: 40,
@@ -97,10 +96,15 @@ function GameStore() {
     if (total > tokens) {
       console.log("YOU BROKE");
     } else {
-      axios.post(`/api/tokens/${stateResults.username}`, { tokens: (total * -1) })
+      axios
+        .post(`/api/tokens/${stateResults.username}`, { tokens: total * -1 })
         .then((res) => {
-          axios.put(`/api/cards/${stateResults.username}`, { card_name: game.dbTitle, quantity: gameCount })
-            .then((res) => stateRenderWallet(prev=>!prev))
+          axios
+            .put(`/api/cards/${stateResults.username}`, {
+              card_name: game.dbTitle,
+              quantity: gameCount,
+            })
+            .then((res) => stateRenderWallet((prev) => !prev))
             .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
@@ -166,76 +170,75 @@ function GameStore() {
                     sx={{
                       fontWeight: 600,
                       bgcolor: game.buttonColor,
+                      "&:hover": {
+                        bgcolor: game.buttonColor,
+                      },
                     }}
                   >
                     {game.buttonText}
                   </Button>
-
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style}>
-                      <div style={style.iconSpacing}>
-                        <IconButton onClick={handleDecrament}>
-                          <RemoveIcon style={style.largeIcon} />
-                        </IconButton>
-                        <span style={{ fontSize: "50px" }}>{gameCount}</span>
-                        <IconButton onClick={handleIncrement}>
-                          <AddIcon style={style.largeIcon} />
-                        </IconButton>
-                      </div>
-
-                      <Typography
-                        id={game.title}
-                        variant="h6"
-                        component="h2"
-                        style={style.iconSpacing}
-                      >
-                        # of {gameTitle} cards
-                      </Typography>
-
-                      <Typography
-                        id={game.title}
-                        variant="h6"
-                        component="h2"
-                        style={style.iconSpacing}
-                      >
-                        {total} Tokens
-                      </Typography>
-
-                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        {/* Description placement. */}
-                      </Typography>
-                        <Button
-                          fullWidth
-                          variant="contained"
-                          onClick={()=>onLink('/play')}
-                          sx={{
-                            bgcolor: gameColor,
-                          }}
-                        >
-                          Purchase and play
-                        </Button>
-                      <Button
-                        fullWidth
-                        variant="outlined"
-                        onClick={handlePurchase}
-                        sx={{
-                          borderColor: gameColor,
-                          color: gameColor,
-                        }}
-                      >
-                        Add games to wallet
-                      </Button>
-                    </Box>
-                  </Modal>
                 </CardActions>
               </Card>
             </Grid>
           ))}
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <div style={style.iconSpacing}>
+                <IconButton onClick={handleDecrament}>
+                  <RemoveIcon style={style.largeIcon} />
+                </IconButton>
+                <span style={{ fontSize: "50px" }}>{gameCount}</span>
+                <IconButton onClick={handleIncrement}>
+                  <AddIcon style={style.largeIcon} />
+                </IconButton>
+              </div>
+
+              <Typography
+                id={game.title}
+                variant="h6"
+                component="h2"
+                style={style.iconSpacing}
+              >
+                # of {gameTitle} cards
+              </Typography>
+
+              <Typography
+                id={game.title}
+                variant="h6"
+                component="h2"
+                style={style.iconSpacing}
+              >
+                {total} Tokens
+              </Typography>
+
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={() => onLink("/play")}
+                sx={{
+                  bgcolor: gameColor,
+                }}
+              >
+                Purchase and play
+              </Button>
+              <Button
+                fullWidth
+                variant="outlined"
+                onClick={handlePurchase}
+                sx={{
+                  borderColor: gameColor,
+                  color: gameColor,
+                }}
+              >
+                Add games to wallet
+              </Button>
+            </Box>
+          </Modal>
         </Grid>
       </Container>
     </>

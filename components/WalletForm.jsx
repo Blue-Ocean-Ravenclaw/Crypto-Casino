@@ -76,10 +76,16 @@ export default function WalletForm() {
                 >
                   <ImageListItem
                     key={idx}
+                    style={{
+                      height: 165,
+                      width: 165,
+                    }}
                     sx={{
                       overflow: "hidden",
-                      objectFit: "cover",
+                      objectFit: "fill",
                       borderRadius: 1,
+                      height: 170,
+                      width: "auto",
                     }}
                   >
                     <img
