@@ -1,12 +1,15 @@
 import Box from "@mui/material/Box";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ScratchOff } from "@sky790312/react-scratch-off";
 
-export default function LLPlayerNum({ playerNums, num, reveal }) {
+export default function LLPlayerNum({ playerNums, num, reveal, dispatch }) {
   const [counter, setCounter] = useState(0);
   useEffect(() => {
     setCounter((prev) => prev + 1);
   }, [playerNums]);
+  const revealNum = useCallback(() => {
+    dispatch({ type: "revealPlayer", payload: num });
+  }, [num])
 
   const hideStyle = {
     display: "flex",
@@ -35,7 +38,7 @@ export default function LLPlayerNum({ playerNums, num, reveal }) {
         key={counter}
         width={50}
         height={50}
-        handleReveal={reveal}
+        handleReveal={revealNum}
         coverImgSrc={"https://i.ibb.co/GPPL3hH/Four-Leaf-Clover.png"}
         revealPercentage={90}
       >
