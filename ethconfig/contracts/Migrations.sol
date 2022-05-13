@@ -1,19 +1,41 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity ^0.8.4;
 
-contract Migrations {
-  address public owner = msg.sender;
-  uint public last_completed_migration;
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
-  modifier restricted() {
-    require(
-      msg.sender == owner,
-      "This function is restricted to the contract's owner"
-    );
-    _;
-  }
+contract RFP2202RavenclawBlueOcean is ERC721, Pausable, Ownable {
+    using Counters for Counters.Counter;
 
-  function setCompleted(uint completed) public restricted {
-    last_completed_migration = completed;
-  }
+    Counters.Counter private _tokenIdCounter;
+
+    constructor() ERC721("RFP2202 Ravenclaw Blue Ocean", "JMAP") {}
+
+    function _baseURI() internal pure override returns (string memory) {
+        return "https://my-json-server.typicode.com/seanatrinh/very-real-nfts-3/tokens";
+    }
+
+    function pause() public onlyOwner {
+        _pause();
+    }
+
+    function unpause() public onlyOwner {
+        _unpause();
+    }
+
+    function safeMint(address to) public onlyOwner {
+        uint256 tokenId = _tokenIdCounter.current();
+        _tokenIdCounter.increment();
+        _safeMint(to, tokenId);
+    }
+
+    function _beforeTokenTransfer(address from, address to, uint256 tokenId)
+        internal
+        whenNotPaused
+        override
+    {
+        super._beforeTokenTransfer(from, to, tokenId);
+    }
 }
