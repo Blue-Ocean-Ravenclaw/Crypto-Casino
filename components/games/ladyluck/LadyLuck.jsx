@@ -16,6 +16,7 @@ export default function LadyLuck({ newGame }) {
     prize: "",
     counter: 0,
     revealed: false,
+    revealedNums: []
   };
   function reducer(state, action) {
     switch (action.type) {
@@ -26,6 +27,7 @@ export default function LadyLuck({ newGame }) {
           ...newGame,
           revealed: false,
           counter: 0,
+          revealedNums: []
         };
       case "out":
         return initialState;
@@ -34,13 +36,23 @@ export default function LadyLuck({ newGame }) {
         return { ...state, revealed: newReveal };
       case "revealed":
         return { ...state, revealed: true };
-      case "count":
-        let newCount = state.counter + 1;
+      case "revealBoard":
         let newRevealed = false;
         if (newCount === 25) {
           newRevealed = true;
         }
-        return { ...state, counter: newCount, revealed: newRevealed };
+        return { ...state, counter: state.count + 1, revealed: newRevealed };
+      case "revealPlayer":
+        let newCount = state.counter + 1;
+        let newReveal = false;
+        if (newCount === 25) {
+          newReveal = true;
+        }
+        return { ...state,
+          revealedNums: state.revealedNums.concat([action.payload]),
+          count: newCount,
+          reveal: newReveal
+         };
       default:
         throw new Error();
         return initialState;
@@ -116,6 +128,7 @@ export default function LadyLuck({ newGame }) {
             playerNums={game.playerNums}
             num={num}
             reveal={reveal}
+            dispatch={dispatch}
           />
         ))}
       </Box>
