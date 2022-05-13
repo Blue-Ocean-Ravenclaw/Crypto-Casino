@@ -13,14 +13,11 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { BsCoin } from "react-icons/bs";
 import axios from "axios";
-import React from "react";
 
 export default function WalletForm() {
   const { card_inventory, tokens, nfts } = useAppContext();
   const { stateResults } = useAppContext();
   const context = useAppContext();
-
-  console.log(stateResults);
 
   return (
     <React.Fragment>
@@ -127,8 +124,8 @@ export default function WalletForm() {
         >
           GAME CARDS
         </Typography>
-        {card_inventory
-          ? card_inventory.map((product) => (
+        {stateResults.card_inventory
+          ? stateResults.card_inventory.map((product) => (
               <ListItem
                 key={product.card_name}
                 sx={{
