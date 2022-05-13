@@ -40,11 +40,7 @@ export default async function handler(req, res) {
             break;
         }
         useCard(queryData.id_user, card_name);
-        responseBody.nft = await prizeTransaction(
-          username,
-          card_name,
-          responseBody.game
-        );
+        responseBody.game.nft = await prizeTransaction(username, card_name, responseBody.game);
       }
       res.status(200).send(responseBody);
     } else {
@@ -86,7 +82,7 @@ async function prizeTransaction(username, card_name, game) {
       query.values = [username];
 
       let result = await db.query(query);
-      return result.rows[0].image;
+      return result.rows[0]?.image;
     } else {
       let tokens;
       switch (card_name) {
