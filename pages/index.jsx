@@ -84,28 +84,6 @@ export default function Home() {
       >
         Enter
       </Button>
-      <Button
-        variant="outlined"
-        onClick={handleLogOut}
-        sx={{
-          mt: 0.5,
-          width: 200,
-          color: "tertiary.main",
-          borderColor: "tertiary.main",
-          "&:hover": {
-            borderColor: "tertiary.dark",
-          },
-        }}
-      >
-        logout
-      </Button>
-      {error ? (
-        <Alert variant="filled" severity="error" sx={{ m: 2 }}>
-          {error}
-        </Alert>
-      ) : (
-        ""
-      )}
     </Box>
   );
 }
