@@ -86,7 +86,7 @@ const instructions = () => {
               <li>3rd Prize: 100 Tokens</li>
               <li>4th Prize: 40 Tokens</li>
             </ul>
-
+            <h2> Odds: 1 in 5 Plays Wins A Prize!</h2>
           </div>
         </div>
 
@@ -113,6 +113,7 @@ const instructions = () => {
               <li>4th Prize: 125 Tokens</li>
               <li>5th Prize: 25 Tokens</li>
             </ul>
+            <h2> Odds: 1 in 4 Plays Wins A Prize!</h2>
           </div>
         </div>
       </div>
