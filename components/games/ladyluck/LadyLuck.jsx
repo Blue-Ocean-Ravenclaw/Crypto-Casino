@@ -32,25 +32,27 @@ export default function LadyLuck({ newGame }) {
       case "out":
         return initialState;
       case "toggleModal":
-        let newReveal = !state.revealed;
-        return { ...state, revealed: newReveal };
+        return { ...state, revealed: !state.revealed };
       case "revealed":
         return { ...state, revealed: true };
       case "revealBoard":
-        let newRevealed = false;
-        if (newCount === 25) {
-          newRevealed = true;
+        let newCounter = state.counter + 1;
+        if (newCounter > 24) {
+          return { ...state, revealed: true, counter: newCounter};
+        } else {
+          return { ...state, counter: newCounter };
         }
-        return { ...state, counter: state.count + 1, revealed: newRevealed };
+
       case "revealPlayer":
         let newCount = state.counter + 1;
         let newReveal = false;
+        let newRevealedNums = state.revealedNums.concat([action.payload]);
         if (newCount === 25) {
           newReveal = true;
         }
         return { ...state,
-          revealedNums: state.revealedNums.concat([action.payload]),
-          count: newCount,
+          revealedNums: newRevealedNums,
+          counter: newCount,
           reveal: newReveal
          };
       default:
@@ -64,7 +66,7 @@ export default function LadyLuck({ newGame }) {
     router.push(href);
   };
   const toggleModal = () => dispatch({type: 'toggleModal'});
-  const reveal = useCallback(() => dispatch({type: 'count'}), []);
+  const reveal = useCallback(() => dispatch({type: 'revealBoard'}), []);
   const { stateRenderWallet } = useAppContext();
 
   function play() {
@@ -132,7 +134,7 @@ export default function LadyLuck({ newGame }) {
           />
         ))}
       </Box>
-      <LLBoard board={game.board} reveal={reveal} />
+      <LLBoard board={game.board} reveal={reveal} revealedNums={game.revealedNums} />
       <Modal
         open={game.revealed}
         onClose={toggleModal}

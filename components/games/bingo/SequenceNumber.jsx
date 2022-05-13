@@ -1,13 +1,13 @@
 import Box from "@mui/material/Box";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ScratchOff } from "@sky790312/react-scratch-off";
 
 export default function SequenceNumber({ sequences, num, dispatch }) {
   const [counter, setCounter] = useState(0);
 
-  function revealNum() {
+  const revealNum = useCallback(() => {
     dispatch({ type: "reveal", payload: num.slice(1) });
-  }
+  }, [num])
 
   useEffect(() => {
     setCounter((prev) => prev + 1);
