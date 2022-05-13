@@ -37,6 +37,7 @@ export default function Bingo() {
         display: "flex",
         justifyContent: "center",
         height: 800,
+        mt: 1,
       }}
     >
       <Card
