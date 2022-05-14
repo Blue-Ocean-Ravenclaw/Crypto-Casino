@@ -29,7 +29,7 @@ This application:
 * [Timothy Nguyen](https://github.com/timnguy17)
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/timnguy17/)
 [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/timnguy17)
-* Varun Srinivasan (https://github.com/varunsrinivasan2)
+* [Varun Srinivasan] (https://github.com/varunsrinivasan2)
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/varunsrinivasan2/)
 
 
