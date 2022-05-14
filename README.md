@@ -11,7 +11,9 @@ This application:
 * Utilized Firebase authentication SDK
 
 ## Team
-* Austin Chapin
+* [Austin Chapin ](https://github.com/austinchapin1)  
+[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/austin-chapin/)
+[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ivyhu630)
 * Bradford Trevino
 * Calvin See
 * [Ivy Hu ](https://github.com/ivyhu630)  
