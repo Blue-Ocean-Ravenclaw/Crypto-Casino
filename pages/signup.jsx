@@ -1,30 +1,32 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { useAuth } from "../context/AuthContext";
-import axios from "axios";
+/* eslint-disable consistent-return */
+/* eslint-disable no-console */
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Alert from "@mui/material/Alert";
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Alert from '@mui/material/Alert';
+import { useAuth } from '../context/AuthContext';
 
 export default function SignUp() {
   const [userData, setUserData] = useState({
-    email: "",
-    username: "",
-    password: "",
-    passwordConfirm: "",
+    email: '',
+    username: '',
+    password: '',
+    passwordConfirm: '',
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { signup } = useAuth();
@@ -36,27 +38,25 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (userData.password !== userData.passwordConfirm) {
-      return setError("Passwords do not match");
+      return setError('Passwords do not match');
     }
     if (userData.password.length < 6) {
-      return setError("Passwords length needs to be over six");
+      return setError('Passwords length needs to be over six');
     }
     try {
-      setError("");
+      setError('');
       setLoading(true);
       await signup(userData.email, userData.password);
       axios
-        .post("/api/newUser", {
+        .post('/api/newUser', {
           username: userData.username,
           email: userData.email,
         })
-        // .then((res) => console.log(res))
         .catch((err) => console.log(err));
       router.reload();
-      router.push("/user");
+      router.push('/user');
     } catch (err) {
-      // console.log("failed ", err);
-      setError("Failed to create an account");
+      setError('Failed to create an account');
     }
     setLoading(false);
   };
@@ -70,10 +70,10 @@ export default function SignUp() {
 
   useEffect(() => {
     if (
-      userData.password === userData.passwordConfirm ||
-      userData.password.length > 6
+      userData.password === userData.passwordConfirm
+      || userData.password.length > 6
     ) {
-      setError("");
+      setError('');
     }
   }, [userData.passwordConfirm, userData.password]);
 
@@ -83,12 +83,12 @@ export default function SignUp() {
       <Box
         sx={{
           marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -147,17 +147,17 @@ export default function SignUp() {
                 {error}
               </Alert>
             ) : (
-              ""
+              ''
             )}
             <Grid item xs={12}>
               <FormControlLabel
-                control={
+                control={(
                   <Checkbox
                     value="allowExtraEmails"
-                    defaultChecked={true}
+                    defaultChecked
                     color="primary"
                   />
-                }
+                )}
                 label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
@@ -174,10 +174,10 @@ export default function SignUp() {
             <Grid item>
               <Typography
                 variant="body2"
-                onClick={() => onLink("/login")}
+                onClick={() => onLink('/login')}
                 sx={{
-                  color: "primary.main",
-                  textDecoration: "underline",
+                  color: 'primary.main',
+                  textDecoration: 'underline',
                 }}
               >
                 Already have an account? Sign in
