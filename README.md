@@ -13,7 +13,8 @@ Fullstack gaming social app that allows users to
 
  ![](https://media.giphy.com/media/NnM6gUCuuTW3LTMeIh/giphy.gif)![](https://media.giphy.com/media/mqHG0F5zXQONSYevxG/giphy.gif)![](https://media.giphy.com/media/bMaatv0CLbpXtNWnFe/giphy.gif)![](https://media.giphy.com/media/5MEzo1sOjwxicYcCjf/giphy.gif)
 
-
+ ### NFT demo
+[Team Ravenclaw's minted NFT](https://testnets.opensea.io/assets/0x3ccbe29fdfdd781f68482e1a1b904b949e143b96/0)
 
 ## Team
 * [Austin Chapin](https://github.com/austinchapin1)
