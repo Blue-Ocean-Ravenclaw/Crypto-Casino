@@ -30,7 +30,7 @@ export default async function handler(req, res) {
         responseBody.cards = queryData.quantity - 1;
         switch (card_name) {
           case "highroller":
-            responseBody.game = await generateDiceGame();
+            responseBody.game = await generateDiceGame(true);
             break;
           case "bingo":
             responseBody.game = await generateBingoGame();
