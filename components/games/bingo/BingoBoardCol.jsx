@@ -1,17 +1,18 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable import/extensions */
 import Box from '@mui/material/Box';
 import BingoNumber from './BingoNumber.jsx';
-import {useState, useCallback, useEffect} from 'react';
 
-export default function BingoBoardCol ({board, col, revealedNums}) {
-  function renderCol (num, i) {
+export default function BingoBoardCol({ board, col, revealedNums }) {
+  function renderCol(num, i) {
     return (
       <BingoNumber key={i} board={board} num={num} revealedNums={revealedNums} />
-    )
+    );
   }
   const colStyle = {
     display: 'flex',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   };
 
   return (

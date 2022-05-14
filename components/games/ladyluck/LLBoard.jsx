@@ -1,10 +1,10 @@
-import LLBoardRow from './LLBoardRow.jsx';
+/* eslint-disable react/prop-types */
+/* eslint-disable import/extensions */
 import Box from '@mui/material/Box';
-import {useState, useEffect, useCallback} from 'react';
+import LLBoardRow from './LLBoardRow.jsx';
 
-//TODO: Reveal State Matrix
 export default function LLBoard ({ board, reveal, revealedNums }) {
-  function renderBoard (row, i) {
+  function renderBoard(row, i) {
     return (
       <LLBoardRow key={i} board={board} row={row} reveal={reveal} revealedNums={revealedNums} />
     );
@@ -16,12 +16,12 @@ export default function LLBoard ({ board, reveal, revealedNums }) {
     justifyContent: 'center',
     alignItems: 'center',
     width: 180,
-    height: 180
+    height: 180,
   };
 
   return (
     <Box className="ll-board" sx={boardStyle}>
-        {board.map(renderBoard)}
+      {board.map(renderBoard)}
     </Box>
   );
 }

@@ -103,7 +103,7 @@ export default function Bingo({ newGame }) {
             mt: 2,
           }}
         >
-          {game.nft ? <img height={360} width={360} src={game.nft} alt='nft' /> : null}
+          {game.nft ? <img height={360} width={360} src={game.nft} alt="nft" /> : null}
         </Box>
         <Typography
           sx={{
