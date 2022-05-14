@@ -1,4 +1,4 @@
-# [Bingo NFT]
+# Crypto Casino
 Fullstack gaming social app that allows users to
 * Register an account
 * Purchase and choose from three scratch off games : High Roller; Wild Wild West Bingo; Lucky Lucy
