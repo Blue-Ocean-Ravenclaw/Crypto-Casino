@@ -8,7 +8,8 @@ export default async function handler(req, res) {
     query.text = `
       SELECT image
       FROM nfts
-      WHERE id_user = 999;
+      WHERE id_user = 999
+      LIMIT 5;
     `;
 
     let { rows } = await db.query(query);
