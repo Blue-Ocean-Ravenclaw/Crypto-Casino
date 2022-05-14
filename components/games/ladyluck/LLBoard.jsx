@@ -3,7 +3,7 @@
 import Box from '@mui/material/Box';
 import LLBoardRow from './LLBoardRow.jsx';
 
-export default function LLBoard ({ board, reveal, revealedNums }) {
+export default function LLBoard({ board, reveal, revealedNums }) {
   function renderBoard(row, i) {
     return (
       <LLBoardRow key={i} board={board} row={row} reveal={reveal} revealedNums={revealedNums} />
