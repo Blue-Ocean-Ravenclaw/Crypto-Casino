@@ -1,7 +1,6 @@
-import { db } from '../../../server/model.js';
+import { db } from '../../../server/model';
 
 export default async function handler(req, res) {
-
   if (req.method === 'POST') {
     const query = { text: '', values: [] };
 

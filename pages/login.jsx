@@ -1,26 +1,28 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { useAuth } from "../context/AuthContext.js";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-unescaped-entities */
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+// eslint-disable-next-line import/extensions
+import { useAuth } from '../context/AuthContext.js';
 
 export default function LogIn() {
   const [userData, setUserData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { login } = useAuth();
@@ -28,13 +30,13 @@ export default function LogIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setError("");
+      setError('');
       setLoading(true);
       await login(userData.email, userData.password);
-      router.push("/user");
+      router.push('/user');
     } catch (err) {
       // console.log("failed ", err);
-      setError("Failed to log in");
+      setError('Failed to log in');
     }
     setLoading(false);
   };
@@ -56,12 +58,12 @@ export default function LogIn() {
       <Box
         sx={{
           marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -107,10 +109,10 @@ export default function LogIn() {
             <Grid item xs>
               <Typography
                 variant="body2"
-                onClick={() => onLink("/login")}
+                onClick={() => onLink('/login')}
                 sx={{
-                  color: "primary.main",
-                  textDecoration: "underline",
+                  color: 'primary.main',
+                  textDecoration: 'underline',
                 }}
               >
                 Forgot password?
@@ -119,13 +121,13 @@ export default function LogIn() {
             <Grid item>
               <Typography
                 variant="body2"
-                onClick={() => onLink("/signup")}
+                onClick={() => onLink('/signup')}
                 sx={{
-                  color: "primary.main",
-                  textDecoration: "underline",
+                  color: 'primary.main',
+                  textDecoration: 'underline',
                 }}
               >
-                {"Don't have an account? Sign Up"}
+                Don't have an account? Sign Up
               </Typography>
             </Grid>
           </Grid>
