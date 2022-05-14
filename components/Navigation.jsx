@@ -1,27 +1,25 @@
-import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import { useRouter } from "next/router";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import PersonIcon from "@mui/icons-material/Person";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-import StoreIcon from "@mui/icons-material/Store";
-import CasinoIcon from "@mui/icons-material/Casino";
-import ForumIcon from "@mui/icons-material/Forum";
-import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import React, { useEffect } from 'react';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import { useRouter } from 'next/router';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import PersonIcon from '@mui/icons-material/Person';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import StoreIcon from '@mui/icons-material/Store';
+import CasinoIcon from '@mui/icons-material/Casino';
+import ForumIcon from '@mui/icons-material/Forum';
 
 function Navigation() {
   const router = useRouter();
 
   const [value, setValue] = React.useState(router.pathname.slice(1));
 
-  var game = router.pathname.slice(6);
+  const game = router.pathname.slice(6);
 
   useEffect(() => {
-    if (router.pathname.slice(1, 5) === "play") {
-      setValue("play");
+    if (router.pathname.slice(1, 5) === 'play') {
+      setValue('play');
     }
   }, [game]);
 
@@ -32,19 +30,19 @@ function Navigation() {
   return (
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        width: "100vw",
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100vw',
       }}
     >
       <Paper
         sx={{
-          position: "fixed",
+          position: 'fixed',
           bottom: 10,
-          left: "auto",
-          right: "auto",
+          left: 'auto',
+          right: 'auto',
           borderRadius: 2,
-          bgcolor: "tertiary.main",
+          bgcolor: 'tertiary.main',
           maxWidth: 600,
           minWidth: 375,
           zIndex: 100,
@@ -53,9 +51,9 @@ function Navigation() {
       >
         <BottomNavigation
           sx={{
-            bgcolor: "background.default",
+            bgcolor: 'background.default',
             border: 1,
-            borderColor: "primary.main",
+            borderColor: 'primary.main',
             borderRadius: 2,
             maxWidth: 600,
             minWidth: 375,
@@ -70,12 +68,12 @@ function Navigation() {
             value="user"
             icon={
               <PersonIcon
-                color={value === "user" ? "primary" : "primaryLight"}
+                color={value === 'user' ? 'primary' : 'primaryLight'}
               />
             }
-            onClick={() => onLink("/user")}
+            onClick={() => onLink('/user')}
             sx={{
-              minWidth: "20%",
+              minWidth: '20%',
             }}
           />
 
@@ -84,12 +82,12 @@ function Navigation() {
             value="wallet"
             icon={
               <AccountBalanceWalletIcon
-                color={value === "wallet" ? "primary" : "primaryLight"}
+                color={value === 'wallet' ? 'primary' : 'primaryLight'}
               />
             }
-            onClick={() => onLink("/wallet")}
+            onClick={() => onLink('/wallet')}
             sx={{
-              minWidth: "20%",
+              minWidth: '20%',
             }}
           />
 
@@ -98,12 +96,12 @@ function Navigation() {
             value="store"
             icon={
               <StoreIcon
-                color={value === "store" ? "primary" : "primaryLight"}
+                color={value === 'store' ? 'primary' : 'primaryLight'}
               />
             }
-            onClick={() => onLink("/store")}
+            onClick={() => onLink('/store')}
             sx={{
-              minWidth: "20%",
+              minWidth: '20%',
             }}
           />
 
@@ -112,12 +110,12 @@ function Navigation() {
             value="play"
             icon={
               <CasinoIcon
-                color={value === "play" ? "primary" : "primaryLight"}
+                color={value === 'play' ? 'primary' : 'primaryLight'}
               />
             }
-            onClick={() => onLink("/play")}
+            onClick={() => onLink('/play')}
             sx={{
-              minWidth: "20%",
+              minWidth: '20%',
             }}
           />
 
@@ -126,12 +124,12 @@ function Navigation() {
             value="chat"
             icon={
               <ForumIcon
-                color={value === "chat" ? "primary" : "primaryLight"}
+                color={value === 'chat' ? 'primary' : 'primaryLight'}
               />
             }
-            onClick={() => onLink("/chat")}
+            onClick={() => onLink('/chat')}
             sx={{
-              minWidth: "20%",
+              minWidth: '20%',
             }}
           />
         </BottomNavigation>
