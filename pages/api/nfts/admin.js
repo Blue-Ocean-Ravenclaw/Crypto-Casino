@@ -1,7 +1,6 @@
-import { db } from '../../../server/model.js';
+import { db } from '../../../server/model';
 
 export default async function handler(req, res) {
-
   if (req.method === 'GET') {
     const query = { text: '', values: [] };
 
@@ -12,13 +11,12 @@ export default async function handler(req, res) {
       LIMIT 5;
     `;
 
-    let { rows } = await db.query(query);
+    const { rows } = await db.query(query);
 
     res.status(200).send({
-      message: `Successfuly got all NFTS from admin.`,
-      data: rows
+      message: 'Successfuly got all NFTS from admin.',
+      data: rows,
     });
-
   } else {
     res.status(500).send({ message: 'This endpoint only accepts GET requests.' });
   }
