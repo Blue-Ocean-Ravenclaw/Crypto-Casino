@@ -54,41 +54,41 @@ export default function WalletForm() {
         >
           {stateResults.nfts
             ? stateResults.nfts.map((nft, idx) => (
-              <Paper
-                elevation={3}
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  objectFit: 'cover',
-                  height: 160,
-                  overflow: 'hidden',
-                  mb: 1,
-                }}
-              >
-                <ImageListItem
-                  key={idx}
-                  style={{
-                    height: 165,
-                    width: 165,
-                  }}
+                <Paper
+                  elevation={3}
                   sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    objectFit: 'cover',
+                    height: 160,
                     overflow: 'hidden',
-                    objectFit: 'fill',
-                    borderRadius: 1,
-                    height: 170,
-                    width: 'auto',
+                    mb: 1,
                   }}
                 >
-                  <img
-                    src={`${nft.image}`}
-                    srcSet={`${nft.image}`}
-                    alt="nft"
-                    loading="lazy"
-                  />
-                </ImageListItem>
-              </Paper>
-            ))
+                  <ImageListItem
+                    key={idx}
+                    style={{
+                      height: 165,
+                      width: 165,
+                    }}
+                    sx={{
+                      overflow: 'hidden',
+                      objectFit: 'fill',
+                      borderRadius: 1,
+                      height: 170,
+                      width: 'auto',
+                    }}
+                  >
+                    <img
+                      src={`${nft.image}`}
+                      srcSet={`${nft.image}`}
+                      alt="nft"
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                </Paper>
+              ))
             : []}
         </ImageList>
       </Box>
@@ -123,31 +123,31 @@ export default function WalletForm() {
         </Typography>
         {stateResults.card_inventory
           ? stateResults.card_inventory.map((product) => (
-            <ListItem
-              key={product.card_name}
-              sx={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'space-between',
-                py: 3,
-                height: 20,
-                borderTop: 1,
-                borderColor: 'primary.main',
-              }}
-            >
-              <Typography sx={{ fontSize: 14 }}>
-                {product.card_name.toUpperCase()}
-              </Typography>
-              <Typography
+              <ListItem
+                key={product.card_name}
                 sx={{
-                  fontSize: 14,
-                  fontWeight: 600,
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  py: 3,
+                  height: 20,
+                  borderTop: 1,
+                  borderColor: 'primary.main',
                 }}
               >
-                {product.quantity}
-              </Typography>
-            </ListItem>
-          ))
+                <Typography sx={{ fontSize: 14 }}>
+                  {product.card_name.toUpperCase()}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: 14,
+                    fontWeight: 600,
+                  }}
+                >
+                  {product.quantity}
+                </Typography>
+              </ListItem>
+            ))
           : []}
       </List>
       <Box

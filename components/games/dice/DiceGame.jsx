@@ -1,46 +1,42 @@
-import { useEffect, useReducer, useCallback } from "react";
-import { generateDiceGame } from "../../../lib/dice.js";
-import Dice from "./Dice.jsx";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Typography from "@mui/material/Typography";
-import { useRouter } from "next/router";
-import { realConfetti, fireWorksConfetti } from "../../../lib/confetti.js";
-import { useAppContext } from "../../../context/state.js";
+import { useReducer, useCallback } from 'react';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+import { useRouter } from 'next/router';
+import Dice from './Dice.jsx';
+import { realConfetti, fireWorksConfetti } from '../../../lib/confetti.js';
+import { useAppContext } from '../../../context/state.js';
 
-//TODO: Create a 'Buy More Modal'
-//TODO: Move Prize Modals out of Game Component
 export default function DiceGame({ newGame }) {
   const initialState = {
     board: [],
-    prize: "",
+    prize: '',
     revealed: false,
   };
 
   function reducer(state, action) {
     switch (action.type) {
-      case "play":
-        let newGame = action.payload;
+      case 'play':
+        const newGame = action.payload;
         return {
           ...state,
           ...newGame,
           revealed: false,
         };
-      case "out":
+      case 'out':
         return initialState;
-      case "toggleModal":
-        let newReveal = !state.revealed;
+      case 'toggleModal':
+        const newReveal = !state.revealed;
         return { ...state, revealed: newReveal };
-      case "revealed":
+      case 'revealed':
         return { ...state, revealed: true };
       default:
         throw new Error();
-        return initialState;
     }
   }
   const [game, dispatch] = useReducer(reducer, initialState);
-  const reveal = useCallback(() => dispatch({ type: "revealed" }), []);
+  const reveal = useCallback(() => dispatch({ type: 'revealed' }), []);
   const router = useRouter();
   const { stateRenderWallet } = useAppContext();
 
@@ -53,24 +49,24 @@ export default function DiceGame({ newGame }) {
       .then((res) => {
         // console.log(res);
         if (res.status === 200 && res.data.cards >= 0) {
-          dispatch({ type: "play", payload: res.data.game });
+          dispatch({ type: 'play', payload: res.data.game });
           stateRenderWallet((prev) => !prev);
         } else {
-          onLink("/store");
+          onLink('/store');
         }
       })
       .catch((err) => {
-        dispatch({ type: "out" });
+        dispatch({ type: 'out' });
         console.error(err);
       });
   }
 
-  const toggleModal = useCallback(() => dispatch({ type: "toggleModal" }), []);
+  const toggleModal = useCallback(() => dispatch({ type: 'toggleModal' }), []);
 
   function displayPrize() {
-    if (game.revealed && game.prize !== "loser") {
+    if (game.revealed && game.prize !== 'loser') {
       realConfetti(true);
-      fireWorksConfetti(game.prize === "grandPrize");
+      fireWorksConfetti(game.prize === 'grandPrize');
     }
     const { header, message } = prizeMessages[game.prize];
     return (
@@ -79,9 +75,9 @@ export default function DiceGame({ newGame }) {
           sx={{
             fontSize: 150,
             fontWeight: 600,
-            lineHeight: "130px",
-            fontFamily: "Roboto",
-            color: "dice.secondary",
+            lineHeight: '130px',
+            fontFamily: 'Roboto',
+            color: 'dice.secondary',
           }}
         >
           {header}
@@ -91,11 +87,13 @@ export default function DiceGame({ newGame }) {
             mt: 2,
           }}
         >
-          {game.nft ? <img height={360} width={360} src={game.nft} /> : null}
+          {game.nft ? (
+            <img alt="nft" height={360} width={360} src={game.nft} />
+          ) : null}
         </Box>
         <Typography
           sx={{
-            textAlign: "center",
+            textAlign: 'center',
             fontSize: 24,
             mb: 2,
           }}
@@ -109,16 +107,16 @@ export default function DiceGame({ newGame }) {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
       }}
     >
       <Dice board={game.board} reveal={reveal} />
       <Button
         sx={{
           width: 200,
-          color: "#fff",
+          color: '#fff',
         }}
         onClick={play}
         color="dice"
@@ -131,30 +129,30 @@ export default function DiceGame({ newGame }) {
         open={game.revealed}
         onClose={toggleModal}
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          zIndex: "5",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: '5',
         }}
       >
         <Box
           sx={{
-            display: "flex",
-            backgroundColor: "white",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
+            display: 'flex',
+            backgroundColor: 'white',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
             width: 360,
             height: 360,
-            bgcolor: "transparent",
-            color: "white",
+            bgcolor: 'transparent',
+            color: 'white',
           }}
         >
           {game.prize.length ? displayPrize() : null}
           <Button
             sx={{
               marginTop: 1,
-              bgcolor: "dice.main",
+              bgcolor: 'dice.main',
             }}
             variant="contained"
             onClick={play}
@@ -168,31 +166,31 @@ export default function DiceGame({ newGame }) {
 }
 
 const prizeStyle = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  borderRadius: "2px",
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '2px',
 };
 const prizeMessages = {
   grandPrize: {
-    header: "NFT",
-    message: "",
+    header: 'NFT',
+    message: '',
   },
   secondPrize: {
-    header: "100",
-    message: "TOKENS",
+    header: '100',
+    message: 'TOKENS',
   },
   thirdPrize: {
-    header: "50",
-    message: "TOKENS",
+    header: '50',
+    message: 'TOKENS',
   },
   fourthPrize: {
-    header: "10",
-    message: "TOKENS",
+    header: '10',
+    message: 'TOKENS',
   },
   loser: {
-    header: "0",
-    message: "TOKENS",
+    header: '0',
+    message: 'TOKENS',
   },
 };

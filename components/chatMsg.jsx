@@ -1,5 +1,5 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export default function MsgDisplay(
   msgList,
@@ -15,9 +15,9 @@ export default function MsgDisplay(
         <div key={index}>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              flexDirection: "row",
+              display: 'flex',
+              justifyContent: 'flex-end',
+              flexDirection: 'row',
             }}
           >
             <Box
@@ -32,8 +32,8 @@ export default function MsgDisplay(
               color={usernameColor[msgObj.username]}
               style={{
                 fontWeight: 600,
-                fontSize: "1rem",
-                margin: " 0rem 0rem 0rem 0.5rem",
+                fontSize: '1rem',
+                margin: ' 0rem 0rem 0rem 0.5rem',
               }}
             >
               {msgObj.username}
@@ -47,9 +47,9 @@ export default function MsgDisplay(
         <div key={index}>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "flex-start",
-              flexDirection: "row",
+              display: 'flex',
+              justifyContent: 'flex-start',
+              flexDirection: 'row',
             }}
           >
             <Typography
@@ -57,8 +57,8 @@ export default function MsgDisplay(
               color={usernameColor[msgObj.username]}
               style={{
                 fontWeight: 600,
-                fontSize: "1rem",
-                margin: " 0rem 0.5rem 0rem 0rem",
+                fontSize: '1rem',
+                margin: ' 0rem 0.5rem 0rem 0rem',
               }}
             >
               {msgObj.username}

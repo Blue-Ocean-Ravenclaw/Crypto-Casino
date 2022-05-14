@@ -1,31 +1,32 @@
+import Box from '@mui/material/Box';
+import { useCallback } from 'react';
+import axios from 'axios';
 import DiceGame from './dice/DiceGame.jsx';
 import Bingo from './bingo/Bingo.jsx';
 import LadyLuck from './ladyluck/LadyLuck.jsx';
-import Box from '@mui/material/Box';
-import {useState, useCallback} from 'react';
-import { useAppContext } from "../../context/state.js";
-import axios from 'axios';
+import { useAppContext } from '../../context/state.js';
 
 const GameComponents = Object.freeze({
   highroller: DiceGame,
   bingo: Bingo,
-  luckylucy: LadyLuck
+  luckylucy: LadyLuck,
 });
 
-export default function GameCard ({game, plays, playGame, playing}) {
+export default function GameCard({ game, plays, playGame, playing }) {
   const Game = GameComponents[game];
-  const {stateResults} = useAppContext();
+  const { stateResults } = useAppContext();
 
-  const [prize, setPrize] = useState(null);
-
-  const newGame = useCallback(() => {
-    return axios.get(`/api/play/${stateResults.username}/?card_name=${game}`);
-  }, [game, stateResults.username]);
+  const newGame = useCallback(
+    () => axios.get(`/api/play/${stateResults.username}/?card_name=${game}`),
+    [game, stateResults.username]
+  );
 
   return (
-    <Box sx={{
-      zIndex: 1
-    }}>
+    <Box
+      sx={{
+        zIndex: 1,
+      }}
+    >
       <Game
         plays={plays}
         playGame={playGame}

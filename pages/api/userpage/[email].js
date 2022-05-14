@@ -1,4 +1,4 @@
-import { db } from '../../../server/model.js';
+import { db } from '../../../server/model';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
     `;
     query.values = [req.query.email];
 
-    let { rows } = await db.query(query);
+    const { rows } = await db.query(query);
     res.status(200).send(rows[0]);
   } else {
     res.status(500).send({ message: 'This endpoint only accepts GET requests.' });

@@ -37,3 +37,7 @@ yarn-error.log*
 /blueocean.dump
 /blueocean.pem
 /ubuntu@184.169.202.53
+
+#lock files
+package-lock.json
+yarn.lock
