@@ -33,3 +33,7 @@ yarn-error.log*
 # vscode settings
 .vscode
 
+#ETL files
+/blueocean.dump
+/blueocean.pem
+/ubuntu@184.169.202.53
