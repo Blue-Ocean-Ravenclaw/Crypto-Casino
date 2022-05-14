@@ -100,13 +100,10 @@ const Chat = () => {
       >
         <h1>Chat Room</h1>
         <div
-          // className={styles.chat}
           style={{
             width: "85vw",
             height: "70vh",
             overflow: "scroll",
-            // maxHeight: height,
-            // backgroundColor: color
           }}
         >
           {MsgDisplay(msgList, messagesEndRef, userId, usernameColor)}
