@@ -1,11 +1,10 @@
-import BingoBoardCol from './BingoBoardCol.jsx';
+/* eslint-disable react/prop-types */
+/* eslint-disable import/extensions */
 import Box from '@mui/material/Box';
-import {useState, useEffect, useCallback} from 'react';
-import { ScratchOff } from "@sky790312/react-scratch-off";
+import BingoBoardCol from './BingoBoardCol.jsx';
 
-//TODO: Reveal State Matrix
-export default function BingoBoard ({board, revealedNums}) {
-  function renderBoard (col, i) {
+export default function BingoBoard({ board, revealedNums }) {
+  function renderBoard(col, i) {
     return (
       <BingoBoardCol key={i} board={board} col={col} revealedNums={revealedNums} />
     );
@@ -14,12 +13,12 @@ export default function BingoBoard ({board, revealedNums}) {
   const boardStyle = {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   };
 
   return (
-  <Box className="bingo-board" sx={boardStyle}>
-    {board.map(renderBoard)}
-  </Box>
+    <Box className="bingo-board" sx={boardStyle}>
+      {board.map(renderBoard)}
+    </Box>
   );
 }
