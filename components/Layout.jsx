@@ -1,14 +1,14 @@
-import Navigation from "./Navigation";
-import { useRouter } from "next/router";
-import Box from "@mui/material/Box";
+import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import Navigation from './Navigation';
 
 function Layout({ children }) {
   const router = useRouter();
 
   if (
-    router.pathname === "/" ||
-    router.pathname === "/login" ||
-    router.pathname === "/signup"
+    router.pathname === '/' ||
+    router.pathname === '/login' ||
+    router.pathname === '/signup'
   ) {
     return <div>{children}</div>;
   }
@@ -20,5 +20,9 @@ function Layout({ children }) {
     </div>
   );
 }
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Layout;
