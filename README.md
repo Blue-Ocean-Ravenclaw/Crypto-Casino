@@ -5,6 +5,15 @@ Fullstack gaming social app that allows users to
 * Users have potential to win tokens or NFTs
 * Users can socialize with other users in the chat room
 
+ ### App demo
+-----------High Roller-------------Wild Wild West Bingo----------------Lucky Lucy-----------    
+![](https://media.giphy.com/media/gw2ssMeGiNXpQaL3dl/giphy.gif)![](https://media.giphy.com/media/llwqjlp0B8vxpR8VRJ/giphy.gif)![](https://media.giphy.com/media/L2yDWDPiiACjelAVtH/giphy.gif)
+
+----------- Store ------------------------- User --------------------------- Chat --------------------------- Auth ------
+
+ ![](https://media.giphy.com/media/NnM6gUCuuTW3LTMeIh/giphy.gif)![](https://media.giphy.com/media/mqHG0F5zXQONSYevxG/giphy.gif)![](https://media.giphy.com/media/bMaatv0CLbpXtNWnFe/giphy.gif)![](https://media.giphy.com/media/5MEzo1sOjwxicYcCjf/giphy.gif)
+
+
 This application:
 * Uses a modern web development framework: Next.js
 * Include user interactions such as searching for a stock quote, buying and selling stock investments, and viewing user net assets
