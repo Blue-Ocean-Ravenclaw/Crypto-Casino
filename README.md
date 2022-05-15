@@ -70,6 +70,9 @@ Fullstack gaming social app that allows users to
 3. Run with:
 
    > `npm run dev`
+ 
+4. PostgreSQL set up
+   > install PostgreSQL if needed and run schema file in `/PostgresSQL/schema.sql` based on instuctions in the file 
 
 ## Technologies used
 ### **Set-up and Workflow**
