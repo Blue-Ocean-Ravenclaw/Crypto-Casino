@@ -1,57 +1,58 @@
-import { generateBingoGame } from "../../../lib/bingo.js";
-import BingoBoard from "./BingoBoard.jsx";
-import { useReducer, useEffect, useCallback } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Sequence from "./Sequence.jsx";
-import Typography from "@mui/material/Typography";
-import { ScratchOff } from "@sky790312/react-scratch-off";
-import Modal from "@mui/material/Modal";
-import { useRouter } from "next/router";
-import { realConfetti, fireWorksConfetti } from "../../../lib/confetti.js";
-import { useAppContext } from "../../../context/state.js";
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable import/extensions */
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-no-bind */
+import { useRouter } from 'next/router';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { useReducer } from 'react';
+import BingoBoard from './BingoBoard.jsx';
+import Sequence from './Sequence.jsx';
+import { realConfetti, fireWorksConfetti } from '../../../lib/confetti.js';
+import { useAppContext } from '../../../context/state.js';
 
-//TODO: Make bingo numbers light up when you reveal their sequence number
-//TODO: Prizes
 export default function Bingo({ newGame }) {
   const initialState = {
     boards: [],
     sequence: [],
     outcomes: [],
-    prize: "",
+    prize: '',
     revealed: false,
     revealedNums: [],
     nft: null,
   };
   function reducer(state, action) {
     switch (action.type) {
-      case "play":
-        let newGame = action.payload;
+      case 'play':
+        // let newGame = action.payload;
         return {
           ...state,
-          ...newGame,
+          ...action.payload,
           revealed: false,
           revealedNums: [],
         };
-      case "out":
+      case 'out':
         return initialState;
-      case "toggleModal":
-        let newReveal = !state.revealed;
-        return { ...state, revealed: newReveal };
-      case "reveal":
-        let newRevealedNums = state.revealedNums.concat([action.payload]);
-        let newRevealed = state.revealed;
-        if (newRevealedNums.length >= 25) {
-          newRevealed = true;
+      case 'toggleModal':
+        return { ...state, revealed: !state.revealed };
+      case 'reveal':
+        if (state.revealedNums.length + 1 >= 25) {
+          return {
+            ...state,
+            revealedNums: state.revealedNums.concat([action.payload]),
+            revealed: true,
+          };
         }
         return {
           ...state,
-          revealedNums: newRevealedNums,
-          revealed: newRevealed,
+          revealedNums: state.revealedNums.concat([action.payload]),
+          revealed: false,
         };
       default:
         throw new Error();
-        return initialState;
     }
   }
   const [game, dispatch] = useReducer(reducer, initialState);
@@ -59,29 +60,29 @@ export default function Bingo({ newGame }) {
   const onLink = (href) => {
     router.push(href);
   };
-  const toggleModal = () => dispatch({ type: "toggleModal" });
+  const toggleModal = () => dispatch({ type: 'toggleModal' });
   const { stateRenderWallet } = useAppContext();
 
   function play() {
     newGame()
       .then((res) => {
         if (res.status === 200 && res.data.cards >= 0) {
-          dispatch({ type: "play", payload: res.data.game });
+          dispatch({ type: 'play', payload: res.data.game });
           stateRenderWallet((prev) => !prev);
         } else {
-          onLink("/store");
+          onLink('/store');
         }
       })
       .catch((err) => {
-        dispatch({ type: "out" });
+        dispatch({ type: 'out' });
         console.error(err);
       });
   }
 
   const displayPrize = () => {
-    if (game.revealed && game.prize !== "loser") {
+    if (game.revealed && game.prize !== 'loser') {
       realConfetti(true);
-      fireWorksConfetti(game.prize === "grandPrize");
+      fireWorksConfetti(game.prize === 'grandPrize');
     }
     const { header, message } = prizeMessages[game.prize];
     return (
@@ -90,9 +91,9 @@ export default function Bingo({ newGame }) {
           sx={{
             fontSize: 150,
             fontWeight: 600,
-            lineHeight: "130px",
-            fontFamily: "Roboto",
-            color: "bingo.main",
+            lineHeight: '130px',
+            fontFamily: 'Roboto',
+            color: 'bingo.main',
           }}
         >
           {header}
@@ -102,11 +103,11 @@ export default function Bingo({ newGame }) {
             mt: 2,
           }}
         >
-          {game.nft ? <img height={360} width={360} src={game.nft} /> : null}
+          {game.nft ? <img height={360} width={360} src={game.nft} alt="nft" /> : null}
         </Box>
         <Typography
           sx={{
-            textAlign: "center",
+            textAlign: 'center',
             fontSize: 24,
             mb: 2,
           }}
@@ -120,21 +121,21 @@ export default function Bingo({ newGame }) {
   return (
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        flexDirection: "column",
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'column',
         marginTop: 14,
       }}
     >
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexWrap: "wrap",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexWrap: 'wrap',
           width: 420,
-          flexDirection: "row",
+          flexDirection: 'row',
           margin: 1,
         }}
       >
@@ -142,10 +143,10 @@ export default function Bingo({ newGame }) {
       </Box>
       <Box
         sx={{
-          display: "flex",
-          flexFlow: "row wrap",
-          justifyContent: "space-between",
-          alignItems: "space-between",
+          display: 'flex',
+          flexFlow: 'row wrap',
+          justifyContent: 'space-between',
+          alignItems: 'space-between',
           width: 320,
           height: 320,
         }}
@@ -157,9 +158,9 @@ export default function Bingo({ newGame }) {
       <Button
         sx={{
           marginTop: 1,
-          bgcolor: "bingo.main",
-          "&:hover": {
-            bgcolor: "bingo.main",
+          bgcolor: 'bingo.main',
+          '&:hover': {
+            bgcolor: 'bingo.main',
           },
         }}
         variant="contained"
@@ -171,28 +172,28 @@ export default function Bingo({ newGame }) {
         open={game.revealed}
         onClose={toggleModal}
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          zIndex: "5",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: '5',
         }}
       >
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
             width: 400,
             height: 500,
-            bgcolor: "transparent",
+            bgcolor: 'transparent',
           }}
         >
           {game.prize.length ? displayPrize() : null}
           <Button
             sx={{
               marginTop: 1,
-              bgcolor: "bingo.secondary",
+              bgcolor: 'bingo.secondary',
             }}
             variant="contained"
             onClick={play}
@@ -206,59 +207,34 @@ export default function Bingo({ newGame }) {
 }
 
 const prizeStyle = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  borderRadius: "2px",
-  color: "white",
-  textAlign: "center",
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '2px',
+  color: 'white',
+  textAlign: 'center',
 };
 
 const prizeMessages = {
   grandPrize: {
-    header: "NFT",
-    message: "",
+    header: 'NFT',
+    message: '',
   },
   secondPrize: {
-    header: "200",
-    message: "TOKENS",
+    header: '200',
+    message: 'TOKENS',
   },
   thirdPrize: {
-    header: "100",
-    message: "TOKENS",
+    header: '100',
+    message: 'TOKENS',
   },
   fourthPrize: {
-    header: "40",
-    message: "TOKENS",
+    header: '40',
+    message: 'TOKENS',
   },
   loser: {
-    header: "0",
-    message: "TOKENS",
+    header: '0',
+    message: 'TOKENS',
   },
 };
-
-// const prizeMessages = {
-//   grandPrize: {
-//     header: "GRAND PRIZE!!",
-//     message:
-//       "YIPEE KI-YAY! You've won the wildest prize in the west - an NFT!!!!",
-//   },
-//   secondPrize: {
-//     header: "SECOND PRIZE!",
-//     message:
-//       "When it comes to catching bingos, you're the baddest cowboy West of the Mississippi! You've won 10x your tokens back!",
-//   },
-//   thirdPrize: {
-//     header: "THIRD PRIZE!",
-//     message: "Well I'll be, a double bingo! You've won 5x your tokens back!",
-//   },
-//   fourthPrize: {
-//     header: "FOURTH PRIZE!",
-//     message: "Giddy up, partner- you lassoed a bingo!",
-//   },
-//   loser: {
-//     header: "Aw, shucks!",
-//     message: "Not this time, cowboy- get back on the horse and play again!",
-//   },
-// };

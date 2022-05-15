@@ -1,15 +1,17 @@
-import Box from "@mui/material/Box";
-import { useState, useEffect } from "react";
-import {RiCactusFill} from 'react-icons/ri';
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/prop-types */
+import Box from '@mui/material/Box';
+import { useState, useEffect } from 'react';
+import { RiCactusFill } from 'react-icons/ri';
 
-export default function BingoNumber({ board, num, revealedNums }) {
+export default function BingoNumber({ num, revealedNums }) {
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     if (num === 'Free') {
-      setRevealed((prev) => prev ? prev : true);
+      setRevealed((prev) => (prev || true));
     } else {
-      let stringNum = JSON.stringify(num);
+      const stringNum = JSON.stringify(num);
       if (revealedNums.includes(stringNum)) {
         setRevealed((prev) => (!prev ? true : prev));
       } else {
@@ -29,22 +31,22 @@ export default function BingoNumber({ board, num, revealedNums }) {
 }
 
 const containerStyle = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   height: 30,
   width: 30,
   border: 1,
-  borderColor: "bingo.main",
-  color: "white",
+  borderColor: 'bingo.main',
+  color: 'white',
 };
 const revealedStyle = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   height: 30,
   width: 30,
   border: 1,
-  borderColor: "bingo.main",
-  color: "bingo.main",
+  borderColor: 'bingo.main',
+  color: 'bingo.main',
 };
