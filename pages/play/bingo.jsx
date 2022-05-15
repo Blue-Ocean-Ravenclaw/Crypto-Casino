@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { useCallback, useReducer } from 'react';
 import GameCard from '../../components/games/GameCard.jsx';
 
-export default function Bingo() {
+export default function WildWildWestBingo() {
   const initialState = {
     plays: 5,
     game: 'bingo',

@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { useCallback, useReducer } from 'react';
 import GameCard from '../../components/games/GameCard.jsx';
 
-export default function Games() {
+export default function LuckyLucy() {
   const initialState = {
     plays: 5,
     game: 'luckylucy',
