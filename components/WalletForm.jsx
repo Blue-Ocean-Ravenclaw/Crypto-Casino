@@ -168,8 +168,7 @@ export default function WalletForm() {
             fontWeight: 600,
           }}
         >
-          {stateResults.tokens}
-          TOKENS
+          {stateResults.tokens + ' TOKENS'}
         </Typography>
       </Box>
     </>
