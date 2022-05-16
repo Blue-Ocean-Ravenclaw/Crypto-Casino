@@ -164,9 +164,9 @@ function GameStore() {
                     name={game.title}
                     sx={{
                       fontWeight: 600,
-                      bgcolor: game.buttonColor,
+                      bgcolor: game.color,
                       '&:hover': {
-                        bgcolor: game.buttonColor,
+                        bgcolor: game.color,
                       },
                     }}
                   >
@@ -199,11 +199,7 @@ function GameStore() {
                 component="h2"
                 style={style.iconSpacing}
               >
-                # of
-                {' '}
-                {gameTitle}
-                {' '}
-                cards
+                # of {gameTitle} cards
               </Typography>
 
               <Typography
@@ -212,9 +208,7 @@ function GameStore() {
                 component="h2"
                 style={style.iconSpacing}
               >
-                {total}
-                {' '}
-                Tokens
+                {total} Tokens
               </Typography>
 
               <Button
