@@ -49,7 +49,7 @@ export const games = [
     ],
   },
   {
-    title: 'Bingo',
+    title: 'Wild Wild West Bingo',
     dbTitle: 'bingo',
     subheader: 'Most popular',
     price: 20,
