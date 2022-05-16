@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { useCallback, useReducer } from 'react';
 import GameCard from '../../components/games/GameCard.jsx';
 
-export default function Bingo() {
+export default function HighRoller() {
   const initialState = {
     plays: 5,
     game: 'highroller',
@@ -40,7 +40,7 @@ export default function Bingo() {
           height: 700,
           width: 360,
           marginTop: 1,
-          bgcolor: 'background.secondary',
+          bgcolor: 'background.default',
           borderRadius: 2,
         }}
       >

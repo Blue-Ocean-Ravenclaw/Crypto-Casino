@@ -1,14 +1,14 @@
-import { db } from "../../../server/model.js";
-import { generateDiceGame } from "../../../lib/dice.js";
-import { generateBingoGame } from "../../../lib/bingo.js";
-import { getLadyLuck } from "../../../lib/ladyLuck.js";
+import { db } from '../../../server/model.js';
+import { generateDiceGame } from '../../../lib/dice.js';
+import { generateBingoGame } from '../../../lib/bingo.js';
+import { getLadyLuck } from '../../../lib/ladyLuck.js';
 
 export default async function handler(req, res) {
-  if (req.method === "GET") {
+  if (req.method === 'GET') {
     let username = req.query.username;
     let card_name = req.query.card_name;
 
-    const query = { text: "", values: [] };
+    const query = { text: '', values: [] };
 
     query.text = `
       SELECT COALESCE(quantity, 0) as quantity, id_user
@@ -29,13 +29,13 @@ export default async function handler(req, res) {
       if (queryData.quantity > 0) {
         responseBody.cards = queryData.quantity - 1;
         switch (card_name) {
-          case "highroller":
-            responseBody.game = await generateDiceGame();
+          case 'highroller':
+            responseBody.game = await generateDiceGame(true);
             break;
-          case "bingo":
+          case 'bingo':
             responseBody.game = await generateBingoGame();
             break;
-          case "luckylucy":
+          case 'luckylucy':
             responseBody.game = await getLadyLuck();
             break;
         }
@@ -53,12 +53,12 @@ export default async function handler(req, res) {
   } else {
     res
       .status(500)
-      .send({ message: "This endpoint only accepts GET requests." });
+      .send({ message: 'This endpoint only accepts GET requests.' });
   }
 }
 
 function useCard(id_user, card_name) {
-  const query = { text: "", values: [] };
+  const query = { text: '', values: [] };
 
   query.text = `
     UPDATE card_inventory
@@ -72,10 +72,10 @@ function useCard(id_user, card_name) {
 }
 
 async function prizeTransaction(username, card_name, game) {
-  if (game.prize !== "loser") {
-    if (game.prize === "grandPrize") {
+  if (game.prize !== 'loser') {
+    if (game.prize === 'grandPrize') {
       //execute NFT transaction;
-      const query = { text: "", values: [] };
+      const query = { text: '', values: [] };
 
       query.text = `
         UPDATE nfts
@@ -90,53 +90,53 @@ async function prizeTransaction(username, card_name, game) {
     } else {
       let tokens;
       switch (card_name) {
-        case "highroller":
+        case 'highroller':
           tokens = 10; //base cost
           switch (game.prize) {
-            case "secondPrize":
+            case 'secondPrize':
               tokens *= 10;
               break;
-            case "thirdPrize":
+            case 'thirdPrize':
               tokens *= 5;
               break;
-            case "fourthPrize":
+            case 'fourthPrize':
               tokens *= 1;
               break;
           }
           break;
-        case "bingo":
+        case 'bingo':
           tokens = 20; //base cost
           switch (game.prize) {
-            case "secondPrize":
+            case 'secondPrize':
               tokens *= 10;
               break;
-            case "thirdPrize":
+            case 'thirdPrize':
               tokens *= 5;
               break;
-            case "fourthPrize":
+            case 'fourthPrize':
               tokens *= 2;
               break;
           }
           break;
-        case "luckylucy":
+        case 'luckylucy':
           tokens = 25; //base cost
           switch (game.prize) {
-            case "doubleSeconds":
+            case 'doubleSeconds':
               tokens *= 20;
               break;
-            case "doubleThirds":
+            case 'doubleThirds':
               tokens *= 10;
               break;
-            case "second":
+            case 'second':
               tokens *= 5;
               break;
-            case "third":
+            case 'third':
               tokens *= 1;
               break;
           }
           break;
       }
-      const query = { text: "", values: [] };
+      const query = { text: '', values: [] };
       query.text = `
         UPDATE users
         SET tokens = tokens + $1

@@ -25,6 +25,7 @@ export default function WalletForm() {
           mt: 2,
           mb: 1,
           pt: 1,
+          pb: 1,
         }}
       >
         <Typography
@@ -37,7 +38,6 @@ export default function WalletForm() {
             fontSize: 16,
             fontWeight: 500,
             py: '6px',
-            mb: 1,
           }}
         >
           NFT COLLECTION
@@ -47,6 +47,7 @@ export default function WalletForm() {
             width: '95%',
             height: 'auto',
             my: 0,
+            mt: 1,
           }}
           cols={2}
           gap={10}
@@ -63,7 +64,6 @@ export default function WalletForm() {
                     objectFit: 'cover',
                     height: 160,
                     overflow: 'hidden',
-                    mb: 1,
                   }}
                 >
                   <ImageListItem
@@ -168,8 +168,7 @@ export default function WalletForm() {
             fontWeight: 600,
           }}
         >
-          {stateResults.tokens}
-          TOKENS
+          {stateResults.tokens + ' TOKENS'}
         </Typography>
       </Box>
     </>

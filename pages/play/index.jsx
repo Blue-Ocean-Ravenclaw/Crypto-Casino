@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import { useCallback, useReducer } from 'react';
 import { useRouter } from 'next/router';
 
-export default function Games() {
+export default function Play() {
   const initialState = {
     plays: 5,
     game: 'Bingo',
@@ -62,7 +62,7 @@ export default function Games() {
             height: 175,
             width: 360,
             margin: 1,
-            bgcolor: 'background.secondary',
+            bgcolor: 'background.default',
             borderRadius: 2,
           }}
         >
