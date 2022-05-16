@@ -6,6 +6,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import List from '@mui/material/List';
+import ListSubheader from '@mui/material/ListSubheader';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
@@ -15,23 +16,75 @@ export default function Instructions() {
   const instructions = [
     {
       title: 'High Roller',
-      howToPlay: [
-        'Begin by clicking the roll dice button.',
-        'Scratch off the three (3) containers to reveal your dice rolls.',
-        'If your numbers match a corresponding way to win then you will be rewarded according to the prize structure.',
+      rules: [
+        {
+          rule: 'How To Play',
+          information: [
+            'Begin by clicking the roll dice button.',
+            'Scratch off the three (3) containers to reveal your dice rolls.',
+            'If your numbers match a corresponding way to win then you will be rewarded according to the prize structure.',
+          ],
+        },
+        {
+          rule: 'Winning Combinations',
+          information: [
+            'Three (3) sixes: Grand Prize',
+            "Three (3) matching numbers i.e. '4', '4', '4': Second Prize",
+            "A straight (three numbers in a row i.e. '3', '4', '5' or '5', '4', '3': 3rd Prize",
+            "Two (2) matching numbers i.e. '2', '2': 4th Prize",
+          ],
+        },
+        {
+          rule: 'Prize Structure',
+          information: [
+            'Grand Prize: NFT',
+            '2nd Prize: 100 Tokens',
+            '3rd Prize: 50 Tokens',
+            '4th Prize: 10 Tokens',
+          ],
+        },
+        {
+          rule: 'Odds',
+          information: ['2 in 5 Plays Wins A Prize!'],
+        },
       ],
-      winningCombinations: [
-        'Three (3) sixes: Grand Prize',
-        "Three (3) matching numbers i.e. '4', '4', '4': Second Prize",
-        "A straight (three numbers in a row i.e. '3', '4', '5' or '5', '4', '3': 3rd Prize",
-        "Two (2) matching numbers i.e. '2', '2': 4th Prize",
+      color: 'dice.main',
+    },
+    {
+      title: 'Wild Wild West Bingo',
+      rules: [
+        {
+          rule: 'How To Play',
+          information: [
+            'Begin by clicking the new card button.',
+            'Scratch off the calling card numbers at the top of game card. As you reveal the numbers, the cards with a corresponding match will highlight. If you form a horizontal, vertical or diagonal line you have won!',
+            'Check the prize structure for more information on what you win for each bingo line(s).',
+          ],
+        },
+        {
+          rule: 'Winning Combinations',
+          information: [
+            "Form an 'X' on the bingo board. (Two Diagonal Lines): Grand Prize",
+            'Three (3) or more formed lines: 2nd Prize',
+            'Two (2) lines formed: 3rd Prize',
+            'One (1) line formed: 4th Prize',
+          ],
+        },
+        {
+          rule: 'Prize Structure',
+          information: [
+            'Grand Prize: NFT',
+            '2nd Prize: 200 Tokens',
+            '3rd Prize: 100 Tokens',
+            '4th Prize: 40 Tokens',
+          ],
+        },
+        {
+          rule: 'Odds',
+          information: ['1 in 5 Plays Wins A Prize!'],
+        },
       ],
-      prizeStructure: [
-        'Grand Prize: NFT',
-        '2nd Prize: 100 Tokens',
-        '3rd Prize: 50 Tokens',
-        '4th Prize: 10 Tokens',
-      ],
+      color: 'bingo.main',
     },
   ];
 
@@ -51,8 +104,9 @@ export default function Instructions() {
         <Box>
           {instructions.map((game) => (
             <Accordion
+              key={game.title}
               sx={{
-                bgcolor: 'dice.main',
+                bgcolor: game.color,
                 color: 'text.white',
               }}
             >
@@ -63,89 +117,27 @@ export default function Instructions() {
               >
                 <Typography sx={{ fontWeight: 600 }}>{game.title}</Typography>
               </AccordionSummary>
-              <AccordionDetails>
-                <Typography variant="h5">How To Play</Typography>
-                <List dense={true}>
-                  {game.howToPlay.map((howTo) => (
-                    <ListItem>
-                      <ListItemText primary={howTo} />
-                    </ListItem>
-                  ))}
-                </List>
-                <Typography variant="h5">Winning Combinations</Typography>
-                <List dense={true}>
-                  {game.winningCombinations.map((combo) => (
-                    <ListItem>
-                      <ListItemText primary={combo} />
-                    </ListItem>
-                  ))}
-                </List>
-                <Typography variant="h5">Prize Structure</Typography>
-                <List dense={true}>
-                  {game.prizeStructure.map((prize) => (
-                    <ListItem>
-                      <ListItemText primary={prize} />
-                    </ListItem>
-                  ))}
-                </List>
-                <Typography variant="h5">Odds</Typography>
-                <List dense={true}>
-                  <ListItem>
-                    <ListItemText primary="2 in 5 Plays Wins A Prize!" />
-                  </ListItem>
-                </List>
+              <AccordionDetails component="div">
+                {game.rules.map((rule) => {
+                  return (
+                    <Box key={rule.rule}>
+                      <Typography variant="h5" component="div">
+                        {rule.rule}
+                      </Typography>
+                      <List dense={true}>
+                        {rule.information.map((info) => (
+                          <ListItem key={info}>
+                            <ListItemText primary={info} />
+                          </ListItem>
+                        ))}
+                      </List>
+                    </Box>
+                  );
+                })}
               </AccordionDetails>
             </Accordion>
           ))}
-          <Accordion sx={{ bgcolor: 'bingo.main', color: 'text.white' }}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography sx={{ fontWeight: 600 }}>
-                Wild Wild West Bingo
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                <h2>How To Play</h2>
-                <ol>
-                  <li>Begin by clicking the new card button.</li>
-                  <li>
-                    Scratch off the calling card numbers at the top of game
-                    card. As you reveal the numbers, the cards with a
-                    corresponding match will highlight. If you form a
-                    horizontal, vertical or diagonal line you have won!
-                  </li>
-                  <li>
-                    Check the prize structure for more information on what you
-                    win for each bingo line(s).
-                  </li>
-                </ol>
-                <h2> Winning Combinations</h2>
-                <ul>
-                  <li>
-                    {' '}
-                    Form an 'X' on the bingo board. (Two Diagonal Lines): Grand
-                    Prize
-                  </li>
-                  <li> Three (3) or more formed lines: 2nd Prize</li>
-                  <li>Two (2) lines formed: 3rd Prize</li>
-                  <li> One (1) line formed: 4th Prize</li>
-                </ul>
-                <h2> Prize Structure</h2>
-                <ul>
-                  <li>Grand Prize: NFT</li>
-                  <li>2nd Prize: 200 Tokens</li>
-                  <li>3rd Prize: 100 Tokens</li>
-                  <li>4th Prize: 40 Tokens</li>
-                </ul>
-                <h3> Odds: 1 in 5 Plays Wins A Prize!</h3>
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion sx={{ bgcolor: 'ladyLuck.main', color: 'text.white' }}>
+          {/* <Accordion sx={{ bgcolor: 'ladyLuck.main', color: 'text.white' }}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
               aria-controls="panel3a-content"
@@ -180,7 +172,7 @@ export default function Instructions() {
                 </div>
               </div>
             </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
         </Box>
       </Box>
     </Box>
