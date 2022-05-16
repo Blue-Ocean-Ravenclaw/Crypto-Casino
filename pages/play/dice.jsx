@@ -40,7 +40,7 @@ export default function HighRoller() {
           height: 700,
           width: 360,
           marginTop: 1,
-          bgcolor: 'background.secondary',
+          bgcolor: 'background.default',
           borderRadius: 2,
         }}
       >

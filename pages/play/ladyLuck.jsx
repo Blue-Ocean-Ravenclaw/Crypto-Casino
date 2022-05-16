@@ -40,7 +40,7 @@ export default function LuckyLucy() {
           height: 700,
           width: 360,
           margin: 1,
-          bgcolor: 'background.secondary',
+          bgcolor: 'background.default',
           borderRadius: 2,
         }}
       >

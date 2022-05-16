@@ -62,7 +62,7 @@ export default function Play() {
             height: 175,
             width: 360,
             margin: 1,
-            bgcolor: 'background.secondary',
+            bgcolor: 'background.default',
             borderRadius: 2,
           }}
         >

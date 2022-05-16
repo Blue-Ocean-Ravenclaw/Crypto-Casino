@@ -41,7 +41,7 @@ export default function WildWildWestBingo() {
           width: 360,
           margin: 1,
           marginBottom: 5,
-          bgcolor: 'background.secondary',
+          bgcolor: 'background.default',
           borderRadius: 2,
         }}
       >
